@@ -65,9 +65,11 @@ class RegisterController extends Controller
     {
         return User::create([
             'id' => Helper::generateId(),
-            'name' => $data['name'],
+            'first_name' => $data['name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'status' => Helper::STATUS_ACTIVE
         ]);
     }
 }
