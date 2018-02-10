@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Helpers\Helper;
 
 class CreateRestaurantTable extends Migration
 {
@@ -14,8 +15,9 @@ class CreateRestaurantTable extends Migration
     public function up()
     {
         Schema::create('restaurant', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('group_id');
+            $table->engine = "InnoDB";
+            $table->string('id', 32)->primary();
+            $table->string('group_id', 32);
             $table->string('name', 32);
             $table->enum('status', [
                 Helper::STATUS_ACTIVE,
@@ -25,7 +27,7 @@ class CreateRestaurantTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('group', function (Blueprint $table) {
+        Schema::table('restaurant', function (Blueprint $table) {
             $table->foreign('group_id')->references('id')->on('group');
         });
     }

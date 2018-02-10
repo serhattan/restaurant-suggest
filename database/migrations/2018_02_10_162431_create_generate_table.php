@@ -14,18 +14,17 @@ class CreateGenerateTable extends Migration
     public function up()
     {
         Schema::create('generate', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('restaurant_id');
-            $table->integer('group_id');
+            $table->engine = "InnoDB";
+            $table->string('id', 32)->primary();
+            $table->string('restaurant_id', 32);
+            $table->string('group_id', 32);
             $table->integer('budget');
             $table->dateTime('date');
             $table->timestamps();
         });
 
-        Schema::table('group_user', function (Blueprint $table) {
-            $table->integer('group_id')->unsigned();
+        Schema::table('generate', function (Blueprint $table) {
             $table->foreign('group_id')->references('id')->on('group');
-            $table->integer('restaurant_id')->unsigned();
             $table->foreign('restaurant_id')->references('id')->on('restaurant');
         });
     }

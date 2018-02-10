@@ -15,9 +15,10 @@ class CreateGroupTable extends Migration
     public function up()
     {
         Schema::create('group', function (Blueprint $table) {
-            $table->increments('id');
+            $table->engine = "InnoDB";
+            $table->string('id', 32)->primary();
             $table->string('name', 120);
-            $table->integer('created_by');
+            $table->string('created_by', 32);
             $table->integer('budget');
             $table->enum('status', [
                 Helper::STATUS_ACTIVE,
@@ -26,7 +27,6 @@ class CreateGroupTable extends Migration
             $table->timestamps();
         });
         Schema::table('group', function (Blueprint $table) {
-            $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('user');
         });
     }

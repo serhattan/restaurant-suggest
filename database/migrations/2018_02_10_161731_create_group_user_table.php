@@ -15,9 +15,10 @@ class CreateGroupUserTable extends Migration
     public function up()
     {
         Schema::create('group_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('group_id');
-            $table->integer('user_id');
+            $table->engine = "InnoDB";
+            $table->string('id', 32)->primary();
+            $table->string('group_id', 32);
+            $table->string('user_id', 32);
             $table->enum('status', [
                 Helper::STATUS_ACTIVE,
                 Helper::STATUS_DELETED
@@ -26,9 +27,7 @@ class CreateGroupUserTable extends Migration
         });
 
         Schema::table('group_user', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('user');
-            $table->integer('group_id')->unsigned();
             $table->foreign('group_id')->references('id')->on('group');
         });
     }

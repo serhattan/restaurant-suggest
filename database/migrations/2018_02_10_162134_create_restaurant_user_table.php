@@ -14,17 +14,16 @@ class CreateRestaurantUserTable extends Migration
     public function up()
     {
         Schema::create('restaurant_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('restaurant_id');
-            $table->integer('user_id');
+            $table->engine = "InnoDB";
+            $table->string('id', 32)->primary();
+            $table->string('restaurant_id', 32);
+            $table->string('user_id', 32);
             $table->integer('budget');
             $table->timestamps();
         });
 
-        Schema::table('group_user', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+        Schema::table('restaurant_user', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('user');
-            $table->integer('restaurant_id')->unsigned();
             $table->foreign('restaurant_id')->references('id')->on('restaurant');
         });
     }
