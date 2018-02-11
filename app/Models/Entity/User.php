@@ -2,6 +2,8 @@
 
 namespace App\Models\Entity;
 
+use App\Models\UserManager;
+
 class User
 {
     private $id;
@@ -130,5 +132,10 @@ class User
     public function setGroups($groups)
     {
         $this->groups = $groups;
+    }
+
+    public function save()
+    {
+        return UserManager::save($this);
     }
 }
