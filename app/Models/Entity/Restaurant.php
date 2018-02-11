@@ -62,22 +62,6 @@ class Restaurant
     /**
      * @return mixed
      */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * @param mixed $group
-     */
-    public function setGroup($group)
-    {
-        $this->group = $group;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getStatus()
     {
         return $this->status;
@@ -105,5 +89,10 @@ class Restaurant
     public function setAveragePrice($averagePrice)
     {
         $this->averagePrice = $averagePrice;
+    }
+
+    public function save()
+    {
+        return RestaurantManager::save();
     }
 }
