@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Helpers\Helper;
 
 class CreateUserTable extends Migration
 {
@@ -20,7 +21,10 @@ class CreateUserTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('avatar')->nullable();
-            $table->string('status', 32);
+            $table->enum('status', [
+                Helper::STATUS_ACTIVE,
+                Helper::STATUS_DELETED
+            ]);
             $table->rememberToken();
             $table->timestamps();
         });

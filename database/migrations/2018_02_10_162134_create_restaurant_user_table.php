@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Helpers\Helper;
 
 class CreateRestaurantUserTable extends Migration
 {
@@ -19,6 +20,10 @@ class CreateRestaurantUserTable extends Migration
             $table->string('restaurant_id', 32);
             $table->string('user_id', 32);
             $table->integer('budget');
+            $table->enum('status', [
+                Helper::STATUS_ACTIVE,
+                Helper::STATUS_DELETED
+            ]);
             $table->timestamps();
         });
 
