@@ -136,8 +136,6 @@ class User
 
     public function save()
     {
-        $id = UserManager::save();
-        $this->setId($id);
-        return $this;
+        return UserManager::save($this);
     }
 }

@@ -9,6 +9,7 @@ class RestaurantUser
     private $restaurant;
     private $userId;
     private $budget;
+    private $status;
 
     /**
      * @return mixed
@@ -88,5 +89,21 @@ class RestaurantUser
     public function setBudget($budget)
     {
         $this->budget = $budget;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

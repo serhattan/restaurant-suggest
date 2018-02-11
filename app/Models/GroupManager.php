@@ -88,4 +88,13 @@ class GroupManager
 
         return $newGroup->save();
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function delete($id)
+    {
+        return DB\Group::where('id', $id)->update(['status', Helper::STATUS_DELETED]);
+    }
 }
