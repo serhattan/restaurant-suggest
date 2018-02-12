@@ -11,6 +11,11 @@ class Group extends Model
 
     public function createdBy()
     {
-        return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\DB\User', 'created_by', 'id');
+    }
+
+    public function groupUsers()
+    {
+        return $this->hasMany('App\Models\DB\GroupUser', 'group_id', 'id');
     }
 }

@@ -9,6 +9,7 @@ class GroupUser
    private $group;
    private $userId;
    private $status;
+   private $user;
 
     /**
      * @return mixed
@@ -88,5 +89,21 @@ class GroupUser
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }

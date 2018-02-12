@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\DB\User;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -63,7 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return \App\Models\DB\User::create([
+        return User::create([
             'id' => Helper::generateId(),
             'first_name' => $data['name'],
             'last_name' => $data['last_name'],

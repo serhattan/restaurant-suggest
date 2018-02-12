@@ -12,7 +12,7 @@ class UserManager
      * @param $userData
      * @return Entity\User
      */
-    public static function mapUser(DB\User $userData)
+    public static function map(DB\User $userData)
     {
         $user = new Entity\User();
         $user->setId($userData->id);
@@ -32,10 +32,24 @@ class UserManager
         return $user;
     }
 
+    /**
+     * @param DB\User[] $users
+     * @return Entity\User[]
+     */
+    public static function multiMap($users)
+    {
+        $userList = [];
+        foreach ($users as $user) {
+            $userList[] = self::map($user);
+        }
+
+        return $userList;
+    }
+
     public static function getUserByEmail($email)
     {
         $user = DB\User::where('email', $email)->get();
-        $mappedUser = self::mapUser($user);
+        $mappedUser = self::map($user);
 
         return $mappedUser;
     }

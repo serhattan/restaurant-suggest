@@ -31,8 +31,17 @@ class GroupManager
      */
     public static function getAll()
     {
-        $groups = Group::where('user_id', Auth::id())
+        $groups = Group::with([
+            'groupUsers' => function ($query) {
+                $query->where('status', Helper::STATUS_ACTIVE);
+            },
+            'groupUsers.user'
+        ])
             ->where('status', Helper::STATUS_ACTIVE)
+            ->whereHas('groupUsers', function ($query) {
+                $query->where('user_id', Auth::id());
+                $query->where('status', Helper::STATUS_ACTIVE);
+            })
             ->get();
 
         return self::multiMap($groups);
@@ -50,6 +59,10 @@ class GroupManager
         $newGroup->setBudget($group->budget);
         $newGroup->setCreatedBy($group->created_by);
         $newGroup->setStatus($group->status);
+
+        if ($group->relationLoaded('groupUsers') && !empty($group->groupUsers)) {
+            $newGroup->setUsers(GroupUserManager::multiMap($group->groupUsers));
+        }
 
         return $newGroup;
     }
