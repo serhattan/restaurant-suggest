@@ -94,12 +94,12 @@ class GroupManager
     public static function save($group)
     {
         $newGroup = new Group();
-        if (isset($group['id']) && empty($group['id'])) {
+        if (!isset($group['id'])) {
             $newGroup->id = Helper::generateId();
             $newGroup->status = Helper::STATUS_ACTIVE;
             $newGroup->created_by = Auth::id();
         } else {
-            $newGroup = Group::where($group['id'])->first();
+            $newGroup = Group::where('id', $group['id'])->first();
         }
 
         $newGroup->name = $group['name'];
