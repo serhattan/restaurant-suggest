@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/groups', 'GroupController@getList')->name('groups');
+Route::get('/restaurants', 'RestaurantController@getList')->name('restaurants');

@@ -41,7 +41,7 @@
                         @else
                             <li><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                             <li><a class="nav-link" href="{{ route('groups') }}">Groups</a></li>
-                            <li><a class="nav-link" href="{{ route('home') }}">Restaurants</a></li>
+                            <li><a class="nav-link" href="{{ route('restaurants') }}">Restaurants</a></li>
                             <li><a class="nav-link" href="{{ route('home') }}">History</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -51,8 +51,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
