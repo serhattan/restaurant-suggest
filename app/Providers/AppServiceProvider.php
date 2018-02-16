@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        view()->composer('pages.groupList', '\App\Http\ViewComposers\GroupListComposer');
+
     }
 
     /**

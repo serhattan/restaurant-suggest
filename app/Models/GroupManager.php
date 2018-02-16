@@ -9,16 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class GroupManager
 {
-    /**
-     * @param $id
-     * @param array $with
-     * @return Entity\Group
-     */
-    public static function get($id, $with = [])
+
+    public static function get($id)
     {
-        $group = Group::with($with)
+        $group = Group::with([
+            'groupUsers' => function ($query) {
+                $query->where('status', Helper::STATUS_ACTIVE);
+            },
+            'groupUsers.user'
+        ])
             ->where('id', $id)
             ->where('status', Helper::STATUS_ACTIVE)
+            ->whereHas('groupUsers', function ($query) {
+                $query->where('user_id', Auth::id());
+                $query->where('status', Helper::STATUS_ACTIVE);
+            })
             ->first();
 
         if ($group instanceof Group) {
@@ -104,8 +109,8 @@ class GroupManager
 
         $newGroup->name = $group['name'];
         $newGroup->budget = $group['budget'];
-
-        return $newGroup->save();
+        $newGroup->save();
+        return $newGroup;
     }
 
     /**

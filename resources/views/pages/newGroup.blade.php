@@ -7,17 +7,6 @@
                 <div class="card card-default">
                     <div class="card-header">New Group</div>
                     <div class="card-body">
-                        @if(isset($status))
-                            @if($status)
-                                <div class="alert alert-success" role="alert">
-                                    <strong>Well done!</strong> {{ $message }}
-                                </div>
-                            @else
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Oh snap!</strong> {{ $message }}
-                                </div>
-                            @endif
-                        @endif
                         <form method="POST" action="{{ route('new-group') }}">
                             @csrf
                             <div class="form-group row">
