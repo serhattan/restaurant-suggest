@@ -26,6 +26,7 @@ Route::post('/new-group', 'GroupController@postNew')->name('new-group');
 Route::get('/group/{id}/details', 'GroupController@getDetails')->name('group-details');
 Route::get('/group/{id}/restaurants', 'GroupController@getRestaurants')->name('group-restaurants');
 Route::get('/group/{id}/settings', 'GroupController@getSettings')->name('group-settings');
+Route::post('/save-settings', 'GroupController@postSaveSettings')->name('save-settings');
 Route::get('/restaurants', 'RestaurantController@getList')->name('restaurants');
 Route::get('/restaurants/remove/{restaurantId}', 'RestaurantController@remove')->name('remove');
 Route::post('/restaurants/saveAveragePrice', 'RestaurantController@saveAveragePrice')->name('saveAveragePrice');

@@ -60,4 +60,18 @@ class GroupController extends Controller
             'status' => $status
         ]);
     }
+
+    public function postSaveSettings(Request $request)
+    {
+        $groupId = $request->get('groupId');
+        $settings = GroupManager::save([
+            'id' => $groupId,
+            'name' => $request->get('name'),
+            'budget' => $request->get('budget')
+        ]);
+
+        $group = GroupManager::get($groupId);
+
+        return view('pages.group.settings', ['group' => $group]);
+    }
 }
