@@ -64,6 +64,12 @@ class GroupManager
             $newGroup->setUsers(GroupUserManager::multiMap($group->groupUsers));
         }
 
+        if ($group->relationLoaded('restaurants') && !empty($group->restaurants)) {
+            foreach($group->restaurants as $restaurant) {
+                $newGroup->setRestaurants(RestaurantManager::map($restaurant));
+            }
+        }
+
         return $newGroup;
     }
 

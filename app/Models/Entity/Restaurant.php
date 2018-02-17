@@ -2,6 +2,8 @@
 
 namespace App\Models\Entity;
 
+use App\Models\RestaurantManager;
+
 class Restaurant
 {
     private $id;
@@ -91,8 +93,8 @@ class Restaurant
         $this->averagePrice = $averagePrice;
     }
 
-    public function save()
+    public function save($restaurant)
     {
-        return RestaurantManager::save();
+        return RestaurantManager::save($restaurant);
     }
 }
