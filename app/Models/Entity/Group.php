@@ -10,6 +10,7 @@ class Group
     private $budget;
     private $status;
     private $users;
+    private $restaurants = [];
 
     /**
      * @return mixed
@@ -105,5 +106,21 @@ class Group
     public function setUsers($users)
     {
         $this->users = $users;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRestaurants()
+    {
+        return $this->restaurants;
+    }
+
+    /**
+     * @param mixed $restaurants
+     */
+    public function setRestaurants($restaurants)
+    {
+        $this->restaurants[] = $restaurants;
     }
 }

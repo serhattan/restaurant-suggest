@@ -11,6 +11,6 @@ class Restaurant extends Model
 
     public function group()
     {
-        return $this->hasOne('App\Models\DB\Group', 'group_id', 'id');
+        return $this->hasOne('App\Models\DB\Group', 'id', 'group_id');
     }
 }

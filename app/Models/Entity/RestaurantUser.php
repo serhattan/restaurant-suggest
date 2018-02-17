@@ -6,10 +6,11 @@ class RestaurantUser
 {
     private $id;
     private $restaurantId;
-    private $restaurant;
     private $userId;
     private $budget;
     private $status;
+    private $restaurant;
+    private $restaurantGroup;
 
     /**
      * @return mixed
@@ -57,6 +58,22 @@ class RestaurantUser
     public function setRestaurant($restaurant)
     {
         $this->restaurant = $restaurant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRestaurantGroup()
+    {
+        return $this->restaurantGroup;
+    }
+
+    /**
+     * @param mixed $restaurantGroup
+     */
+    public function setRestaurantGroup($restaurantGroup)
+    {
+        $this->restaurantGroup = $restaurantGroup;
     }
 
     /**
