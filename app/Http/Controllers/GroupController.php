@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entity\User;
 use App\Models\GroupManager;
+use App\Models\GroupMemberManager;
 use App\Models\GroupUserManager;
+use App\Models\UserManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,7 +48,7 @@ class GroupController extends Controller
             'budget' => $request->get('budget')
         ]);
 
-        $newGroupUser = GroupUserManager::save([
+        GroupUserManager::save([
             'userId' => Auth::id(),
             'groupId' => $newGroup->id
         ]);
@@ -64,7 +67,7 @@ class GroupController extends Controller
     public function postSaveSettings(Request $request)
     {
         $groupId = $request->get('groupId');
-        $settings = GroupManager::save([
+        GroupManager::save([
             'id' => $groupId,
             'name' => $request->get('name'),
             'budget' => $request->get('budget')
@@ -73,5 +76,30 @@ class GroupController extends Controller
         $group = GroupManager::get($groupId);
 
         return view('pages.group.settings', ['group' => $group]);
+    }
+
+    public function postNewMember(Request $request)
+    {
+        $groupId = $request->get('groupId');
+        $email = $request->get('email');
+
+        $user = UserManager::getUserByEmail($email);
+        
+        if ($user instanceof User) {
+            GroupUserManager::save([
+                'userId' => $user->getId(),
+                'groupId' => $groupId
+            ]);
+        } else {
+            GroupMemberManager::save([
+                'groupId' => $groupId,
+                'email' => $email,
+                'invitorId' => Auth::id()
+            ]);
+        }
+
+        $group = GroupManager::get($groupId);
+
+        return view('pages.group.details', ['group' => $group]);
     }
 }

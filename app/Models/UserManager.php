@@ -49,10 +49,12 @@ class UserManager
 
     public static function getUserByEmail($email)
     {
-        $user = DB\User::where('email', $email)->get();
-        $mappedUser = self::multiMap($user);
+        $user = DB\User::where('email', $email)->first();
 
-        return $mappedUser;
+        if ($user instanceof DB\User) {
+            return self::map($user);
+        }
+        return false;
     }
 
     public static function delete(Entity\User $user)

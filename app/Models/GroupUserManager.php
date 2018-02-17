@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\Helpers\Helper;
 use App\Models\DB\GroupUser;
 use App\Models\Entity;
