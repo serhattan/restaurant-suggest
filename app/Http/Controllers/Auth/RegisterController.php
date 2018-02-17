@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Models\DB\User;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\GroupMemberManager;
+use App\Models\GroupUserManager;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -63,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'id' => Helper::generateId(),
             'first_name' => $data['name'],
             'last_name' => $data['last_name'],
@@ -71,5 +73,19 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'status' => Helper::STATUS_ACTIVE
         ]);
+
+        if (!empty($user)) {
+            $groupMembers = GroupMemberManager::getByEmail($data['email']);
+            if (!empty($groupMembers)) {
+                foreach ($groupMembers as $groupMember) {
+                    GroupUserManager::save([
+                        'userId' => $user->id,
+                        'groupId' => $groupMember->getGroupId()
+                    ]);
+                }
+            }
+        }
+
+        return $user;
     }
 }

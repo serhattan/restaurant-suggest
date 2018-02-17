@@ -84,7 +84,7 @@ class GroupController extends Controller
         $email = $request->get('email');
 
         $user = UserManager::getUserByEmail($email);
-        
+
         if ($user instanceof User) {
             GroupUserManager::save([
                 'userId' => $user->getId(),
