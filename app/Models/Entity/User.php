@@ -13,6 +13,7 @@ class User
     private $avatar;
     private $status;
     private $groups;
+    private $language;
 
     /**
      * @return mixed
@@ -132,6 +133,22 @@ class User
     public function setGroups($groups)
     {
         $this->groups = $groups;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
     }
 
     public function save()

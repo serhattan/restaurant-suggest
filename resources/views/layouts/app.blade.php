@@ -39,29 +39,33 @@
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                            <li><a class="nav-link" href="{{ route('groups') }}">Groups</a></li>
-                            <li><a class="nav-link" href="{{ route('restaurants') }}">Restaurants</a></li>
-                            <li><a class="nav-link" href="{{ route('home') }}">History</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->first_name }}  {{ Auth::user()->last_name }}<span
-                                            class="caret"></span>
+                        <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.welcome') </a></li>
+                        <li><a class="nav-link" href="{{ route('groups') }}"> @lang('messages.groups') </a></li>
+                        <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.restaurant') </a></li>
+                        <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.history') </a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->first_name }}  {{ Auth::user()->last_name }}<span
+                                    class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('settings') }}">
+                                    Settings
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                            @endguest
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>

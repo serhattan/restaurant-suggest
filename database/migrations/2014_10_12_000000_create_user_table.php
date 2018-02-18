@@ -19,6 +19,14 @@ class CreateUserTable extends Migration
             $table->string('first_name', 32);
             $table->string('last_name', 32);
             $table->string('email')->unique();
+            $table->enum('language', [
+                Helper::English,
+                Helper::Deutsch,
+                Helper::French,
+                Helper::Russian,
+                Helper::Spanish,
+                Helper::Turkish
+            ])->default(Helper::English);
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->enum('status', [

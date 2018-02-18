@@ -2,6 +2,7 @@
 
 namespace Illuminate\Auth\Events;
 
+use App;
 use Illuminate\Queue\SerializesModels;
 
 class Authenticated
@@ -24,5 +25,6 @@ class Authenticated
     public function __construct($user)
     {
         $this->user = $user;
+        App::setLocale($this->user->language);
     }
 }

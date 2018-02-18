@@ -5,6 +5,12 @@ namespace App\Helpers;
 
 class Helper
 {
+    const English = 'en';
+    const Deutsch = 'de';
+    const French = 'fr';
+    const Russian = 'ru';
+    const Spanish = 'sp';
+    const Turkish = 'tr';
     const STATUS_ACTIVE = 'active';
     const STATUS_DELETED = 'deleted';
 
