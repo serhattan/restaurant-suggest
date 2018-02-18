@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'welcome' => 'Hoşgeldin',
+    'home' => 'Anasayfa',
+    'groups' => 'Gruplar',
+    'restaurant' => 'Restoranlar',
+    'history' => 'Geçmiş',
+    'settings' => 'Ayarlar',
+    'logged_in' => 'Giriş yaptınız',
+    'save_button' => 'Gönder',
+    'language' => 'Dil tercihi',
+    'english' => 'İngilizce',
+    'spanish' => 'İspanyolca',
+    'deutsch' => 'Almanca',
+    'turkish' => 'Türkçe',
+    'russian' => 'Rusça',
+    'french' => 'Fransızca',
+    'zero_restaurant' => 'Henüz hiç restoran eklemediniz',
+    'add_restaurant' => 'Restauran Ekle',
+    'group_not_have_restaurant' => 'Bu grubun bir restoranı bulunmamaktadır',
+    'remove' => 'Kaldır',
+    'update' => 'Güncelle',
+    'restaurant_name' => 'Restoran Adı',
+];
