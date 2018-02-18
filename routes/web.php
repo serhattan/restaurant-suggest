@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/settings', 'HomeController@settings')->name('settings');
+Route::post('/settings', 'HomeController@update')->name('saveSettings');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/groups', 'GroupController@getList')->name('groups');
 Route::get('/restaurants', 'RestaurantController@getList')->name('restaurants');

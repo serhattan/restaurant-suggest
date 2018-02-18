@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Helpers\Helper;
-use App\Models\Entity;
 use App\Models\DB;
+use App\Models\Entity;
+use App\Helpers\Helper;
 
 class UserManager
 {
@@ -20,6 +20,7 @@ class UserManager
         $user->setLastName($userData->last_name);
         $user->setEmail($userData->email);
         $user->setStatus($userData->status);
+        $user->setLanguage($userData->language);
 
         if ($userData->relationLoaded('avatar') && !empty($userData->avatar)) {
             $user->setAvatar($userData->avatar);
@@ -49,7 +50,7 @@ class UserManager
     public static function getUserByEmail($email)
     {
         $user = DB\User::where('email', $email)->get();
-        $mappedUser = self::map($user);
+        $mappedUser = self::multiMap($user);
 
         return $mappedUser;
     }
@@ -65,6 +66,16 @@ class UserManager
             return true;
         }
         return false;
+    }
+
+    public static function update(Entity\User $user)
+    {
+        if ($user->getId()) {
+            $model = DB\User::where('id', $user->getId())
+                ->update(['language' => $user->getLanguage()]);
+        }
+
+        return $model;
     }
 
     public static function save(Entity\User $user)
