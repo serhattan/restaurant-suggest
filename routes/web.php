@@ -33,4 +33,5 @@ Route::post('/restaurants/saveAveragePrice', 'RestaurantController@saveAveragePr
 Route::get('/restaurants/add/{groupId}', 'RestaurantController@addRestaurant')->name('addRestaurant');
 Route::post('/restaurants/save', 'RestaurantController@saveRestaurant')->name('saveRestaurant');
 Route::post('/new-member', 'GroupController@postNewMember')->name('new-member');
+Route::get('/group/delete/{groupId}', 'GroupController@getDeleteGroup')->name('group-delete');
 

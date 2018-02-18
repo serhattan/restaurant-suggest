@@ -24,6 +24,7 @@ class GroupMemberManager
         $newGroup = new DB\GroupMember();
         if (!isset($group['id'])) {
             $newGroup->id = Helper::generateId();
+            $newGroup->status = Helper::STATUS_ACTIVE;
         } else {
             $newGroup = DB\GroupMember::where('id', $data['id'])->first();
         }
@@ -46,6 +47,7 @@ class GroupMemberManager
         $newGroupMember->setGroupId($groupMember->group_id);
         $newGroupMember->setInvitorId($groupMember->invitor_id);
         $newGroupMember->setEmail($groupMember->email);
+        $newGroupMember->setStatus($groupMember->status);
 
         return $newGroupMember;
     }

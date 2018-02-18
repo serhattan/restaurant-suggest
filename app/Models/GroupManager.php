@@ -119,6 +119,8 @@ class GroupManager
      */
     public static function delete($id)
     {
-        return DB\Group::where('id', $id)->update(['status', Helper::STATUS_DELETED]);
+        DB\GroupUser::where('group_id', $id)->update(['status' => Helper::STATUS_DELETED]);
+        DB\GroupMember::where('group_id', $id)->update(['status' => Helper::STATUS_DELETED]);
+        return DB\Group::where('id', $id)->update(['status' => Helper::STATUS_DELETED]);
     }
 }

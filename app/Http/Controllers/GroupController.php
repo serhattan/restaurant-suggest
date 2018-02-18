@@ -102,4 +102,10 @@ class GroupController extends Controller
 
         return view('pages.group.details', ['group' => $group]);
     }
+
+    public function getDeleteGroup($id)
+    {
+        GroupManager::delete($id);
+        return view('pages.groups');
+    }
 }

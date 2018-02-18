@@ -38,7 +38,6 @@
                             @endif
                         </div>
                     </div>
-
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary float-right">
@@ -47,6 +46,13 @@
                         </div>
                     </div>
                 </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{{ route('group-delete', ['groupId' => $group->getId()]) }}"  class="btn btn-danger">
+                            Delete Group
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

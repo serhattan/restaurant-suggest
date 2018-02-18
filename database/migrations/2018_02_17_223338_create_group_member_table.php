@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Helpers\Helper;
 
 class CreateGroupMemberTable extends Migration
 {
@@ -18,6 +19,10 @@ class CreateGroupMemberTable extends Migration
             $table->string('group_id', 32);
             $table->string('email');
             $table->string('invitor_id', 32);
+            $table->enum('status', [
+                Helper::STATUS_ACTIVE,
+                Helper::STATUS_DELETED
+            ]);
             $table->timestamps();
         });
         Schema::table('group_member', function (Blueprint $table) {

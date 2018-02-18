@@ -9,6 +9,7 @@ class GroupMember
     private $groupId;
     private $invitorId;
     private $email;
+    private $status;
 
     /**
      * @return mixed
@@ -72,5 +73,21 @@ class GroupMember
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }
