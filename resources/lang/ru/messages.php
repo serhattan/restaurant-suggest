@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'welcome' => 'желанный',
+    'home' => 'дома',
+    'groups' => 'группы',
+    'restaurant' => 'ресторан',
+    'history' => 'история',
+    'settings' => 'настройки',
+    'logged_in' => 'Вы вошли в систему',
+    'save_button' => 'Отправить',
+    'language' => 'Языковое предпочтение',
+    'english' => 'английский',
+    'spanish' => 'испанский',
+    'deutsch' => 'немецкий',
+    'turkish' => 'турецкий',
+    'russian' => 'русский',
+    'french' => 'Французский',
+    'zero_restaurant' => 'Вы еще не добавили ресторанов',
+    'add_restaurant' => 'Добавить ресторан',
+    'group_not_have_restaurant' => 'У этой группы нет ресторана',
+    'remove' => 'Удалить',
+    'update' => 'Обновить',
+    'restaurant_name' => 'Название ресторана',
+];

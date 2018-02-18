@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'welcome' => 'Bienvenido',
+    'home' => 'Tablero',
+    'groups' => 'Grupos',
+    'restaurant' => 'Restaurantes',
+    'history' => 'Historia',
+    'settings' => 'Configuraciones',
+    'logged_in' => 'Usted ha iniciado sesión',
+    'save_button' => 'Enviar',
+    'language' => 'Preferencia de idioma',
+    'english' => 'Inglés',
+    'spanish' => 'Español',
+    'deutsch' => 'Deutsch',
+    'turkish' => 'Turco',
+    'russian' => 'Ruso',
+    'french' => 'Francés',
+    'zero_restaurant' => 'Aún no has añadido ningún restaurante',
+    'add_restaurant' => 'Agregar restaurante',
+    'group_not_have_restaurant' => 'Este grupo no tiene restaurante',
+    'remove' => 'Retirar',
+    'update' => 'Actualizar',
+    'restaurant_name' => 'Nombre del restaurante',
+];
