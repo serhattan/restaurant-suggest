@@ -2,12 +2,31 @@
 
 namespace App\Models;
 
-
+use App\Helpers\Helper;
 use App\Models\DB\GroupUser;
 use App\Models\Entity;
 
 class GroupUserManager
 {
+    /**
+     * @param $groupUser
+     * @return bool
+     */
+    public static function save($groupUser)
+    {
+        $newGroupUser = new GroupUser();
+        if (!isset($group['id'])) {
+            $newGroupUser->id = Helper::generateId();
+            $newGroupUser->status = Helper::STATUS_ACTIVE;
+        } else {
+            $newGroupUser = GroupUser::where('id', $groupUser['id'])->first();
+        }
+        $newGroupUser->user_id = $groupUser['userId'];
+        $newGroupUser->group_id = $groupUser['groupId'];
+
+        return $newGroupUser->save();
+    }
+
     /**
      * @param GroupUser $groupUser
      * @return Entity\GroupUser
