@@ -43,11 +43,6 @@ class ActivityLog
         $this->userId = $userId;
     }
 
-    public function getAction()
-    {
-        return $this->action;
-    }
-
     public function setAction($action)
     {
         $this->action = $action;
