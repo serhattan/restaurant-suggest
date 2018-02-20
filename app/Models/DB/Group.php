@@ -23,4 +23,9 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\DB\Restaurant', 'group_id', 'id');
     }
+
+    public function activityLog()
+    {
+        return $this->hasMany('App\Models\DB\ActivityLog', 'group_id', 'id');
+    }
 }

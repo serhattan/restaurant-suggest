@@ -18,4 +18,9 @@ class GroupUser extends Model
     {
         return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
     }
+
+    public function activityLog()
+    {
+        return $this->hasMany('App\Models\DB\ActivityLog', 'group_id', 'id');
+    }
 }
