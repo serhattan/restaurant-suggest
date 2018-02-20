@@ -36,12 +36,12 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                        <li><a class="nav-link" href="{{ route('login') }}">@lang('messages.login')</a></li>
+                        <li><a class="nav-link" href="{{ route('register') }}">@lang('messages.register')</a></li>
                         @else
                         <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.welcome') </a></li>
                         <li><a class="nav-link" href="{{ route('groups') }}"> @lang('messages.groups') </a></li>
-                        <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.restaurant') </a></li>
+                        <li><a class="nav-link" href="{{ route('restaurants') }}"> @lang('messages.restaurant') </a></li>
                         <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.history') </a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -51,12 +51,12 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('settings') }}">
-                                    Settings
+                                    @lang('messages.settings')
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                                    Logout
+                                    @lang('messages.logout')
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

@@ -5,12 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card card-default">
-                    <div class="card-header">New Group</div>
+                    <div class="card-header">@lang('messages.new') @lang('messages.group')</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('new-group') }}">
                             @csrf
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                <label for="name"
+                                       class="col-md-4 col-form-label text-md-right">@lang('messages.name')</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -25,7 +26,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="budget" class="col-md-4 col-form-label text-md-right">Budget</label>
+                                <label for="budget"
+                                       class="col-md-4 col-form-label text-md-right">@lang('messages.budget')</label>
 
                                 <div class="col-md-6">
                                     <input id="budget" type="number"
@@ -43,7 +45,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Add New Group
+                                        @lang('messages.add_new_group')
                                     </button>
                                 </div>
                             </div>

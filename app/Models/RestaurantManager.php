@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class RestaurantManager
 {
+    public static function getAllByGroupId($groupId)
+    {
+        $restaurants = DB\Restaurant::where('group_id', $groupId)->get();
+
+        return self::multiMap($restaurants);
+    }
+
     public static function getAllRestaurantsOfUser()
     {
         $restaurantsGroup = [];
@@ -18,19 +25,33 @@ class RestaurantManager
         }, 'restaurants' => function ($q) {
             $q->where('status', Helper::STATUS_ACTIVE);
         }])
-        ->where('status', Helper::STATUS_ACTIVE)
-        ->whereHas('groupUsers', function ($query) {
-            $query->where('user_id', Auth::id());
-            $query->where('status', Helper::STATUS_ACTIVE);
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->where('status', Helper::STATUS_ACTIVE)
+            ->whereHas('groupUsers', function ($query) {
+                $query->where('user_id', Auth::id());
+                $query->where('status', Helper::STATUS_ACTIVE);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         foreach ($restaurants as $restaurant) {
             $restaurantsGroup[] = GroupManager::map($restaurant);
         }
 
         return $restaurantsGroup;
+    }
+
+    /**
+     * @param DB\Restaurant[] $restaurants
+     * @return Entity\Restaurant[]
+     */
+    public static function multiMap($restaurants)
+    {
+        $list = [];
+        foreach ($restaurants as $restaurant) {
+            $list[] = self::map($restaurant);
+        }
+
+        return $list;
     }
 
     public static function map(DB\Restaurant $restaurantData)
@@ -60,7 +81,7 @@ class RestaurantManager
     }
 
     public static function save(Entity\Restaurant $restaurant)
-    {        
+    {
         if (Helper::isNull($restaurant->getId())) {
             $newRestaurant = new DB\Restaurant();
             $restaurant->setId(Helper::generateId());
@@ -96,7 +117,7 @@ class RestaurantManager
 
     public static function remove($id)
     {
-        if(!empty($id)) {
+        if (!empty($id)) {
             $model = DB\Restaurant::where('id', $id)
                 ->update(['status' => Helper::STATUS_DELETED]);
         }
@@ -106,41 +127,41 @@ class RestaurantManager
 }
 
 
-    // public static function getAllGroupsByGivingPrice()
-    // {
-    //     $restaurantUsers = DB\RestaurantUser::where('user_id', Auth::id())
-    //        ->with(['restaurant' => function ($query) {
-    //             $query->where('restaurant.status', Helper::STATUS_ACTIVE)
-    //                 ->with(['group'=> function ($q) {
-    //                     $q->where('group.status', Helper::STATUS_ACTIVE);
-    //                 }]);
-    //             }])
-    //         ->where('status', Helper::STATUS_ACTIVE)
-    //         ->get();
+// public static function getAllGroupsByGivingPrice()
+// {
+//     $restaurantUsers = DB\RestaurantUser::where('user_id', Auth::id())
+//        ->with(['restaurant' => function ($query) {
+//             $query->where('restaurant.status', Helper::STATUS_ACTIVE)
+//                 ->with(['group'=> function ($q) {
+//                     $q->where('group.status', Helper::STATUS_ACTIVE);
+//                 }]);
+//             }])
+//         ->where('status', Helper::STATUS_ACTIVE)
+//         ->get();
 
-    //     foreach ($restaurantUsers as $restaurantUser) {
-    //         $restaurant[] = self::multipleUserDataMapper($restaurantUser);
-    //     }
+//     foreach ($restaurantUsers as $restaurantUser) {
+//         $restaurant[] = self::multipleUserDataMapper($restaurantUser);
+//     }
 
-    //     return $restaurant;
-    // }
+//     return $restaurant;
+// }
 
-    // public static function multipleUserDataMapper(DB\RestaurantUser $restaurantUserData)
-    // {
-    //     $restaurantUser = new Entity\RestaurantUser();
-    //     $restaurantUser->setId($restaurantUserData->id);
-    //     $restaurantUser->setRestaurantId($restaurantUserData->restaurantId);
-    //     $restaurantUser->setUserId($restaurantUserData->userId);
-    //     $restaurantUser->setBudget($restaurantUserData->budget);
-    //     $restaurantUser->setStatus($restaurantUserData->status);
+// public static function multipleUserDataMapper(DB\RestaurantUser $restaurantUserData)
+// {
+//     $restaurantUser = new Entity\RestaurantUser();
+//     $restaurantUser->setId($restaurantUserData->id);
+//     $restaurantUser->setRestaurantId($restaurantUserData->restaurantId);
+//     $restaurantUser->setUserId($restaurantUserData->userId);
+//     $restaurantUser->setBudget($restaurantUserData->budget);
+//     $restaurantUser->setStatus($restaurantUserData->status);
 
-    //     if ($restaurantUserData->relationLoaded('restaurant') && !empty($restaurantUserData->restaurant)) {
-    //         $restaurantUser->setRestaurant(self::map($restaurantUserData->restaurant));
-    //     }
+//     if ($restaurantUserData->relationLoaded('restaurant') && !empty($restaurantUserData->restaurant)) {
+//         $restaurantUser->setRestaurant(self::map($restaurantUserData->restaurant));
+//     }
 
-    //     if ($restaurantUserData->restaurant->relationLoaded('group') && !empty($restaurantUserData->restaurant->group)) {
-    //         $restaurantUser->setRestaurantGroup(GroupManager::map($restaurantUserData->restaurant->group));
-    //     }
+//     if ($restaurantUserData->restaurant->relationLoaded('group') && !empty($restaurantUserData->restaurant->group)) {
+//         $restaurantUser->setRestaurantGroup(GroupManager::map($restaurantUserData->restaurant->group));
+//     }
 
-    //     return $restaurantUser;
-    // }
+//     return $restaurantUser;
+// }

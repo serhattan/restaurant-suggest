@@ -16,7 +16,8 @@ class GroupManager
             'groupUsers' => function ($query) {
                 $query->where('status', Helper::STATUS_ACTIVE);
             },
-            'groupUsers.user'
+            'groupUsers.user',
+            'restaurants'
         ])
             ->where('id', $id)
             ->where('status', Helper::STATUS_ACTIVE)
@@ -29,6 +30,8 @@ class GroupManager
         if ($group instanceof Group) {
             return self::map($group);
         }
+
+        return false;
     }
 
     /**
@@ -70,7 +73,7 @@ class GroupManager
         }
 
         if ($group->relationLoaded('restaurants') && !empty($group->restaurants)) {
-            foreach($group->restaurants as $restaurant) {
+            foreach ($group->restaurants as $restaurant) {
                 $newGroup->setRestaurants(RestaurantManager::map($restaurant));
             }
         }
