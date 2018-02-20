@@ -3,13 +3,13 @@
 @section('group-content')
     <div class="col-md-6">
         <div class="card card-default">
-            <div class="card-header">{{ $group->getName() }} - Group Details</div>
+            <div class="card-header">{{ $group->getName() }} - @lang('messages.group_settings')</div>
             <div class="card-body">
                 <form method="POST" action="{{ route('save-settings') }}">
                     @csrf
                     <input type="hidden" name="groupId" value="{{ $group->getId() }}">
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">@lang('messages.name')</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text"
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="budget" class="col-md-4 col-form-label text-md-right">Budget</label>
+                        <label for="budget" class="col-md-4 col-form-label text-md-right">@lang('messages.budget')</label>
 
                         <div class="col-md-6">
                             <input id="budget" type="number"
@@ -41,7 +41,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary float-right">
-                                Save Changes
+                                @lang('messages.save_changes')
                             </button>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ route('group-delete', ['groupId' => $group->getId()]) }}"  class="btn btn-danger">
-                            Delete Group
+                            @lang('messages.delete_group')
                         </a>
                     </div>
                 </div>

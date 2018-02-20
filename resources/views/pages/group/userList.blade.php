@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <div class="card card-default">
-        <div class="card-header">Group Members</div>
+        <div class="card-header">@lang('messages.group_members')</div>
         <div class="card-body">
             @foreach($group->getUsers() as $user)
                 {{ $user->getUser()->getFullName() }}  <br>
@@ -9,16 +9,16 @@
     </div>
     <br>
     <div class="card card-default">
-        <div class="card-header">New Member</div>
+        <div class="card-header">@lang('messages.new_members')</div>
         <div class="card-body">
             <form method="POST" action="{{ route('new-member') }}">
                 @csrf
                 <input type="hidden" name="groupId" value="{{ $group->getId() }}">
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Please enter email">
+                    <input type="email" name="email" class="form-control" placeholder="@lang('messages.please_enter_email')">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary float-right">Add New Member</button>
+                    <button class="btn btn-primary float-right">@lang('messages.add_new_members')</button>
                 </div>
             </form>
         </div>

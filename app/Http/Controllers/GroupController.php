@@ -6,6 +6,7 @@ use App\Models\Entity\User;
 use App\Models\GroupManager;
 use App\Models\GroupMemberManager;
 use App\Models\GroupUserManager;
+use App\Models\RestaurantManager;
 use App\Models\UserManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,9 @@ class GroupController extends Controller
 
     public function getRestaurants($id)
     {
+        $group = GroupManager::get($id);
+
+        return view('pages.group.restaurants', ['group' => $group]);
 
     }
 

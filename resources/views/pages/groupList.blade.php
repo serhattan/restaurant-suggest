@@ -1,5 +1,5 @@
 <div class="card card-default">
-    <div class="card-header">Groups
+    <div class="card-header">@lang('messages.groups')
         <a href="{{ route('new-group') }}" class="float-right">+</a>
     </div>
     <div class="panel list-group">
@@ -14,21 +14,23 @@
                 <div id="group-{{ $group->getId() }}" class="sublinks collapse">
                     <a href="{{ route('group-details', ['id' => $group->getId()]) }}"
                        class="list-group-item small">
-                        Details
+                        @lang('messages.details')
                     </a>
-                    <a href="{{ route('group-restaurants', ['id' => $group->getId()]) }}" class="list-group-item small">
-                        Restaurants
+                    <a href="{{ route('group-restaurants', ['id' => $group->getId()]) }}"
+                       class="list-group-item small">
+                        @lang('messages.restaurant')
                     </a>
                     <a href="" class="list-group-item small">
-                        History
+                        @lang('messages.history')
                     </a>
-                    <a href="{{ route('group-settings', ['id' => $group->getId()]) }}" class="list-group-item small">
-                        Settings
+                    <a href="{{ route('group-settings', ['id' => $group->getId()]) }}"
+                       class="list-group-item small">
+                        @lang('messages.settings')
                     </a>
                 </div>
             @endforeach
         @else
-            <span class="list-group-item">Not found group</span>
+            <span class="list-group-item">@lang('messages.not_found_group')</span>
         @endif
     </div>
 </div>
