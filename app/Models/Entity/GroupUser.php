@@ -10,6 +10,7 @@ class GroupUser
    private $userId;
    private $status;
    private $user;
+   private $isAdmin;
 
     /**
      * @return mixed
@@ -105,5 +106,21 @@ class GroupUser
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param mixed $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
     }
 }

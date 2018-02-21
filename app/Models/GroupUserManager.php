@@ -38,6 +38,7 @@ class GroupUserManager
         $newGroupUser->setGroupId($groupUser->group_id);
         $newGroupUser->setUserId($groupUser->user_id);
         $newGroupUser->setStatus($groupUser->status);
+        $newGroupUser->setIsAdmin($groupUser->is_admin);
 
         if ($groupUser->relationLoaded('user') && !empty($groupUser->user)) {
             $newGroupUser->setUser(UserManager::map($groupUser->user));
@@ -63,5 +64,18 @@ class GroupUserManager
     public static function delete($groupId, $userId)
     {
         return GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
+    }
+
+    public static function adminCheck($groupId)
+    {
+        $groupUser = DB\GroupUser::where('user_id', Auth::id())
+            ->where('group_id', $groupId)
+            ->first();
+        
+        if (!empty($groupUser)) {
+            return true;
+        }
+
+        return false;
     }
 }
