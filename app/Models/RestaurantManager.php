@@ -23,6 +23,9 @@ class RestaurantManager
         $restaurants = DB\Group::with(['groupUsers' => function ($query) {
             $query->where('status', Helper::STATUS_ACTIVE);
         }, 'restaurants' => function ($q) {
+            $q->with(['restaurantUsers' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }]);
             $q->where('status', Helper::STATUS_ACTIVE);
         }])
             ->where('status', Helper::STATUS_ACTIVE)
@@ -33,7 +36,7 @@ class RestaurantManager
             ->orderBy('created_at', 'desc')
             ->get();
 
-        foreach ($restaurants as $restaurant) {
+            foreach ($restaurants as $restaurant) {
             $restaurantsGroup[] = GroupManager::map($restaurant);
         }
 
@@ -63,7 +66,25 @@ class RestaurantManager
         $restaurant->setStatus($restaurantData->status);
         $restaurant->setAveragePrice($restaurantData->average_price);
 
+        if ($restaurantData->relationLoaded('restaurantUsers') && !empty($restaurantData->restaurantUsers)) {
+            foreach ($restaurantData->restaurantUsers as $restaurantUser) {
+                $restaurant->setRestaurantUsers(self::restaurantUsersMap($restaurantUser));
+            }
+        }
+
         return $restaurant;
+    }
+
+    public static function restaurantUsersMap(DB\RestaurantUser $restaurantUserData)
+    {
+        $restaurantUser = new Entity\RestaurantUser();
+        $restaurantUser->setId($restaurantUserData->id);
+        $restaurantUser->setRestaurantId($restaurantUserData->restaurant_id);
+        $restaurantUser->setUserId($restaurantUserData->user_id);
+        $restaurantUser->setBudget($restaurantUserData->budget);
+        $restaurantUser->setStatus($restaurantUserData->status);
+
+        return $restaurantUser;
     }
 
     public static function delete(Entity\Restaurant $restaurant)
@@ -106,13 +127,41 @@ class RestaurantManager
         }
     }
 
-    public static function update(Entity\Restaurant $restaurant)
+    public static function saveRestaurantUser(Entity\RestaurantUser $restaurantUser)
     {
-        if ($restaurant->getId()) {
-            $model = DB\Restaurant::where('id', $restaurant->getId())
-                ->update(['average_price' => $restaurant->getAveragePrice()]);
+        $userId = Auth::id();
+        $restaurantId = $restaurantUser->getRestaurantId();
+        $budget = $restaurantUser->getBudget();
+
+        if (!empty($restaurantId) && !empty($budget)) {
+            if (self::getRestaurantUser($restaurantId, $userId)) {
+                $newRestaurantModel = DB\RestaurantUser::where('restaurant_id', $restaurantId)
+                    ->where('user_id', $userId)
+                    ->where('status', Helper::STATUS_ACTIVE)
+                    ->update(['budget' => $budget]);
+            } else {
+                $newRestaurantModel = new DB\RestaurantUser();
+                $newRestaurantModel->id = Helper::generateId();
+                $newRestaurantModel->user_id = $userId;
+                $newRestaurantModel->restaurant_id = $restaurantId;
+                $newRestaurantModel->budget = $budget;
+                $newRestaurantModel->status = Helper::STATUS_ACTIVE;
+                $newRestaurantModel->save();
+            }
+            return $newRestaurantModel;
         }
-        return $model;
+    }
+
+    public static function getRestaurantUser($restaurantId, $userId)
+    {
+        $model = DB\RestaurantUser::where('restaurant_id', $restaurantId)
+            ->where('user_id', $userId)->first();
+
+        if (!empty($model)) {
+            return self::restaurantUsersMap($model);
+        }
+
+        return false;
     }
 
     public static function remove($id)

@@ -29,7 +29,7 @@ Route::get('/group/{id}/settings', 'GroupController@getSettings')->name('group-s
 Route::post('/save-settings', 'GroupController@postSaveSettings')->name('save-settings');
 Route::get('/restaurants', 'RestaurantController@getList')->name('restaurants');
 Route::get('/restaurants/remove/{restaurantId}', 'RestaurantController@remove')->name('remove');
-Route::post('/restaurants/saveAveragePrice', 'RestaurantController@saveAveragePrice')->name('saveAveragePrice');
+Route::post('/restaurants/saveBudget', 'RestaurantController@saveBudget')->name('saveBudget');
 Route::get('/restaurants/add/{groupId}', 'RestaurantController@addRestaurant')->name('addRestaurant');
 Route::post('/restaurants/save', 'RestaurantController@saveRestaurant')->name('saveRestaurant');
 Route::post('/new-member', 'GroupController@postNewMember')->name('new-member');

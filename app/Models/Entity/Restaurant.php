@@ -12,6 +12,7 @@ class Restaurant
     private $group;
     private $status;
     private $averagePrice;
+    private $restaurantUsers;
 
     /**
      * @return mixed
@@ -91,6 +92,16 @@ class Restaurant
     public function setAveragePrice($averagePrice)
     {
         $this->averagePrice = $averagePrice;
+    }
+
+    public function getRestaurantUsers()
+    {
+        return $this->restaurantUsers;
+    }
+
+    public function setRestaurantUsers($restaurantUsers)
+    {
+        $this->restaurantUsers = $restaurantUsers;
     }
 
     public function save($restaurant)

@@ -13,4 +13,9 @@ class Restaurant extends Model
     {
         return $this->hasOne('App\Models\DB\Group', 'id', 'group_id');
     }
+
+    public function restaurantUsers()
+    {
+        return $this->hasMany('App\Models\DB\RestaurantUser', 'restaurant_id', 'id');
+    }
 }

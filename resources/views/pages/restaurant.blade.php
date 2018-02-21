@@ -28,7 +28,7 @@
                                     <h5>@lang('messages.group_not_have_restaurant')</h5>
                                 @endif
                                 @foreach ($data->getRestaurants() as $restaurant)
-                                    <form method="POST" action="{{ route('saveAveragePrice') }}">
+                                    <form method="POST" action="{{ route('saveBudget') }}">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-7">
@@ -42,9 +42,13 @@
                                         <div class="col-md-5">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">{{$restaurant->getAveragePrice()}} ₺</span>
+                                                @if(!empty($restaurant->getRestaurantUsers()))
+                                                    <span class="input-group-text">{{$restaurant->getRestaurantUsers()->getBudget()}} ₺</span>
+                                                @else
+                                                    <span class="input-group-text">0 ₺</span>
+                                                @endif
                                                 </div>
-                                                <input type="text" class="form-control" name="newAveragePrice" id="newAveragePrice" required>
+                                                <input type="text" class="form-control" name="budget" id="budget" required>
                                                 <div class="input-group-append">
                                                     <button type="submit" class="btn btn-primary">@lang('messages.update')</button>
                                                 </div>

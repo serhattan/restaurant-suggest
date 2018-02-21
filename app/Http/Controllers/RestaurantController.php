@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Entity;
 use Illuminate\Http\Request;
 use App\Models\RestaurantManager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class RestaurantController extends Controller
@@ -16,16 +17,16 @@ class RestaurantController extends Controller
         return view('pages.restaurant', ['datas' => $restaurants]);
     }
 
-    public function saveAveragePrice(Request $request)
+    public function saveBudget(Request $request)
     {
-        if (!empty($request->get('restaurantId')) && is_numeric($request->get('newAveragePrice'))) {
-            $restaurant = new Entity\Restaurant();
-            $restaurant->setId($request->get('restaurantId'));
-            $restaurant->setAveragePrice($request->get('newAveragePrice'));
-        }
+        if (!empty($request->get('restaurantId')) && is_numeric($request->get('budget'))) {
+            $restaurantUser = new Entity\RestaurantUser();
+            $restaurantUser->setRestaurantId($request->get('restaurantId'));
+            $restaurantUser->setBudget($request->get('budget'));
 
-        if (RestaurantManager::update($restaurant)) {
-            return redirect('restaurants');
+            if (RestaurantManager::saveRestaurantUser($restaurantUser)) {
+                return redirect('restaurants');
+            }
         }
 
         return false;
