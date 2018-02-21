@@ -27,13 +27,14 @@
                                 @if (empty($data->getRestaurants()))
                                     <h5>@lang('messages.group_not_have_restaurant')</h5>
                                 @else
-                                <table class="table">
+
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">@lang('messages.restaurant_name')</th>
-                                        <th scope="col">@lang('messages.your_budget_per_restaurant')</th>
-                                        <th scope="col">@lang('messages.to_update_your_budget_per_restaurant')</th>
+                                            <th scope="col">#</th>
+                                            <th scope="col">@lang('messages.restaurant_name')</th>
+                                            <th scope="col">@lang('messages.your_budget_per_restaurant')</th>
+                                            <th scope="col">@lang('messages.to_update_your_budget_per_restaurant')</th>
                                         </tr>
                                     </thead>
                                     <tbody>
