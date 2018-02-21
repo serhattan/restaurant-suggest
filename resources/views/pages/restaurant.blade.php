@@ -31,9 +31,9 @@
                                     <thead>
                                         <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Restaurant Name</th>
-                                        <th scope="col">Your budget per restaurant</th>
-                                        <th scope="col">To update your budget per restaurant</th>
+                                        <th scope="col">@lang('messages.restaurant_name')</th>
+                                        <th scope="col">@lang('messages.your_budget_per_restaurant')</th>
+                                        <th scope="col">@lang('messages.to_update_your_budget_per_restaurant')</th>
                                         </tr>
                                     </thead>
                                     <tbody>

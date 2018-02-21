@@ -44,5 +44,7 @@ return [
     'delete_group' => 'Delete Group',
     'group_restaurants' => 'Group Restaurants',
     'currency_icon' => '$',
-    'group_details' => 'Group Details'
+    'group_details' => 'Group Details',
+    'your_budget_per_restaurant' => 'Your budget per restaurant',
+    'to_update_your_budget_per_restaurant' => 'To update your budget per restaurant',
 ];
