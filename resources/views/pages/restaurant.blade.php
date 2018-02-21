@@ -27,37 +27,50 @@
                                 @if (empty($data->getRestaurants()))
                                     <h5>@lang('messages.group_not_have_restaurant')</h5>
                                 @endif
-                                @foreach ($data->getRestaurants() as $restaurant)
-                                    <form method="POST" action="{{ route('saveBudget') }}">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                {{$restaurant->getName()}}
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Restaurant Name</th>
+                                        <th scope="col">Your budget per restaurant</th>
+                                        <th scope="col">To update your budget per restaurant</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                        @foreach ($data->getRestaurants() as $restaurant)
+                                        <tr>
+                                            <td>
                                                 <a name="removeRestaurantId" href="/restaurants/remove/{{$restaurant->getId()}}" style="color:red;">
                                                     @lang('messages.remove')
                                                 </a>
-                                            </li>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                @if(!empty($restaurant->getRestaurantUsers()))
-                                                    <span class="input-group-text">{{$restaurant->getRestaurantUsers()->getBudget()}} ₺</span>
-                                                @else
-                                                    <span class="input-group-text">0 ₺</span>
-                                                @endif
+                                            </td>
+                                            <td>{{$restaurant->getName()}}</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    @if(!empty($restaurant->getRestaurantUsers()))
+                                                        <span class="input-group-text">{{$restaurant->getRestaurantUsers()->getBudget()}} ₺</span>
+                                                    @else
+                                                        <span class="input-group-text">0 ₺</span>
+                                                    @endif
                                                 </div>
-                                                <input type="text" class="form-control" name="budget" id="budget" required>
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-primary">@lang('messages.update')</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <input type="hidden" class="form-control" name="restaurantId" id="restaurantId" value="{{$restaurant->getId()}}">
-                                    </form>
-                                @endforeach
+                                            </td>
+                                            <td>
+                                                <form method="POST" action="{{ route('saveBudget') }}">
+                                                    @csrf
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" name="budget" id="budget" required>
+                                                        <div class="input-group-append">
+                                                            <button type="submit" class="btn btn-primary">@lang('messages.update')</button>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control" name="restaurantId" id="restaurantId" value="{{$restaurant->getId()}}">                                                    
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </ul>
                         </div>
                     </div>
