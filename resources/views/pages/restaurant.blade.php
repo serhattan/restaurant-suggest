@@ -26,7 +26,7 @@
                             <ul class="list-group">
                                 @if (empty($data->getRestaurants()))
                                     <h5>@lang('messages.group_not_have_restaurant')</h5>
-                                @endif
+                                @else
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -37,7 +37,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
                                         @foreach ($data->getRestaurants() as $restaurant)
                                         <tr>
                                             <td>
@@ -71,6 +70,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                @endif
                             </ul>
                         </div>
                     </div>
