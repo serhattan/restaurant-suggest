@@ -44,5 +44,7 @@ return [
     'delete_group' => 'Grubu Sil',
     'group_restaurants' => 'Grubun Restoranları',
     'currency_icon' => '₺',
-    'group_details' => 'Grup Detayları'
+    'group_details' => 'Grup Detayları',
+    'your_budget_per_restaurant' => 'Her bir restoran için bütçe',
+    'to_update_your_budget_per_restaurant' => 'Her bir restoran için bütçeyi güncelleme',
 ];

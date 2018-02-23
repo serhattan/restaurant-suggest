@@ -148,7 +148,8 @@ class RestaurantManager
                 $newRestaurantModel->status = Helper::STATUS_ACTIVE;
                 $newRestaurantModel->save();
             }
-            return $newRestaurantModel;
+
+            return $restaurantId;
         }
     }
 

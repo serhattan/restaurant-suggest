@@ -19,7 +19,7 @@ class CreateRestaurantUserTable extends Migration
             $table->string('id', 32)->primary();
             $table->string('restaurant_id', 32);
             $table->string('user_id', 32);
-            $table->integer('budget');
+            $table->float('budget');
             $table->enum('status', [
                 Helper::STATUS_ACTIVE,
                 Helper::STATUS_DELETED
