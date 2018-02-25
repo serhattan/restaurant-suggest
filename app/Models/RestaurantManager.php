@@ -10,6 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class RestaurantManager
 {
+    public static function getRestaurantById($id)
+    {
+        $restaurant = DB\Restaurant::where('id', $id)->first();
+
+        if ($restaurant instanceof DB\Restaurant) {
+            return self::map($restaurant);
+        }
+    }
+
     public static function getAllByGroupId($groupId)
     {
         $restaurants = DB\Restaurant::where('group_id', $groupId)->get();
