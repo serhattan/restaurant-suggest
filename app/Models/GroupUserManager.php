@@ -24,7 +24,7 @@ class GroupUserManager
         $newGroupUser->user_id = $groupUser['userId'];
         $newGroupUser->group_id = $groupUser['groupId'];
 
-        return $newGroupUser->save();
+        return $newGroupUser->id;
     }
 
     /**

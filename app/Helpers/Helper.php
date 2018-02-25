@@ -13,6 +13,17 @@ class Helper
     const Turkish = 'tr';
     const STATUS_ACTIVE = 'active';
     const STATUS_DELETED = 'deleted';
+    const ADD = 'Added';
+    const UPDATE = 'Updated';
+    const REMOVE = 'Removed';
+    const GENERATE = 'Generated';
+    const USER_TABLE = 'user';
+    const RESTAURANT_USER_TABLE = 'restaurant_user';
+    const RESTAURANT_TABLE = 'restaurant';
+    const GROUP_USER_TABLE = 'group_user';
+    const GROUP_MEMBER_TABLE = 'group_member';
+    const GROUP_TABLE = 'group';
+    const GENERATE_TABLE = 'generate';
 
     public static function generateId($len = 32)
     {

@@ -27,7 +27,7 @@ class GroupManager
             })
             ->first();
 
-        if ($group instanceof Group) {
+            if ($group instanceof Group) {
             return self::map($group);
         }
 
