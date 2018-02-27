@@ -26,6 +26,7 @@ Route::post('/new-group', 'GroupController@postNew')->name('new-group');
 Route::get('/group/{id}/details', 'GroupController@getDetails')->name('group-details');
 Route::get('/group/{id}/restaurants', 'GroupController@getRestaurants')->name('group-restaurants');
 Route::get('/group/{id}/settings', 'GroupController@getSettings')->name('group-settings');
+Route::get('/group/{id}/members', 'GroupController@getMembers')->name('group-members');
 Route::post('/save-settings', 'GroupController@postSaveSettings')->name('save-settings');
 Route::get('/restaurants', 'RestaurantController@getList')->name('restaurants');
 Route::get('/restaurants/remove/{restaurantId}', 'RestaurantController@remove')->name('remove');
@@ -34,4 +35,5 @@ Route::get('/restaurants/add/{groupId}', 'RestaurantController@addRestaurant')->
 Route::post('/restaurants/save', 'RestaurantController@saveRestaurant')->name('saveRestaurant');
 Route::post('/new-member', 'GroupController@postNewMember')->name('new-member');
 Route::get('/group/delete/{groupId}', 'GroupController@getDeleteGroup')->name('group-delete');
+Route::get('/group/member/delete/{groupId}/{userId}', 'GroupController@getGroupMemberDelete')->name('group-member-delete');
 
