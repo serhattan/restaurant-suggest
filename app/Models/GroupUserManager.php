@@ -59,4 +59,9 @@ class GroupUserManager
 
         return $groupUserList;
     }
+
+    public static function delete($groupId, $userId)
+    {
+        return GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
+    }
 }

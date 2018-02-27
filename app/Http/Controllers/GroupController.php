@@ -33,6 +33,13 @@ class GroupController extends Controller
 
     }
 
+    public function getMembers($id)
+    {
+        $group = GroupManager::get($id);
+
+        return view('pages.group.userList', ['group' => $group]);
+    }
+
     public function getSettings($id)
     {
         $group = GroupManager::get($id);
@@ -110,6 +117,13 @@ class GroupController extends Controller
     public function getDeleteGroup($id)
     {
         GroupManager::delete($id);
+        return view('pages.groups');
+    }
+
+    public function getGroupMemberDelete($groupId, $userId)
+    {
+        GroupUserManager::delete($groupId, $userId);
+
         return view('pages.groups');
     }
 }
