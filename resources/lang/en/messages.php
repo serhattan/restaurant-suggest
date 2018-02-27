@@ -49,4 +49,5 @@ return [
     'group_details' => 'Group Details',
     'your_budget_per_restaurant' => 'Your budget per restaurant',
     'to_update_your_budget_per_restaurant' => 'To update your budget per restaurant',
+    'access_denied' => 'Access Denied',
 ];

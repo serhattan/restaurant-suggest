@@ -19,6 +19,7 @@ class CreateGroupUserTable extends Migration
             $table->string('id', 32)->primary();
             $table->string('group_id', 32);
             $table->string('user_id', 32);
+            $table->boolean('is_admin')->default('0');
             $table->enum('status', [
                 Helper::STATUS_ACTIVE,
                 Helper::STATUS_DELETED
