@@ -42,7 +42,7 @@ return [
     'members_count' => 'Number of Members',
     'please_enter_email' => 'Bitte geben Sie eine Email ein',
     'group_settings' => 'Gruppeneinstellungen',
-    'save_changes' => 'Änderungen speichern',
+    'save_changes' => 'Änderungen speigchern',
     'delete_group' => 'Gruppe löschen',
     'group_restaurants' => 'Gruppenrestaurants',
     'currency_icon' => '$',

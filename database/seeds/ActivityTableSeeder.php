@@ -36,11 +36,6 @@ class ActivityTableSeeder extends Seeder
         DB::table('activity')->insert([
             'id' => Helper::generateId(32),
             'name' => Helper::ADD,
-            'table' => Helper::GROUP_MEMBER_TABLE,
-        ]);
-        DB::table('activity')->insert([
-            'id' => Helper::generateId(32),
-            'name' => Helper::ADD,
             'table' => Helper::GROUP_TABLE,
         ]);
         DB::table('activity')->insert([
@@ -71,11 +66,6 @@ class ActivityTableSeeder extends Seeder
         DB::table('activity')->insert([
             'id' => Helper::generateId(32),
             'name' => Helper::UPDATE,
-            'table' => Helper::GROUP_MEMBER_TABLE,
-        ]);
-        DB::table('activity')->insert([
-            'id' => Helper::generateId(32),
-            'name' => Helper::UPDATE,
             'table' => Helper::GROUP_TABLE,
         ]);
         DB::table('activity')->insert([
@@ -102,11 +92,6 @@ class ActivityTableSeeder extends Seeder
             'id' => Helper::generateId(32),
             'name' => Helper::REMOVE,
             'table' => Helper::GROUP_USER_TABLE,
-        ]);
-        DB::table('activity')->insert([
-            'id' => Helper::generateId(32),
-            'name' => Helper::REMOVE,
-            'table' => Helper::GROUP_MEMBER_TABLE,
         ]);
         DB::table('activity')->insert([
             'id' => Helper::generateId(32),

@@ -23,8 +23,19 @@ class GroupUserManager
         }
         $newGroupUser->user_id = $groupUser['userId'];
         $newGroupUser->group_id = $groupUser['groupId'];
-
+        $newGroupUser->save();
         return $newGroupUser->id;
+    }
+
+    public static function getGroupsByUserId($userId)
+    {
+        $groups = DB\GroupUser::select('group_id')
+            ->where('user_id', $userId)
+            ->groupBy('group_id')
+            ->get();
+
+        $mappedGroup = self::multiMap($groups);
+        return $mappedGroup;
     }
 
     /**

@@ -2,20 +2,22 @@
 
 namespace App\Models;
 
-use App\Models\DB;
+use App\Models\DB\ActivityLog;
+use App\Models\DB\Activity;
 use App\Models\Entity;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\DB;
 
 class ActivityLogManager
 {
-    public static function map(DB\ActivityLog $activityLogData)
+    public static function map(ActivityLog $activityLogData)
     {
         $activityLog = new Entity\ActivityLog();
         $activityLog->setId($activityLogData->id);
-        $activityLog->setGroupId($activityLogData->groupId);
-        $activityLog->setUserId($activityLogData->userId);
-        $activityLog->setActivityId($activityLogData->activityId);
-        $activityLog->setHelperId($activityLogData->helperId);
+        $activityLog->setGroupId($activityLogData->group_id);
+        $activityLog->setUserId($activityLogData->user_id);
+        $activityLog->setActivityId($activityLogData->activity_id);
+        $activityLog->setHelperId($activityLogData->helper_id);
         $activityLog->setContent($activityLogData->content);
 
         if ($activityLogData->relationLoaded('group') && !empty($activityLogData->group)) {
@@ -25,8 +27,22 @@ class ActivityLogManager
         if ($activityLogData->relationLoaded('user') && !empty($activityLogData->user)) {
             $activityLog->setUser(UserManager::multiMap($activityLogData->user));
         }
+        
+        if ($activityLogData->relationLoaded('activity') && !empty($activityLogData->activity)) {
+            $activityLog->setActivity(self::activityMap($activityLogData->activity));
+        }
 
         return $activityLog;
+    }
+
+    public static function activityMap(Activity $activityData)
+    {
+        $activity = new Entity\Activity();
+        $activity->setId($activityData->id);
+        $activity->setName($activityData->name);
+        $activity->setTable($activityData->table);
+
+        return $activity;
     }
 
     public static function multiMap($activityLogs)
@@ -39,17 +55,31 @@ class ActivityLogManager
         return $activityLogList;
     }
 
+    public static function getActivityLogsByGroupId($groupId)
+    {
+        $activityLogs = ActivityLog::with('activity')->where('group_id', $groupId)->orderBy('created_at')->get();
+        return self::multiMap($activityLogs);
+    }
+
     public static function save($activityLog)
     {
-        $model = new DB\ActivityLog();
+        $model = new ActivityLog();
         $model->id = $activityLog['id'];
         $model->group_id = $activityLog['groupId'];
         $model->user_id = $activityLog['userId'];
         $model->activity_id = $activityLog['activityId'];
         $model->helper_id = $activityLog['helperId'];
         $model->content = $activityLog['content'];
-        $model->related_table = $activityLog['relatedTable'];
 
         return $model->save();
+    }
+
+    public static function getActivity($name, $table)
+    {
+        $activity = DB::table('activity')->where('name', $name)->where('table', $table)->first();
+
+        if (!empty($activity)) {
+            return $activity->id;
+        }
     }
 }

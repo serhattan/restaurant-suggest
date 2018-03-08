@@ -65,6 +65,7 @@
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="form-control" name="restaurantId" id="restaurantId" value="{{$restaurant->getId()}}">                                                    
+                                                    <input type="hidden" class="form-control" name="restaurantName" id="restaurantName" value="{{$restaurant->getName()}}">                                                    
                                                 </form>
                                             </td>
                                         </tr>

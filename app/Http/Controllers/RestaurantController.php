@@ -6,6 +6,7 @@ use App\Models\Entity;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use App\Models\RestaurantManager;
+use App\Models\UserManager;
 use App\Models\ActivityLogManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class RestaurantController extends Controller
 
     public function saveBudget(Request $request)
     {
+        $userId = Auth::id();
+        $user = UserManager::getUserById($userId);
         if (!empty($request->get('restaurantId')) && is_numeric($request->get('budget'))) {
             $restaurantUser = new Entity\RestaurantUser();
             $restaurantUser->setRestaurantId($request->get('restaurantId'));
@@ -33,16 +36,35 @@ class RestaurantController extends Controller
                 ActivityLogManager::save([
                     'id' => Helper::generateId(),
                     'groupId' => $restaurant->getGroupId(),
-                    'userId'=> Auth::id(),
-                    'action' => Helper::UPDATE,
-                    'itemId' => $restaurantId,
-                    'message' => $request->get('budget'),
-                    'relatedTable' => Helper::RESTAURANT_USER_TABLE
+                    'userId'=> $userId,
+                    'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, Helper::RESTAURANT_USER_TABLE),
+                    'helperId' => $restaurantId,
+                    'content' => json_encode([
+                        "userName" => $user->getFirstName(),
+                        "userLastName" => $user->getLastName(),
+                        "restaurantName" => $request->get('restaurantName'),
+                        "budget" => $request->get('budget')
+                    ])
                 ]);
 
+                $averagePrice = DB::select('select AVG(budget) as budget from restaurant_user where restaurant_id = ?', [$restaurantId])[0]->budget;
                 \App\Models\DB\Restaurant::where('id', $restaurantId)
                     ->where('status', Helper::STATUS_ACTIVE)
-                    ->update(['average_price' => DB::select('select AVG(budget) as budget from restaurant_user where restaurant_id = ?', [$restaurantId])[0]->budget]);
+                    ->update([
+                        'average_price' => $averagePrice
+                    ]);
+
+                ActivityLogManager::save([
+                    'id' => Helper::generateId(),
+                    'groupId' => $restaurant->getGroupId(),
+                    'userId'=> $userId,
+                    'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, Helper::RESTAURANT_TABLE),
+                    'helperId' => $restaurantId,
+                    'content' => json_encode([
+                        "restaurantName" => $request->get('restaurantName'),
+                        "averageBudget" => $averagePrice
+                    ])
+                ]);
 
                 return redirect('restaurants');
             }
@@ -60,10 +82,9 @@ class RestaurantController extends Controller
                     'id' => Helper::generateId(),
                     'groupId' => $restaurant->getGroupId(),
                     'userId'=> Auth::id(),
-                    'action' => Helper::REMOVE,
-                    'itemId' => $restaurant->getId(),
-                    'message' => $restaurant->getName(),
-                    'relatedTable' => Helper::RESTAURANT_TABLE
+                    'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, Helper::RESTAURANT_TABLE),
+                    'helperId' => $restaurant->getId(),
+                    'content' => $restaurant->getName(),
                 ]);
 
                 return redirect('restaurants');
@@ -88,12 +109,10 @@ class RestaurantController extends Controller
             'id' => Helper::generateId(),
             'groupId' => $restaurant->getGroupId(),
             'userId'=> Auth::id(),
-            'action' => Helper::ADD,
-            'itemId' => $restaurant->getId(),
-            'message' => $restaurant->getName(),
-            'relatedTable' => Helper::RESTAURANT_TABLE
+            'activityId' => ActivityLogManager::getActivity(Helper::ADD, Helper::RESTAURANT_TABLE),
+            'helperId' => $restaurant->getId(),
+            'content' => $restaurant->getName(),
         ]);
-
         return redirect('restaurants');
     }
 }

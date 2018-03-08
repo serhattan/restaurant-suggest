@@ -28,7 +28,6 @@ class CreateActivityTable extends Migration
                 Helper::RESTAURANT_USER_TABLE,
                 Helper::RESTAURANT_TABLE,
                 Helper::GROUP_USER_TABLE,
-                Helper::GROUP_MEMBER_TABLE,
                 Helper::GROUP_TABLE,
                 Helper::GENERATE_TABLE,
             ]);

@@ -66,15 +66,14 @@ class GroupController extends Controller
             'userId' => Auth::id(),
             'groupId' => $newGroup->id
         ]);
-        
+
         ActivityLogManager::save([
             'id' => Helper::generateId(),
             'groupId' => $newGroup->id,
             'userId'=> Auth::id(),
-            'action' => Helper::ADD,
-            'itemId' => $newGroup->id,
-            'message' => $request->get('name'),
-            'relatedTable' => Helper::GROUP_TABLE
+            'activityId' => ActivityLogManager::getActivity(Helper::ADD, HELPER::GROUP_TABLE),
+            'helperId' => $newGroup->id,
+            'content' => $request->get('name')
         ]);
 
         $message = $newGroup ?
@@ -102,10 +101,9 @@ class GroupController extends Controller
             'id' => Helper::generateId(),
             'groupId' => $groupId,
             'userId'=> Auth::id(),
-            'action' => Helper::UPDATE,
-            'itemId' => $groupId,
-            'message' => $group->getName() . ', ' . $group->getBudget(),
-            'relatedTable' => Helper::GROUP_TABLE
+            'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, HELPER::GROUP_TABLE),
+            'helperId' => $groupId,
+            'content' => json_encode(["name" => $group->getName(), "budget" => $group->getBudget()])  
         ]);
 
         return view('pages.group.settings', ['group' => $group]);
@@ -123,24 +121,21 @@ class GroupController extends Controller
                 'userId' => $user->getId(),
                 'groupId' => $groupId
             ]);
-            $tableName =Helper::GROUP_USER_TABLE;
         } else {
             $memberId = GroupMemberManager::save([
                 'groupId' => $groupId,
                 'email' => $email,
                 'invitorId' => Auth::id()
             ]);
-            $tableName =Helper::GROUP_MEMBER_TABLE;
         }
 
         ActivityLogManager::save([
             'id' => Helper::generateId(),
             'groupId' => $groupId,
             'userId'=> Auth::id(),
-            'action' => Helper::ADD,
-            'itemId' => $memberId,
-            'message' => $email,
-            'relatedTable' => $tableName
+            'activityId' => ActivityLogManager::getActivity(Helper::ADD, Helper::GROUP_USER_TABLE),
+            'helperId' => $memberId,
+            'content' => $email,
         ]);
 
         $group = GroupManager::get($groupId);
@@ -156,17 +151,26 @@ class GroupController extends Controller
             'id' => Helper::generateId(),
             'groupId' => $id,
             'userId'=> Auth::id(),
-            'action' => Helper::REMOVE,
-            'itemId' => $id,
-            'message' => $group->getName(),
-            'relatedTable' => Helper::GROUP_TABLE
+            'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, HELPER::GROUP_TABLE),
+            'helperId' => $id,
+            'content' => $group->getName(),
         ]);
         return view('pages.groups');
     }
 
     public function getGroupMemberDelete($groupId, $userId)
     {
+        $user = UserManager::getUserById($userId);
         GroupUserManager::delete($groupId, $userId);
+
+        ActivityLogManager::save([
+            'id' => Helper::generateId(),
+            'groupId' => $groupId,
+            'userId'=> Auth::id(),
+            'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, Helper::GROUP_USER_TABLE),
+            'helperId' => $userId,
+            'content' => $user->getFirstName() . ' ' . $user->getLastName(),
+        ]);
 
         return view('pages.groups');
     }
