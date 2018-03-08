@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ActivityTableSeeder' => $baseDir . '/database/seeds/ActivityTableSeeder.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\Helper' => $baseDir . '/app/Helpers/Helper.php',
@@ -25,6 +26,8 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\ViewComposers\\GroupListComposer' => $baseDir . '/app/Http/ViewComposers/GroupListComposer.php',
+    'App\\Models\\ActivityLogManager' => $baseDir . '/app/Models/ActivityLogManager.php',
+    'App\\Models\\DB\\ActivityLog' => $baseDir . '/app/Models/DB/ActivityLog.php',
     'App\\Models\\DB\\Generate' => $baseDir . '/app/Models/DB/Generate.php',
     'App\\Models\\DB\\Group' => $baseDir . '/app/Models/DB/Group.php',
     'App\\Models\\DB\\GroupMember' => $baseDir . '/app/Models/DB/GroupMember.php',
@@ -32,6 +35,7 @@ return array(
     'App\\Models\\DB\\Restaurant' => $baseDir . '/app/Models/DB/Restaurant.php',
     'App\\Models\\DB\\RestaurantUser' => $baseDir . '/app/Models/DB/RestaurantUser.php',
     'App\\Models\\DB\\User' => $baseDir . '/app/Models/DB/User.php',
+    'App\\Models\\Entity\\ActivityLog' => $baseDir . '/app/Models/Entity/ActivityLog.php',
     'App\\Models\\Entity\\Generate' => $baseDir . '/app/Models/Entity/Generate.php',
     'App\\Models\\Entity\\Group' => $baseDir . '/app/Models/Entity/Group.php',
     'App\\Models\\Entity\\GroupMember' => $baseDir . '/app/Models/Entity/GroupMember.php',

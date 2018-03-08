@@ -15,7 +15,7 @@ class CreateGroupMemberTable extends Migration
     public function up()
     {
         Schema::create('group_member', function (Blueprint $table) {
-            $table->string('id', 32);
+            $table->string('id', 32)->primary();
             $table->string('group_id', 32);
             $table->string('email');
             $table->string('invitor_id', 32);

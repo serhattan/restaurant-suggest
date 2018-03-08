@@ -319,6 +319,7 @@ class ComposerStaticInit39dfe30d7fcc12fc5a592e159f8aabe9
     );
 
     public static $classMap = array (
+        'ActivityTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ActivityTableSeeder.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\Helper' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
@@ -338,6 +339,8 @@ class ComposerStaticInit39dfe30d7fcc12fc5a592e159f8aabe9
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\ViewComposers\\GroupListComposer' => __DIR__ . '/../..' . '/app/Http/ViewComposers/GroupListComposer.php',
+        'App\\Models\\ActivityLogManager' => __DIR__ . '/../..' . '/app/Models/ActivityLogManager.php',
+        'App\\Models\\DB\\ActivityLog' => __DIR__ . '/../..' . '/app/Models/DB/ActivityLog.php',
         'App\\Models\\DB\\Generate' => __DIR__ . '/../..' . '/app/Models/DB/Generate.php',
         'App\\Models\\DB\\Group' => __DIR__ . '/../..' . '/app/Models/DB/Group.php',
         'App\\Models\\DB\\GroupMember' => __DIR__ . '/../..' . '/app/Models/DB/GroupMember.php',
@@ -345,6 +348,7 @@ class ComposerStaticInit39dfe30d7fcc12fc5a592e159f8aabe9
         'App\\Models\\DB\\Restaurant' => __DIR__ . '/../..' . '/app/Models/DB/Restaurant.php',
         'App\\Models\\DB\\RestaurantUser' => __DIR__ . '/../..' . '/app/Models/DB/RestaurantUser.php',
         'App\\Models\\DB\\User' => __DIR__ . '/../..' . '/app/Models/DB/User.php',
+        'App\\Models\\Entity\\ActivityLog' => __DIR__ . '/../..' . '/app/Models/Entity/ActivityLog.php',
         'App\\Models\\Entity\\Generate' => __DIR__ . '/../..' . '/app/Models/Entity/Generate.php',
         'App\\Models\\Entity\\Group' => __DIR__ . '/../..' . '/app/Models/Entity/Group.php',
         'App\\Models\\Entity\\GroupMember' => __DIR__ . '/../..' . '/app/Models/Entity/GroupMember.php',
