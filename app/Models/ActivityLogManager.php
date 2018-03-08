@@ -14,10 +14,9 @@ class ActivityLogManager
         $activityLog->setId($activityLogData->id);
         $activityLog->setGroupId($activityLogData->groupId);
         $activityLog->setUserId($activityLogData->userId);
-        $activityLog->setAction($activityLogData->action);
-        $activityLog->setItemId($activityLogData->itemId);
-        $activityLog->setMessage($activityLogData->message);
-        $activityLog->setRelatedTable($activityLogData->reletadTable);
+        $activityLog->setActivityId($activityLogData->activityId);
+        $activityLog->setHelperId($activityLogData->helperId);
+        $activityLog->setContent($activityLogData->content);
 
         if ($activityLogData->relationLoaded('group') && !empty($activityLogData->group)) {
             $activityLog->setGroup(GroupManager::multiMap($activityLogData->group));
@@ -46,9 +45,9 @@ class ActivityLogManager
         $model->id = $activityLog['id'];
         $model->group_id = $activityLog['groupId'];
         $model->user_id = $activityLog['userId'];
-        $model->action = $activityLog['action'];
-        $model->item_id = $activityLog['itemId'];
-        $model->message = $activityLog['message'];
+        $model->activity_id = $activityLog['activityId'];
+        $model->helper_id = $activityLog['helperId'];
+        $model->content = $activityLog['content'];
         $model->related_table = $activityLog['relatedTable'];
 
         return $model->save();

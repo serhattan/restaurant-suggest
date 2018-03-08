@@ -10,6 +10,7 @@ class ActivityLog
     private $activityId;
     private $helperId;
     private $content;
+    private $activity;
 
     public function getId()
     {
@@ -90,5 +91,15 @@ class ActivityLog
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    public function getActivity()
+    {
+        return $this->activity;
+    }
+
+    public function setActivity($activity)
+    {
+        $this->activity = $activity;
     }
 }
