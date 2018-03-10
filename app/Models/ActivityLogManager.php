@@ -61,6 +61,12 @@ class ActivityLogManager
         return self::multiMap($activityLogs);
     }
 
+    public static function getActivityLogsByUserId($userId)
+    {
+        $activityLogs = ActivityLog::with('activity')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        return self::multiMap($activityLogs);
+    }
+
     public static function save($activityLog)
     {
         $model = new ActivityLog();
