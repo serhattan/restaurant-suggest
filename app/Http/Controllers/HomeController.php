@@ -28,12 +28,28 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $activityLogGroups = [];
         $groups = GroupUserManager::getGroupsByUserId(Auth::id());
         foreach($groups as $group) {
-            $activityLogs[] = ActivityLogManager::getActivityLogsByGroupId($group->getGroupId());
+            $groupIdList[] = $group->getGroupId();
         }
-        dd($activityLogs);
-        return view('home', ['activityLogs' => $activityLogs]);
+        $activityLogGroups = ActivityLogManager::getActivityLogsByGroupId($groupIdList);
+        foreach($activityLogGroups as $key => $group) {
+            $activityLogGroups[$key]->setContent(
+                array_map(
+                    function($object){
+                        return (array) $object;
+                    },
+                    array(
+                        json_decode(
+                            $activityLogGroups[$key]->getContent()
+                        )
+                    )
+                )[0]
+            );
+        }
+
+        return view('home', ['activityLogGroups' => $activityLogGroups]);
     }
 
     public function settings()

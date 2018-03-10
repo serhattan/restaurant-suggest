@@ -23,8 +23,7 @@ class RestaurantController extends Controller
 
     public function saveBudget(Request $request)
     {
-        $userId = Auth::id();
-        $user = UserManager::getUserById($userId);
+        $admin = UserManager::getUserById(Auth::id());
         if (!empty($request->get('restaurantId')) && is_numeric($request->get('budget'))) {
             $restaurantUser = new Entity\RestaurantUser();
             $restaurantUser->setRestaurantId($request->get('restaurantId'));
@@ -36,15 +35,14 @@ class RestaurantController extends Controller
                 ActivityLogManager::save([
                     'id' => Helper::generateId(),
                     'groupId' => $restaurant->getGroupId(),
-                    'userId'=> $userId,
+                    'userId'=> $admin->getId(),
                     'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, Helper::RESTAURANT_USER_TABLE),
                     'helperId' => $restaurantId,
-                    'content' => json_encode([
-                        "userName" => $user->getFirstName(),
-                        "userLastName" => $user->getLastName(),
+                    'content' => [
+                        "userFullName" => $admin->getFullName(),
                         "restaurantName" => $request->get('restaurantName'),
                         "budget" => $request->get('budget')
-                    ])
+                    ]
                 ]);
 
                 $averagePrice = DB::select('select AVG(budget) as budget from restaurant_user where restaurant_id = ?', [$restaurantId])[0]->budget;
@@ -57,13 +55,14 @@ class RestaurantController extends Controller
                 ActivityLogManager::save([
                     'id' => Helper::generateId(),
                     'groupId' => $restaurant->getGroupId(),
-                    'userId'=> $userId,
+                    'userId'=> $admin->getId(),
                     'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, Helper::RESTAURANT_TABLE),
                     'helperId' => $restaurantId,
-                    'content' => json_encode([
+                    'content' => [
+                        "userFullName" => $admin->getFullName(),
                         "restaurantName" => $request->get('restaurantName'),
                         "averageBudget" => $averagePrice
-                    ])
+                    ]
                 ]);
 
                 return redirect('restaurants');
@@ -78,13 +77,17 @@ class RestaurantController extends Controller
         if ($request->is('restaurants/remove/*')) {
             if (RestaurantManager::remove($id)) {
                 $restaurant = RestaurantManager::getRestaurantById($id);
+                $admin = UserManager::getUserById(Auth::id());
                 ActivityLogManager::save([
                     'id' => Helper::generateId(),
                     'groupId' => $restaurant->getGroupId(),
-                    'userId'=> Auth::id(),
+                    'userId'=> $admin->getId(),
                     'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, Helper::RESTAURANT_TABLE),
                     'helperId' => $restaurant->getId(),
-                    'content' => $restaurant->getName(),
+                    'content' => [
+                        "userFullName" => $admin->getFullName(),
+                        "restaurantName" => $restaurant->getName()
+                    ],
                 ]);
 
                 return redirect('restaurants');
@@ -100,6 +103,7 @@ class RestaurantController extends Controller
 
     public function saveRestaurant(Request $request)
     {
+        $admin = UserManager::getUserById(Auth::id());
         $restaurant = new Entity\Restaurant();
         $restaurant->setName($request->get('restaurantName'));
         $restaurant->setGroupId($request->get('groupId'));
@@ -108,10 +112,13 @@ class RestaurantController extends Controller
         ActivityLogManager::save([
             'id' => Helper::generateId(),
             'groupId' => $restaurant->getGroupId(),
-            'userId'=> Auth::id(),
+            'userId'=> $admin->getId(),
             'activityId' => ActivityLogManager::getActivity(Helper::ADD, Helper::RESTAURANT_TABLE),
             'helperId' => $restaurant->getId(),
-            'content' => $restaurant->getName(),
+            'content' => [
+                "userFullName" => $admin->getFullName(),
+                "restaurantName" => $restaurant->getName()
+            ],
         ]);
         return redirect('restaurants');
     }

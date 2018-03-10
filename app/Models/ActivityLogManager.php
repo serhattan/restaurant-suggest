@@ -57,7 +57,7 @@ class ActivityLogManager
 
     public static function getActivityLogsByGroupId($groupId)
     {
-        $activityLogs = ActivityLog::with('activity')->where('group_id', $groupId)->orderBy('created_at')->get();
+        $activityLogs = ActivityLog::with('activity')->whereIn('group_id', $groupId)->orderBy('created_at', 'desc')->get();
         return self::multiMap($activityLogs);
     }
 
@@ -69,7 +69,7 @@ class ActivityLogManager
         $model->user_id = $activityLog['userId'];
         $model->activity_id = $activityLog['activityId'];
         $model->helper_id = $activityLog['helperId'];
-        $model->content = $activityLog['content'];
+        $model->content = json_encode($activityLog['content']);
 
         return $model->save();
     }

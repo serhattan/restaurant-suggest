@@ -4,7 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card card-default">
+            @if (empty($activityLogGroups))
+                <div class="alert alert-danger" role="alert">
+                    @lang('messages.zero_activity')!
+                </div>
+            @endif
+            <div class="card card-default" style="margin-top: 30px;">
                 <div class="card-header">@lang('messages.home')</div>
 
                 <div class="card-body">
@@ -13,8 +18,19 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    @lang('messages.logged_in')
+                    @foreach ($activityLogGroups as $activityLog)
+                        <div class="card w-75 text-center" style="margin:30px auto;">
+                            <div class="card-body">
+                                <h5 class="card-title">@lang("messages.".$activityLog->getActivity()->getName(). "_". $activityLog->getActivity()->getTable())</h5>
+                                <p class="card-text">
+                                    @lang(
+                                        "messages.".$activityLog->getActivity()->getTable(). "_". $activityLog->getActivity()->getName(),
+                                        $activityLog->getContent()
+                                    )
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
