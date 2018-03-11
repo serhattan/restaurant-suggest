@@ -57,6 +57,16 @@ class UserManager
         return false;
     }
 
+    public static function getUserById($id)
+    {
+        $user = DB\User::where('id', $id)->first();
+
+        if ($user instanceof DB\User) {
+            return self::map($user);
+        }
+        return false;
+    }
+
     public static function delete(Entity\User $user)
     {
         DB\GroupUser::where('user_id', $user->getId())->update(['status', Helper::STATUS_DELETED]);

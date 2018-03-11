@@ -16,10 +16,12 @@
                             <button class="btn btn-link" data-toggle="collapse" data-target="#{{$data->getId()}}" aria-expanded="true"
                                 aria-controls="{{$data->getId()}}">
                                 {{$data->getName()}}
-                                <span class="badge badge-secondary">{{$data->getBudget()}} ₺</span>
+                                <span class="badge badge-secondary"> {{$data->getBudget()}} ₺</span>
                             </button>
+                            <a href="/restaurants/add/{{$data->getId()}}" style="float:right;">
+                                <i class="fas fa-plus-circle"></i>
+                            </a>
                         </h5>
-                        <a href="/restaurants/add/{{$data->getId()}}" style="float:right;">@lang('messages.add_restaurant')</a>
                     </div>
                     <div id="{{$data->getId()}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
@@ -65,6 +67,7 @@
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="form-control" name="restaurantId" id="restaurantId" value="{{$restaurant->getId()}}">                                                    
+                                                    <input type="hidden" class="form-control" name="restaurantName" id="restaurantName" value="{{$restaurant->getName()}}">                                                    
                                                 </form>
                                             </td>
                                         </tr>

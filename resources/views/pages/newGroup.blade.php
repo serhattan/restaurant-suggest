@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">@lang('messages.new') @lang('messages.group')</div>
                     <div class="card-body">

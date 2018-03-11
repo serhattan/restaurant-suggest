@@ -50,4 +50,5 @@ return [
     'your_budget_per_restaurant' => 'Ваш бюджет за ресторан',
     'to_update_your_budget_per_restaurant' => 'Чтобы обновить свой бюджет за ресторан',
     'access_denied' => 'доступ закрыт',
+    'new_group_added' => 'Добавлена новая группа: %s'
 ];

@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/settings', 'HomeController@settings')->name('settings');
 Route::post('/settings', 'HomeController@update')->name('saveSettings');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/history', 'HomeController@historyList')->name('history');
 Route::get('/groups', 'GroupController@getList')->name('groups');
 Route::get('/new-group', 'GroupController@getNew')->name('new-group');
 Route::post('/new-group', 'GroupController@postNew')->name('new-group');
@@ -27,6 +28,7 @@ Route::get('/group/{id}/details', 'GroupController@getDetails')->name('group-det
 Route::get('/group/{id}/restaurants', 'GroupController@getRestaurants')->name('group-restaurants');
 Route::get('/group/{id}/settings', 'GroupController@getSettings')->name('group-settings');
 Route::get('/group/{id}/members', 'GroupController@getMembers')->name('group-members');
+Route::get('/group/{id}/history', 'GroupController@historyList')->name('group-history');
 Route::post('/save-settings', 'GroupController@postSaveSettings')->name('save-settings');
 Route::get('/restaurants', 'RestaurantController@getList')->name('restaurants');
 Route::get('/restaurants/remove/{restaurantId}', 'RestaurantController@remove')->name('remove');

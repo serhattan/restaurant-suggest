@@ -7,10 +7,10 @@ class ActivityLog
     private $id;
     private $groupId;
     private $userId;
-    private $action;
-    private $itemId;
-    private $message;
-    private $relatedTable;
+    private $activityId;
+    private $helperId;
+    private $content;
+    private $activity;
 
     public function getId()
     {
@@ -43,44 +43,34 @@ class ActivityLog
         $this->userId = $userId;
     }
 
-    public function getAction()
+    public function getActivityId()
     {
-        return $this->action;
+        return $this->activityId;
     }
 
-    public function setAction($action)
+    public function setActivityId($activityId)
     {
-        $this->action = $action;
+        $this->activityId = $activityId;
     }
 
-    public function getItemId()
+    public function getHelperId()
     {
-        return $this->itemId;
+        return $this->helperId;
     }
 
-    public function setItemId($itemId)
+    public function setHelperId($helperId)
     {
-        $this->itemId = $itemId;
+        $this->helperId = $helperId;
     }
 
-    public function getMessage()
+    public function getContent()
     {
-        return $this->message;
+        return $this->content;
     }
 
-    public function setMessage($message)
+    public function setContent($content)
     {
-        $this->message = $message;
-    }
-
-    public function getRelatedTable()
-    {
-        return $this->relatedTable;
-    }
-
-    public function setRelatedTable($relatedTable)
-    {
-        $this->relatedTable = $relatedTable;
+        $this->content = $content;
     }
 
     public function getGroup()
@@ -101,5 +91,15 @@ class ActivityLog
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    public function getActivity()
+    {
+        return $this->activity;
+    }
+
+    public function setActivity($activity)
+    {
+        $this->activity = $activity;
     }
 }

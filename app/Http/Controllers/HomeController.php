@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Entity;
 use App\Models\UserManager;
+use App\Models\GroupUserManager;
+use App\Models\ActivityLogManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +28,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $activityLogGroups = [];
+        $groups = GroupUserManager::getGroupsByUserId(Auth::id());
+        foreach($groups as $group) {
+            $groupIdList[] = $group->getGroupId();
+        }
+        $activityLogGroups = ActivityLogManager::getActivityLogsByGroupId($groupIdList);
+        foreach($activityLogGroups as $key => $group) {
+            $activityLogGroups[$key]->setContent(
+                array_map(
+                    function($object){
+                        return (array) $object;
+                    },
+                    array(
+                        json_decode(
+                            $activityLogGroups[$key]->getContent()
+                        )
+                    )
+                )[0]
+            );
+        }
+
+        return view('home', ['activityLogGroups' => $activityLogGroups]);
     }
 
     public function settings()
@@ -49,5 +72,13 @@ class HomeController extends Controller
         }
 
         return false;
+    }
+
+    public function historyList()
+    {
+        $activityLogs = [];
+        $activityLogs = ActivityLogManager::getActivityLogsByUserId(Auth::id());
+
+        return view('pages/history', ['activityLogs' => Helper::getActivityLogs($activityLogs)]);
     }
 }

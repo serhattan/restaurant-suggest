@@ -44,7 +44,7 @@
                         <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.welcome') </a></li>
                         <li><a class="nav-link" href="{{ route('groups') }}"> @lang('messages.groups') </a></li>
                         <li><a class="nav-link" href="{{ route('restaurants') }}"> @lang('messages.restaurant') </a></li>
-                        <li><a class="nav-link" href="{{ route('home') }}"> @lang('messages.history') </a></li>
+                        <li><a class="nav-link" href="{{ route('history') }}"> @lang('messages.history') </a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">

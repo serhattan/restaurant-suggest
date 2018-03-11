@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Helper;
 use App\Models\DB\Group;
+use App\Models\DB\GroupUser;
 use App\Models\Entity;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,7 @@ class GroupManager
             })
             ->first();
 
-        if ($group instanceof Group) {
+            if ($group instanceof Group) {
             return self::map($group);
         }
 

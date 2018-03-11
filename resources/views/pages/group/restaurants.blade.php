@@ -13,7 +13,7 @@
                 @endif
                 @foreach ($group->getRestaurants() as $restaurant)
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{$restaurant->getName()}}
                                 - {{$restaurant->getAveragePrice()}}@lang('messages.currency_icon')

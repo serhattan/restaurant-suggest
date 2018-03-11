@@ -42,7 +42,7 @@ return [
     'members_count' => 'Number of Members',
     'please_enter_email' => 'Bitte geben Sie eine Email ein',
     'group_settings' => 'Gruppeneinstellungen',
-    'save_changes' => 'Änderungen speichern',
+    'save_changes' => 'Änderungen speigchern',
     'delete_group' => 'Gruppe löschen',
     'group_restaurants' => 'Gruppenrestaurants',
     'currency_icon' => '$',
@@ -50,4 +50,5 @@ return [
     'your_budget_per_restaurant' => 'Ihr Budget pro Restaurant',
     'to_update_your_budget_per_restaurant' => 'Um Ihr Budget pro Restaurant zu aktualisieren',
     'access_denied' => 'Zugriff abgelehnt',
+    'new_group_added' => 'Neue Gruppe hinzugefügt: %s'
 ];

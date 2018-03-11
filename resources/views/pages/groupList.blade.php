@@ -24,7 +24,8 @@
                        class="list-group-item small">
                         @lang('messages.restaurant')
                     </a>
-                    <a href="" class="list-group-item small">
+                    <a href="{{ route('group-history', ['id' => $group->getId()]) }}" 
+                        class="list-group-item small">
                         @lang('messages.history')
                     </a>
                     <a href="{{ route('group-settings', ['id' => $group->getId()]) }}"
