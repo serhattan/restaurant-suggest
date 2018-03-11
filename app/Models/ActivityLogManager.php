@@ -57,7 +57,11 @@ class ActivityLogManager
 
     public static function getActivityLogsByGroupId($groupId)
     {
-        $activityLogs = ActivityLog::with('activity')->whereIn('group_id', $groupId)->orderBy('created_at', 'desc')->get();
+        if (is_array($groupId)) {
+            $activityLogs = ActivityLog::with('activity')->whereIn('group_id', $groupId)->orderBy('created_at', 'desc')->get();
+        } else {
+            $activityLogs = ActivityLog::with('activity')->where('group_id', $groupId)->orderBy('created_at', 'desc')->get();            
+        }
         return self::multiMap($activityLogs);
     }
 

@@ -78,20 +78,7 @@ class HomeController extends Controller
     {
         $activityLogs = [];
         $activityLogs = ActivityLogManager::getActivityLogsByUserId(Auth::id());
-        foreach($activityLogs as $key => $group) {
-            $activityLogs[$key]->setContent(
-                array_map(
-                    function($object){
-                        return (array) $object;
-                    },
-                    array(
-                        json_decode(
-                            $activityLogs[$key]->getContent()
-                        )
-                    )
-                )[0]
-            );
-        }
-        return view('pages/history', ['activityLogs' => $activityLogs]);
+
+        return view('pages/history', ['activityLogs' => Helper::getActivityLogs($activityLogs)]);
     }
 }

@@ -55,6 +55,18 @@ class GroupController extends Controller
         return view('pages.newGroup');
     }
 
+    public function historyList($id)
+    {
+        $activityLogs = [];
+        $group = GroupManager::get($id);
+        $activityLogs = ActivityLogManager::getActivityLogsByGroupId($id);
+
+        return view('pages.group.history', [
+            'activityLogs' => Helper::getActivityLogs($activityLogs),
+            'group' => $group
+        ]);
+    }
+
     public function postNew(Request $request)
     {
         $admin = UserManager::getUserById(Auth::id());

@@ -39,6 +39,7 @@ return [
     'group_members' => 'Group Members',
     'members' => 'Members',
     'new_members' => 'New Members',
+    'new_restaurant' => 'New Restaurant',
     'add_new_members' => 'Add New Member',
     'members_count' => 'Number of Members',
     'please_enter_email' => 'Please enter email',
