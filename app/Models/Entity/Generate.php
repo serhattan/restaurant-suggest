@@ -6,10 +6,9 @@ class Generate
 {
     private $id;
     private $groupId;
-    private $group;
     private $restaurantId;
-    private $restaurant;
-    private $date;
+    private $generateDetailId;
+    private $createdAt;
 
     /**
      * @return mixed
@@ -46,22 +45,6 @@ class Generate
     /**
      * @return mixed
      */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * @param mixed $group
-     */
-    public function setGroup($group)
-    {
-        $this->group = $group;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getRestaurantId()
     {
         return $this->restaurantId;
@@ -78,32 +61,32 @@ class Generate
     /**
      * @return mixed
      */
-    public function getRestaurant()
+    public function getGenerateDetailId()
     {
-        return $this->restaurant;
+        return $this->generateDetailId;
     }
 
     /**
-     * @param mixed $restaurant
+     * @param mixed $generateDetailId
      */
-    public function setRestaurant($restaurant)
+    public function setGenerateDetailId($generateDetailId)
     {
-        $this->restaurant = $restaurant;
+        $this->generateDetailId = $generateDetailId;
     }
 
     /**
      * @return mixed
      */
-    public function getDate()
+    public function getCreatedAt()
     {
-        return $this->date;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $date
+     * @param mixed $createdAt
      */
-    public function setDate($date)
+    public function setCreatedAt($createdAt)
     {
-        $this->date = $date;
+        $this->createdAt = $createdAt;
     }
 }

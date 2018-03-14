@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenerateTable extends Migration
+class CreateGenerateDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,24 @@ class CreateGenerateTable extends Migration
      */
     public function up()
     {
-        Schema::create('generate', function (Blueprint $table) {
+        Schema::create('generate_detail', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->string('id', 32)->primary();
             $table->string('restaurant_id', 32);
             $table->string('group_id', 32);
-            $table->integer('budget');
-            $table->dateTime('date');
+            $table->float('total_score');
+            $table->integer('order_no');
+            $table->string('data');
+            $table->boolean('regenerate_status');
+            $table->enum('status', [
+                Helper::STATUS_ACTIVE,
+                Helper::STATUS_DELETED
+            ]);
             $table->timestamps();
         });
-
-        Schema::table('generate', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('group');
+        Schema::table('generate_detail', function (Blueprint $table) {
             $table->foreign('restaurant_id')->references('id')->on('restaurant');
+            $table->foreign('group_id')->references('id')->on('group');
         });
     }
 
@@ -36,6 +41,6 @@ class CreateGenerateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generate');
+        Schema::dropIfExists('generate_detail');
     }
 }

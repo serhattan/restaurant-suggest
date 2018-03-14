@@ -8,6 +8,7 @@ use App\Models\GroupUserManager;
 use App\Models\ActivityLogManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Helper;
 
 class HomeController extends Controller
 {
@@ -28,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $activityLogGroups = [];
+        $activityLogGroups = $groupIdList = [];
         $groups = GroupUserManager::getGroupsByUserId(Auth::id());
         foreach($groups as $group) {
             $groupIdList[] = $group->getGroupId();
