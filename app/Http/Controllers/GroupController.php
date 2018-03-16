@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\DB\GenerateDetail;
 use App\Models\Entity\User;
+use App\Models\GenerateDetailManager;
+use App\Models\GenerateManager;
 use App\Models\GroupManager;
 use App\Models\GroupMemberManager;
 use App\Models\ActivityLogManager;
 use App\Models\GroupUserManager;
-use App\Models\RestaurantManager;
 use App\Models\UserManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
+use App\Service\Generate\Generate;
 
 class GroupController extends Controller
 {
@@ -201,11 +203,51 @@ class GroupController extends Controller
             'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, Helper::GROUP_USER_TABLE),
             'helperId' => $userId,
             'content' => [
-                "userFullName" => $admin->getFullName(),
-                "memberFullName" => $user->getFullName()
+                'userFullName' => $admin->getFullName(),
+                'memberFullName' => $user->getFullName()
             ],
         ]);
 
         return view('pages.groups');
+    }
+
+    public function getGenerate($groupId)
+    {
+        $generateManager = new Generate();
+        $generateId = $generateManager->handle($groupId);
+
+        $generate = \App\Models\DB\Generate::with('restaurant')->where('id', $generateId)->first();
+
+        $generate = GenerateManager::map($generate);
+
+        $group = GroupManager::get($groupId);
+
+        return view('pages.group.details', ['group' => $group, 'generate' => $generate]);
+    }
+
+    public function getRegenerate($generateId)
+    {
+        $generateManager = new Generate();
+
+        $generate = \App\Models\DB\Generate::where('id', $generateId)->first();
+        $generate = GenerateManager::map($generate);
+        $newOrderNo = $generate->getOrderNo() + 1;
+
+        $generateDetail = GenerateDetail::with('restaurant')
+            ->where('group_id', $generate->getGroupId())
+            ->where('order_no', $newOrderNo)
+            ->first();
+
+        $generateDetail = GenerateDetailManager::map($generateDetail);
+
+        $generate->setRestaurantId($generateDetail->getRestaurantId());
+        $generate->setGenerateDetailId($generateDetail->getId());
+        $generate->setOrderNo($generateDetail->getOrderNo());
+        GenerateManager::save($generate);
+
+
+        $group = GroupManager::get($generate->getGroupId());
+
+        return view('pages.group.details', ['group' => $group, 'generate' => $generate]);
     }
 }

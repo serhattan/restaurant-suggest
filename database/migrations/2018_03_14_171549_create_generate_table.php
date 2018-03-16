@@ -19,6 +19,7 @@ class CreateGenerateTable extends Migration
             $table->string('restaurant_id', 32);
             $table->string('group_id', 32);
             $table->string('generate_detail_id', 32);
+            $table->integer('order_no');
             $table->timestamps();
         });
         Schema::table('generate', function (Blueprint $table) {

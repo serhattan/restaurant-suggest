@@ -13,6 +13,7 @@ class GenerateDetail
     private $regenerateStatus;
     private $status;
     private $createdAt;
+    private $restaurant;
 
     /**
      * @return mixed
@@ -156,5 +157,21 @@ class GenerateDetail
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRestaurant()
+    {
+        return $this->restaurant;
+    }
+
+    /**
+     * @param mixed $restaurant
+     */
+    public function setRestaurant($restaurant)
+    {
+        $this->restaurant = $restaurant;
     }
 }

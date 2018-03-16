@@ -8,6 +8,26 @@ use App\Models\DB;
 
 class GenerateDetailManager
 {
+    public static function map(DB\GenerateDetail $data)
+    {
+        $generateDetail = new GenerateDetail();
+
+        $generateDetail->setId($data->id);
+        $generateDetail->setOrderNo($data->order_no);
+        $generateDetail->setStatus($data->status);
+        $generateDetail->setCreatedAt($data->created_at);
+        $generateDetail->setData($data->data);
+        $generateDetail->setRegenerateStatus($data->regenerate_status);
+        $generateDetail->setRestaurantId($data->restaurant_id);
+        $generateDetail->setTotalScore($data->total_score);
+
+        if ($data->relationLoaded('restaurant') && !empty($data->restaurant)) {
+            $generateDetail->setRestaurant(RestaurantManager::map($data->restaurant));
+        }
+
+        return $generateDetail;
+    }
+
     public static function mapExternal($data)
     {
         $generateDetail = new GenerateDetail();

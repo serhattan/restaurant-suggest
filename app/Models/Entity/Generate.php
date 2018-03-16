@@ -9,6 +9,8 @@ class Generate
     private $restaurantId;
     private $generateDetailId;
     private $createdAt;
+    private $restaurant;
+    private $orderNo;
 
     /**
      * @return mixed
@@ -88,5 +90,37 @@ class Generate
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRestaurant()
+    {
+        return $this->restaurant;
+    }
+
+    /**
+     * @param mixed $restaurant
+     */
+    public function setRestaurant($restaurant)
+    {
+        $this->restaurant = $restaurant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderNo()
+    {
+        return $this->orderNo;
+    }
+
+    /**
+     * @param mixed $orderNo
+     */
+    public function setOrderNo($orderNo)
+    {
+        $this->orderNo = $orderNo;
     }
 }
