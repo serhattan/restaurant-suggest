@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\GroupUserManager;
+use Mockery\Exception;
 
 class AdminCheck
 {
@@ -17,7 +18,7 @@ class AdminCheck
     public function handle($request, Closure $next, $groupId)
     {
         if (!GroupUserManager::adminCheck($groupId)) {
-            throw new UserException(@lang('messages.ACCESS_DENIED'));
+            throw new Exception(__('messages.ACCESS_DENIED'));
         }
 
         return $next($request);

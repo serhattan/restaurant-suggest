@@ -41,7 +41,7 @@ class RestaurantController extends Controller
                     'content' => [
                         "userFullName" => $admin->getFullName(),
                         "restaurantName" => $request->get('restaurantName'),
-                        "budget" => $request->get('budget')
+                        "budget" => $request->get('budget'),
                     ]
                 ]);
 
@@ -98,7 +98,9 @@ class RestaurantController extends Controller
 
     public function addRestaurant($groupId)
     {
-        return view('pages.addRestaurant', ['groupId' => $groupId]);
+        $restaurants = RestaurantManager::getAllByGroupId($groupId);
+
+        return view('pages.addRestaurant', ['groupId' => $groupId, 'restaurants' => $restaurants]);
     }
 
     public function saveRestaurant(Request $request)
@@ -107,6 +109,7 @@ class RestaurantController extends Controller
         $restaurant = new Entity\Restaurant();
         $restaurant->setName($request->get('restaurantName'));
         $restaurant->setGroupId($request->get('groupId'));
+        $restaurant->setDistance($request->get('distance'));
         $restaurant->save($restaurant);
 
         ActivityLogManager::save([

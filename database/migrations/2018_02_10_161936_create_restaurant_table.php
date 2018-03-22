@@ -24,6 +24,7 @@ class CreateRestaurantTable extends Migration
                 Helper::STATUS_DELETED
             ]);
             $table->float('average_price');
+            $table->float('distance');
             $table->timestamps();
         });
 

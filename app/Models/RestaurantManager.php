@@ -74,6 +74,7 @@ class RestaurantManager
         $restaurant->setGroupId($restaurantData->group_id);
         $restaurant->setStatus($restaurantData->status);
         $restaurant->setAveragePrice($restaurantData->average_price);
+        $restaurant->setDistance($restaurantData->distance);
 
         if ($restaurantData->relationLoaded('restaurantUsers') && !empty($restaurantData->restaurantUsers)) {
             foreach ($restaurantData->restaurantUsers as $restaurantUser) {
@@ -130,6 +131,7 @@ class RestaurantManager
             $newRestaurant->group_id = $restaurant->getGroupId();
             $newRestaurant->status = $restaurant->getStatus();
             $newRestaurant->average_price = $restaurant->getAveragePrice();
+            $newRestaurant->distance = $restaurant->getDistance();
             $newRestaurant->save();
 
             return $restaurant->getId();
@@ -177,11 +179,9 @@ class RestaurantManager
     public static function remove($id)
     {
         if (!empty($id)) {
-            $model = DB\Restaurant::where('id', $id)
+            return DB\Restaurant::where('id', $id)
                 ->update(['status' => Helper::STATUS_DELETED]);
         }
-
-        return $model;
     }
 }
 

@@ -13,6 +13,7 @@ class Restaurant
     private $status;
     private $averagePrice;
     private $restaurantUsers;
+    private $distance;
 
     /**
      * @return mixed
@@ -107,5 +108,21 @@ class Restaurant
     public function save($restaurant)
     {
         return RestaurantManager::save($restaurant);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param mixed $distance
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
     }
 }

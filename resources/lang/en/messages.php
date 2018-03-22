@@ -74,4 +74,5 @@ return [
         because of <strong> :userFullName </strong> updated its budget",
     "Removed_restaurant" => "<h4><span class='badge badge-danger'>Restaurant Removed</span></h4>",
     "restaurant_Removed" => "<strong> :userFullName </strong> removed restaurant which name is <strong> :restaurantName </strong>",
+    'restaurant_distance' => 'Distance Unit'
 ];

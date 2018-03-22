@@ -142,7 +142,7 @@ class GroupController extends Controller
 
         if ($user instanceof User) {
             $memberId = GroupUserManager::save([
-                'userId' => $admin->getId(),
+                'userId' => $user->getId(),
                 'groupId' => $groupId
             ]);
         } else {
