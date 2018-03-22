@@ -23,9 +23,9 @@ class CreateGenerateTable extends Migration
             $table->timestamps();
         });
         Schema::table('generate', function (Blueprint $table) {
-            $table->foreign('restaurant_id')->references('id')->on('restaurant');
-            $table->foreign('group_id')->references('id')->on('group');
-            $table->foreign('generate_detail_id')->references('id')->on('generate_detail');
+            $table->foreign('restaurant_id')->references('id')->on('restaurant')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
+            $table->foreign('generate_detail_id')->references('id')->on('generate_detail')->onDelete('cascade');
         });
     }
 

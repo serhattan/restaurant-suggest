@@ -33,6 +33,8 @@ class GenerateDetailManager
         $generateDetail = new GenerateDetail();
         if (isset($data['id'])) {
             $generateDetail->setId($data['id']);            
+        } else {
+            $generateDetail->setId(Helper::generateId());
         }
         
         $generateDetail->setGroupId($data['groupId']);
@@ -52,13 +54,8 @@ class GenerateDetailManager
     public static function save(GenerateDetail $generateDetail)
     {
         $newGenerateDetail = new DB\GenerateDetail();
-        if (empty($generateDetail->getId())) {
-            $newGenerateDetail->id = Helper::generateId();
-            $generateDetail->setId($newGenerateDetail->id);
-        } else {
-            $newGenerateDetail = DB\GenerateDetail::where('id', $generateDetail->getId())->first();
-        }
-        
+
+        $newGenerateDetail->id = Helper::generateId();
         $newGenerateDetail->group_id = $generateDetail->getGroupId();
         $newGenerateDetail->restaurant_id = $generateDetail->getRestaurantId();
         $newGenerateDetail->status = $generateDetail->getStatus();

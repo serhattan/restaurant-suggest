@@ -54,12 +54,9 @@ class GenerateManager
     {
         $newGenerate = new DB\Generate();
 
-        if (empty($generate->getId())) {
-            $newGenerate->id = Helper::generateId();
-        } else {
-            $newGenerate = DB\Generate::where('id', $generate->getId())->first();
-        }
+        DB\Generate::where('group_id', $generate->getGroupId())->delete();
 
+        $newGenerate->id = Helper::generateId();
         $newGenerate->group_id = $generate->getGroupId();
         $newGenerate->generate_detail_id = $generate->getGenerateDetailId();
         $newGenerate->restaurant_id = $generate->getRestaurantId();

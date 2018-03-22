@@ -3,6 +3,7 @@
 namespace App\Service\Generate;
 
 use App\Models\DB\Group;
+use App\Models\DB\GenerateDetail;
 use App\Models\GroupManager;
 use App\Models\GenerateManager;
 use App\Models\GenerateDetailManager;
@@ -44,6 +45,9 @@ class Generate
         $restaurants = $data['restaurants'];
         $value = 0;
         $order = count($totalPointList);
+
+        GenerateDetail::where('group_id', $groupId)->delete();        
+        
         foreach ($totalPointList as $restaurant) {
             $restaurant = $restaurants[$restaurant['id']];
             $generateDetail = GenerateDetailManager::mapExternal([
@@ -59,7 +63,6 @@ class Generate
             $generateDetail = GenerateDetailManager::save($generateDetail);
             $totalPointList[$value]['generateDetailId'] = $generateDetail->id;
             $totalPointList[$value]['orderNo'] = $generateDetail->order_no;
-
             $value++;
             $order--;
         }
@@ -71,6 +74,7 @@ class Generate
                 'orderNo' => $totalPointList[$totalPointListCount - 1]['orderNo']
             ]
         );
+
         $generate = GenerateManager::save($generate);
 
         return $generate->id;
