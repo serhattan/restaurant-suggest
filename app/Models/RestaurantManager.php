@@ -114,17 +114,15 @@ class RestaurantManager
 
     public static function save(Entity\Restaurant $restaurant)
     {
+        $newRestaurant = new DB\Restaurant();
         if (Helper::isNull($restaurant->getId())) {
-            $newRestaurant = new DB\Restaurant();
             $restaurant->setId(Helper::generateId());
             $restaurant->setStatus(Helper::STATUS_ACTIVE);
             $restaurant->setAveragePrice(0.00);
+            $restaurant->setRegenerateCount(0);
         } else {
             $newRestaurant = DB\Restaurant::find($restaurant->getId());
         }
-
-        // @TODO burdaki oldValue ve newRestaurant log olarak tutualacak
-        $oldValue = self::map($newRestaurant);
 
         if ($newRestaurant instanceof DB\Restaurant) {
             $newRestaurant->id = $restaurant->getId();
@@ -133,6 +131,7 @@ class RestaurantManager
             $newRestaurant->status = $restaurant->getStatus();
             $newRestaurant->average_price = $restaurant->getAveragePrice();
             $newRestaurant->distance = $restaurant->getDistance();
+            $newRestaurant->regenerate_count = $restaurant->getRegenerateCount();
             $newRestaurant->save();
 
             return $restaurant->getId();
