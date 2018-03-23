@@ -25,6 +25,7 @@ class CreateRestaurantTable extends Migration
             ]);
             $table->float('average_price');
             $table->float('distance');
+            $table->integer('regenerate_count');
             $table->timestamps();
         });
 

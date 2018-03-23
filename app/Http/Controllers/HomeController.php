@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entity;
-use App\Models\UserManager;
-use App\Models\GroupUserManager;
-use App\Models\ActivityLogManager;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Helpers\Helper;
+use App\Models\UserManager;
+use Illuminate\Http\Request;
+use App\Models\GroupUserManager;
+use App\Service\Generate\Generate;
+use App\Models\ActivityLogManager;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -50,7 +51,9 @@ class HomeController extends Controller
             );
         }
 
-        return view('home', ['activityLogGroups' => $activityLogGroups]);
+        $generatedData = Generate::getGeneratedRestaurantByUserId(Auth::id());
+
+        return view('home', ['activityLogGroups' => $activityLogGroups, 'generatedDatas' => $generatedData]);
     }
 
     public function settings()

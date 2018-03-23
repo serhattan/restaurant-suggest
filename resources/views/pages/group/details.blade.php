@@ -15,7 +15,7 @@
                 @else
                     <li class="list-group-item">
                         <i class="fas fa-money-bill-alt"></i> {{$generate->getRestaurant()->getName()}}
-                        <a href="{{route('generate', ['groupId' => $group->getId()])}}" style="float:right; color: red !important;">
+                        <a href="{{route('regenerate', ['groupId' => $group->getId()])}}" style="float:right; color: red !important;">
                             Regenerate
                         </span>
                         </a>

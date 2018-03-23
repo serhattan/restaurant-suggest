@@ -211,15 +211,25 @@ class GroupController extends Controller
         return view('pages.groups');
     }
 
-    public function getGenerate($groupId)
+    public function getGenerate($groupId, Request $request)
     {
         $generateManager = new Generate();
+        
+        if ($request->is('regenerate/*')) {
+            $generate = $generateManager->get($groupId);
+            $restauant = $generate->getRestaurant();
+            $regenerateCount = $restauant->getRegenerateCount() + 1;
+
+            \App\Models\DB\Restaurant::where('id', $restauant->getId())
+                ->where('status', Helper::STATUS_ACTIVE)
+                ->update([
+                    'regenerate_count' => $regenerateCount
+                ]);
+        }
+
         $generateId = $generateManager->handle($groupId);
-
         $generate = \App\Models\DB\Generate::with('restaurant')->where('id', $generateId)->first();
-
         $generate = GenerateManager::map($generate);
-
         $group = GroupManager::get($groupId);
 
         return view('pages.group.details', ['group' => $group, 'generate' => $generate]);

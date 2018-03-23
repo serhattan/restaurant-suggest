@@ -39,5 +39,4 @@ Route::post('/new-member', 'GroupController@postNewMember')->name('new-member');
 Route::get('/group/delete/{groupId}', 'GroupController@getDeleteGroup')->name('group-delete');
 Route::get('/group/member/delete/{groupId}/{userId}', 'GroupController@getGroupMemberDelete')->name('group-member-delete');
 Route::get('/generate/{groupId}', 'GroupController@getGenerate')->name('generate');
-
-
+Route::get('/regenerate/{groupId}', 'GroupController@getGenerate')->name('regenerate');

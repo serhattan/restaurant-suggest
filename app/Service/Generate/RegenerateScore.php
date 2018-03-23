@@ -2,28 +2,29 @@
 
 namespace App\Service\Generate;
 
-class TotalScore
+class RegenerateScore
 {
-    const NAME = 'totalScore';
+    const NAME = 'regenerateScore';
 
     private $data;
     private $rate;
     private $restaurants;
-    private $budget;
 
     public function __construct($data, $rate)
     {
         $this->data = $data;
         $this->rate = $rate;
         $this->restaurants = $this->data['restaurants'];
-        $this->budget = $this->data['budget'];
     }
 
     public function handle()
     {
         foreach ($this->restaurants as $restaurant) {
-            $total = $restaurant['priceRatioPoint'] - $restaurant['regenerateScore'];
-            $this->restaurants[$restaurant['id']][self::NAME] = $total;
+            if (round(count($this->restaurants)/2) > $restaurant['regenerateCount']) {
+                $this->restaurants[$restaurant['id']][self::NAME] = $restaurant['regenerateCount'] * $this->rate * 2;                
+            } else {
+                $this->restaurants[$restaurant['id']][self::NAME] = $restaurant['regenerateCount'] * $this->rate;
+            }
         }
 
         $this->data['restaurants'] = $this->restaurants;

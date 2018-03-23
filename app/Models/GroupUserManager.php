@@ -30,6 +30,7 @@ class GroupUserManager
     public static function getGroupsByUserId($userId)
     {
         $groups = DB\GroupUser::select('group_id')
+            ->with('group')
             ->where('user_id', $userId)
             ->groupBy('group_id')
             ->get();
@@ -55,6 +56,9 @@ class GroupUserManager
             $newGroupUser->setUser(UserManager::map($groupUser->user));
         }
 
+        if ($groupUser->relationLoaded('group') && !empty($groupUser->group)) {
+            $newGroupUser->setGroup(GroupManager::map($groupUser->group));
+        }
         return $newGroupUser;
     }
 

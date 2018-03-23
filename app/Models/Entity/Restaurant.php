@@ -12,6 +12,7 @@ class Restaurant
     private $group;
     private $status;
     private $averagePrice;
+    private $regenerateCount;
     private $restaurantUsers;
     private $distance;
 
@@ -93,6 +94,16 @@ class Restaurant
     public function setAveragePrice($averagePrice)
     {
         $this->averagePrice = $averagePrice;
+    }
+
+    public function getRegenerateCount()
+    {
+        return $this->regenerateCount;
+    }
+
+    public function setRegenerateCount($regenerateCount)
+    {
+        $this->regenerateCount = $regenerateCount;
     }
 
     public function getRestaurantUsers()

@@ -2,13 +2,16 @@
 
 namespace App\Service\Generate;
 
-use App\Models\DB\Group;
+use App\Models\DB;
 use App\Models\DB\GenerateDetail;
 use App\Models\GroupManager;
 use App\Models\GenerateManager;
+use App\Models\GroupUserManager;
+use App\Models\RestaurantManager;
 use App\Models\GenerateDetailManager;
 use App\Helpers\Helper;
 use App\Models\Entity;
+use Illuminate\Support\Facades\Auth;
 
 class Generate
 {
@@ -20,8 +23,12 @@ class Generate
             'rate' => 20
         ],
         [
+            'name' => 'App\Service\Generate\RegenerateScore',
+            'rate' => 80
+        ],
+        [
             'name' => 'App\Service\Generate\TotalScore',
-            'rate' => 20
+            'rate' => 0
         ]
     ];
 
@@ -31,7 +38,7 @@ class Generate
      */
     public function handle($groupId)
     {
-        $group = Group::with('restaurants')->where('id', $groupId)->first();
+        $group = DB\Group::with('restaurants')->where('id', $groupId)->first();
         $group = GroupManager::map($group);
         $data = $this->map($group);
 
@@ -80,6 +87,26 @@ class Generate
         return $generate->id;
     }
 
+    public function get($groupId)
+    {
+        return self::externalMap(DB\Generate::with('restaurant')->where('group_id', $groupId)->first());
+    }
+
+    public static function getGeneratedRestaurantByUserId($userId)
+    {
+        $groupUsers = GroupUserManager::getGroupsByUserId($userId);
+
+        foreach($groupUsers as $groupUser) {
+            $generate = DB\Generate::with('restaurant')->where('group_id', $groupUser->getGroupId())->first();
+            $generatedData[] = [
+                "groupName" => $groupUser->getGroup()->getName(),
+                "generatedRestaurant" => self::externalMap($generate)->getRestaurant()->getName()
+            ];
+        }
+
+        return $generatedData;
+    }
+
     /**
      * @param Entity\Group $group
      * @return array
@@ -95,11 +122,28 @@ class Generate
         foreach ($group->getRestaurants() as $restaurant) {
             $data['restaurants'][$restaurant->getId()] = [
                 'id' => $restaurant->getId(),
-                'averagePrice' => $restaurant->getAveragePrice()
+                'averagePrice' => $restaurant->getAveragePrice(),
+                'regenerateCount' => $restaurant->getRegenerateCount()
             ];
         }
 
         return $data;
+    }
+
+    public static function externalMap(DB\Generate $generateData)
+    {
+        $generate = new Entity\Generate();
+        $generate->setId($generateData->id);
+        $generate->setGroupId($generateData->group_id);
+        $generate->setRestaurantId($generateData->restaurant_id);
+        $generate->setGenerateDetailId($generateData->generate_detail_id);
+        $generate->setOrderNo($generateData->order_no);
+
+        if ($generateData->relationLoaded('restaurant') && !empty($generateData->restaurant)) {
+            $generate->setRestaurant(RestaurantManager::map($generateData->restaurant));
+        }
+
+        return $generate;
     }
 
     /**

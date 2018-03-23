@@ -75,6 +75,7 @@ class RestaurantManager
         $restaurant->setStatus($restaurantData->status);
         $restaurant->setAveragePrice($restaurantData->average_price);
         $restaurant->setDistance($restaurantData->distance);
+        $restaurant->setRegenerateCount($restaurantData->regenerate_count);
 
         if ($restaurantData->relationLoaded('restaurantUsers') && !empty($restaurantData->restaurantUsers)) {
             foreach ($restaurantData->restaurantUsers as $restaurantUser) {

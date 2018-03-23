@@ -11,7 +11,30 @@
             @endif
             <div class="card card-default" style="margin-top: 30px;">
                 <div class="card-header">@lang('messages.home')</div>
-
+                @foreach ($generatedDatas as $generatedData)
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                            <h1 class="display-4">
+                                <span style="color: #553F7A;">{{$generatedData['generatedRestaurant']}}</span>
+                            </h1>
+                            <p class="lead">
+                            <strong>{{$generatedData['groupName']}} </strong>Grubu için üretilen restorant tavsiyesidir
+                            </p>
+                            <hr class="my-4">
+                                <p>
+                                    Yeni bir tavsiye almak için grubun detay sayfasına gidebilir, üretilen restorant hakkında görüşünüzü aşağıdan belirtebilirsiniz
+                                </p>
+                                <p class="lead">
+                                    <a href="#">
+                                        <i class="far fa-thumbs-up fa-2x"></i>
+                                    </a>
+                                    <a href="#" style="margin-left:20px;">
+                                        <i class="far fa-thumbs-down fa-2x"></i>
+                                    </a>
+                                </p>
+                        </div>
+                    </div>
+                @endforeach
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success">
