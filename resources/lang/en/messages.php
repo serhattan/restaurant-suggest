@@ -7,6 +7,7 @@ return [
     'groups' => 'Groups',
     'restaurant' => 'Restaurants',
     'history' => 'History',
+    'restaurant_generate' => 'Generate',
     'settings' => 'Settings',
     'logged_in' => 'You are logged in',
     'save_button' => 'Submit',

@@ -5,6 +5,7 @@ return [
     'home' => 'Anasayfa',
     'groups' => 'Gruplar',
     'restaurant' => 'Restoranlar',
+    'restaurant_generate' => 'Oluştur',
     'history' => 'Geçmiş',
     'settings' => 'Ayarlar',
     'logged_in' => 'Giriş yaptınız',

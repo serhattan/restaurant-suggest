@@ -213,7 +213,7 @@ class GroupController extends Controller
         return view('pages.groups');
     }
 
-    public function getGenerate($groupId)
+    public function getRegenerate($groupId)
     {
         $generate = new Generate();
 
@@ -235,29 +235,14 @@ class GroupController extends Controller
         return view('pages.group.details', ['group' => $group, 'generate' => $generatedRestaurant]);
     }
 
-    public function getRegenerate($generateId)
+    public function getGenerate($groupId)
     {
-        $generateManager = new Generate();
+        $generate = new Generate();
+        $generatedId = $generate->handle($groupId);
+        $generatedRestaurant = \App\Models\DB\Generate::with('restaurant')->where('id', $generatedId)->first();
+        $generatedRestaurant = GenerateManager::map($generatedRestaurant);
+        $group = GroupManager::get($groupId);
 
-        $generate = \App\Models\DB\Generate::where('id', $generateId)->first();
-        $generate = GenerateManager::map($generate);
-        $newOrderNo = $generate->getOrderNo() + 1;
-
-        $generateDetail = GenerateDetail::with('restaurant')
-            ->where('group_id', $generate->getGroupId())
-            ->where('order_no', $newOrderNo)
-            ->first();
-
-        $generateDetail = GenerateDetailManager::map($generateDetail);
-
-        $generate->setRestaurantId($generateDetail->getRestaurantId());
-        $generate->setGenerateDetailId($generateDetail->getId());
-        $generate->setOrderNo($generateDetail->getOrderNo());
-        GenerateManager::save($generate);
-
-
-        $group = GroupManager::get($generate->getGroupId());
-
-        return view('pages.group.details', ['group' => $group, 'generate' => $generate]);
+        return view('pages.group.details', ['group' => $group, 'generate' => $generatedRestaurant]);
     }
 }
