@@ -240,8 +240,23 @@ class GroupController extends Controller
     public function getGenerate($groupId)
     {
         $generate = new Generate();
-        $generatedId = $generate->handle($groupId);
-        $generatedRestaurant = \App\Models\DB\Generate::with('restaurant')->where('id', $generatedId)->first();
+        $generatedValue = \App\Models\DB\Generate::where('group_id', $groupId)->first();
+
+        if (empty($generatedValue)) {
+            $generate->handle($groupId);
+        } else {
+            $generatedValue = GenerateManager::map($generatedValue);
+            $orderNo = $generatedValue->getOrderNo() + 1;
+            $newGenerate = \App\Models\DB\GenerateDetail::where(['group_id' => $groupId, 'order_no' => $orderNo])->first();
+
+            if (!empty($newGenerate)) {
+                GenerateManager::saveForGenerateDetail(GenerateDetailManager::map($newGenerate));
+            } else {
+                $generate->handle($groupId);                
+            }
+        }
+        
+        $generatedRestaurant = \App\Models\DB\Generate::with('restaurant')->where('group_id', $groupId)->first();
         $generatedRestaurant = GenerateManager::map($generatedRestaurant);
         $group = GroupManager::get($groupId);
 

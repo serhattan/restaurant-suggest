@@ -13,6 +13,7 @@ class GenerateDetailManager
         $generateDetail = new GenerateDetail();
 
         $generateDetail->setId($data->id);
+        $generateDetail->setGroupId($data->group_id);
         $generateDetail->setOrderNo($data->order_no);
         $generateDetail->setStatus($data->status);
         $generateDetail->setCreatedAt($data->created_at);

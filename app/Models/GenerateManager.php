@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Helper;
 use App\Models\Entity\Generate;
+use App\Models\Entity\GenerateDetail;
 use App\Models\DB;
 
 class GenerateManager
@@ -53,14 +54,35 @@ class GenerateManager
     public static function save(Generate $generate)
     {
         $newGenerate = new DB\Generate();
-
-        DB\Generate::where('group_id', $generate->getGroupId())->delete();
+        
+        self::removeGenerate($generate->getGroupId());
 
         $newGenerate->id = Helper::generateId();
         $newGenerate->group_id = $generate->getGroupId();
         $newGenerate->generate_detail_id = $generate->getGenerateDetailId();
         $newGenerate->restaurant_id = $generate->getRestaurantId();
         $newGenerate->order_no = $generate->getOrderNo();
+        $newGenerate->save();
+
+        return $newGenerate;
+    }
+
+    public static function removeGenerate($groupId)
+    {
+        return DB\Generate::where('group_id', $groupId)->delete();
+    }
+
+    public static function saveForGenerateDetail(GenerateDetail $generateDetail)
+    {
+        $newGenerate = new DB\Generate();
+
+        self::removeGenerate($generateDetail->getGroupId());
+
+        $newGenerate->id = Helper::generateId();
+        $newGenerate->group_id = $generateDetail->getGroupId();
+        $newGenerate->generate_detail_id = $generateDetail->getId();
+        $newGenerate->restaurant_id = $generateDetail->getRestaurantId();
+        $newGenerate->order_no = $generateDetail->getOrderNo();
         $newGenerate->save();
 
         return $newGenerate;
