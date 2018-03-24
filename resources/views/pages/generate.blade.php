@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (empty($groupUsers))
+                <div class="alert alert-danger" role="alert">
+                    Herhangi bir grup bulunamadığı için generate işlemi yapılamıyor!
+                </div>
+            @endif
             @foreach($groupUsers as $groupUser)
                 <div class="card" style="margin-top: 30px;">
                     <div class="card-body">

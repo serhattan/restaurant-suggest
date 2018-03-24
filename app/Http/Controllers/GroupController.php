@@ -27,7 +27,9 @@ class GroupController extends Controller
     {
         $group = GroupManager::get($id);
         $generate = \App\Models\DB\Generate::with('restaurant')->where('group_id', $group->getId())->first();
-        $generate = GenerateManager::map($generate);
+        if (!empty($generate)) {
+            $generate = GenerateManager::map($generate);
+        }
 
         return view('pages.group.details', ['group' => $group, 'generate' => $generate]);
     }
