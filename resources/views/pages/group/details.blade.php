@@ -5,19 +5,11 @@
         <div class="card card-default">
             <div class="card-header">{{ $group->getName() }} - @lang('messages.group_details')</div>
             <div class="card-body">
-                @if(!isset($generate))
-                    <h1>
-                        <a href="{{route('generate', ['groupId' => $group->getId()])}}" class="btn" 
-                            style="background-color: #553F7A; color: #fff !important;">
-                            Generate
-                        </a>
-                    </h1>
-                @else
+                @if(isset($generate))
                     <li class="list-group-item">
                         <i class="fas fa-money-bill-alt"></i> {{$generate->getRestaurant()->getName()}}
                         <a href="{{route('regenerate', ['groupId' => $group->getId()])}}" style="float:right; color: red !important;">
                             Regenerate
-                        </span>
                         </a>
                     </li>
                 @endif
