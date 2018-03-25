@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Helper;
 use App\Models\Entity\Generate;
+use App\Models\Entity\GenerateUserlike;
 use App\Models\Entity\GenerateDetail;
 use App\Models\DB;
 
@@ -27,6 +28,24 @@ class GenerateManager
         }
 
         return $generate;
+    }
+
+    public static function generateUserLikeMap(DB\GenerateUserLike $data)
+    {
+        $generateUserLike = new GenerateUserLike();
+        $generateUserLike->setId($data->id);
+        $generateUserLike->userId($data->user_id);
+        $generateUserLike->generateId($data->generate_id);
+
+        if ($data->relationLoaded('user') && !empty($data->user)) {
+            $generateUserLike->setUser(UserManager::map($user));
+        }
+
+        if ($data->relationLoaded('generate') && !empty($data->generate)) {
+            $generateUserLike->setGenerate(GenerateManager::map($generate));
+        }
+
+        return $generateUserLike;
     }
 
     /**
