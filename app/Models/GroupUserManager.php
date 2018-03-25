@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helpers\Helper;
 use App\Models\DB\GroupUser;
 use App\Models\Entity;
+use Illuminate\Support\Facades\Auth;
 
 class GroupUserManager
 {
@@ -86,9 +87,11 @@ class GroupUserManager
         $groupUser = DB\GroupUser::where('user_id', Auth::id())
             ->where('group_id', $groupId)
             ->first();
-        
-        if (!empty($groupUser)) {
-            return true;
+
+        if ($groupUser instanceof DB\GroupUser) {
+            $groupUser = GroupUserManager::map($groupUser);
+
+           return $groupUser->getIsAdmin();
         }
 
         return false;

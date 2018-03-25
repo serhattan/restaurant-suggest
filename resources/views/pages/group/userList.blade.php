@@ -16,15 +16,18 @@
                     </div>
                 </form>
             </div>
-        </div><br>
+        </div>
+        <br>
         <div class="card card-default">
             <div class="card-header">@lang('messages.group_members')</div>
             <div class="card-body">
                 @foreach($group->getUsers() as $user)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ $user->getUser()->getFullName() }}
-                        <a href="{{ route('group-member-delete', ['userId' => $user->getUserId(), 'groupId' => $group->getId() ]) }}"><i
-                                    class="fas fa-times-circle"></i></a>
+
+                        <a href="{{ route('group-member-delete', ['userId' => $user->getUserId(), 'id' => $group->getId(), 'groupId' => $group->getId() ]) }}">
+                            <i class="fas fa-times-circle"></i>
+                        </a>
                     </li>
                 @endforeach
             </div>

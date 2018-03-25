@@ -73,6 +73,7 @@ class Generate
             $value++;
             $order--;
         }
+
         $generate = GenerateManager::mapExternal(
             [
                 'groupId' => $groupId,
@@ -100,21 +101,22 @@ class Generate
 
     public static function getGeneratedRestaurantByUserId($userId)
     {
-        $generatedData = [];
         $groupUsers = GroupUserManager::getGroupsByUserId($userId);
 
-        foreach($groupUsers as $groupUser) {
+        $generatedData = [];
+        foreach ($groupUsers as $groupUser) {
             $generatedRestaurant = null;
             $generate = DB\Generate::with('restaurant')->where('group_id', $groupUser->getGroupId())->first();
 
             if (!empty($generate)) {
                 $generatedRestaurant = self::externalMap($generate)->getRestaurant()->getName();
             }
-            
+
             $generatedData[] = [
-                "groupName" => $groupUser->getGroup()->getName(),
-                "generatedRestaurant" => $generatedRestaurant
+                'groupName' => $groupUser->getGroup()->getName(),
+                'generatedRestaurant' => $generatedRestaurant
             ];
+
         }
 
         return $generatedData;

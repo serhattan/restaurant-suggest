@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Models\GroupUserManager;
+use Closure;
 use Mockery\Exception;
 
-class AdminCheck
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,12 @@ class AdminCheck
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $groupId)
+    public function handle($request, Closure $next)
     {
+        $groupId = $request->get('id');
         if (!GroupUserManager::adminCheck($groupId)) {
-            throw new Exception(__('messages.ACCESS_DENIED'));
+            throw new Exception(__('messages.access_denied'));
         }
-
         return $next($request);
     }
 }
