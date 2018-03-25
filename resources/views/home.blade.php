@@ -18,6 +18,14 @@
                                     <h1 class="display-4">
                                         <span style="color: #553F7A;">{{$generatedData['generatedRestaurant']}}</span>
                                     </h1>
+                                    <h6 class="jumbotron-subtitle mb-2 text-muted">
+                                        @for ($i = 0; $i < $generatedData['likeCount']; $i++)
+                                            <i class="far fa-thumbs-up"></i>
+                                        @endfor
+                                        @for ($i = 0; $i < $generatedData['dislikeCount']; $i++)
+                                            <i class="far fa-thumbs-down"></i>
+                                        @endfor
+                                    </h6>
                                     <p class="lead">
                                     <strong>{{$generatedData['groupName']}} </strong>Grubu için üretilen restorant tavsiyesidir
                                     </p>
@@ -25,14 +33,24 @@
                                         <p>
                                             Yeni bir tavsiye almak için grubun detay sayfasına gidebilir, üretilen restorant hakkında görüşünüzü aşağıdan belirtebilirsiniz
                                         </p>
-                                        <p class="lead">
-                                            <a href="#">
-                                                <i class="far fa-thumbs-up fa-2x"></i>
-                                            </a>
-                                            <a href="#" style="margin-left:20px;">
-                                                <i class="far fa-thumbs-down fa-2x"></i>
-                                            </a>
-                                        </p>
+                                        @if (empty($generatedData['isLike']))
+                                            <p class="lead">
+                                                <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'like' ]) }}">
+                                                    <i class="far fa-thumbs-up fa-2x"></i>
+                                                </a>
+                                                <a style="margin-left:20px;"
+                                                    href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'dislike' ]) }}">
+                                                    <i class="far fa-thumbs-down fa-2x"></i>
+                                                </a>
+                                            </p>
+                                        @else
+                                            <span style="visibility: hidden;">
+                                                {{ $generatedData['isLike'] == 'like' ? ($class = 'fa-thumbs-up') : ($class = 'fa-thumbs-down') }}
+                                            </span>
+                                            <p class="lead">
+                                                You <i class='far {{$class}} fa-2x'></i> this generate
+                                            </p>
+                                        @endif
                                 </div>
                             </div>
                         @endif

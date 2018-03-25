@@ -18,7 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::group(['prefix' => '/home'], function () {
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/{generateId}/{isLike}', 'HomeController@likeAction')->name('likeAction');
+    });
     Route::group(['prefix' => '/settings'], function () {
         Route::get('/', 'HomeController@settings')->name('settings');
         Route::post('/', 'HomeController@update')->name('saveSettings');

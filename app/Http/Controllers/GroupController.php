@@ -219,7 +219,7 @@ class GroupController extends Controller
     {
         $generate = new Generate();
 
-        $generated = $generate->get($groupId);
+        $generated = GenerateManager::get($groupId);
         $restauant = $generated->getRestaurant();
         $regenerateCount = $restauant->getRegenerateCount() + 1;
 

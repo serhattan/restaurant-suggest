@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Helpers\Helper;
 
 class CreateGenerateUserLike extends Migration
 {
@@ -18,6 +19,10 @@ class CreateGenerateUserLike extends Migration
             $table->string('id', 32)->primary();
             $table->string('generate_id', 32);
             $table->string('user_id', 32);
+            $table->enum('isLike', [
+                Helper::LIKE,
+                Helper::DISLIKE
+            ]);
             $table->timestamps();
         });
         Schema::table('generate_user_like', function (Blueprint $table) {

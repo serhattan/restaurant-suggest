@@ -6,8 +6,8 @@ use App\Models\Entity;
 use App\Helpers\Helper;
 use App\Models\UserManager;
 use Illuminate\Http\Request;
+use App\Models\GenerateManager;
 use App\Models\GroupUserManager;
-use App\Service\Generate\Generate;
 use App\Models\ActivityLogManager;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,9 +51,15 @@ class HomeController extends Controller
             );
         }
 
-        $generatedData = Generate::getGeneratedRestaurantByUserId(Auth::id());
+        $generatedData = GenerateManager::getGeneratedRestaurantByUserId(Auth::id());
 
         return view('home', ['activityLogGroups' => $activityLogGroups, 'generatedDatas' => $generatedData]);
+    }
+
+    public function likeAction($generateId, $isLike)
+    {
+        GenerateManager::saveGenerateUserLike($generateId, $isLike);
+        return redirect('home');
     }
 
     public function settings()

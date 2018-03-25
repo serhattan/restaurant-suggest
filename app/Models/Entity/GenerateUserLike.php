@@ -9,6 +9,7 @@ class GenerateUserLike
     private $userId;
     private $user;
     private $generate;
+    private $isLike;
 
     /**
      * @return mixed
@@ -76,5 +77,15 @@ class GenerateUserLike
     public function setGenerate($generate)
     {
         $this->generate = $generate;
+    }
+
+    public function getIsLike()
+    {
+        return $this->isLike;
+    }
+
+    public function setIsLike($isLike)
+    {
+        $this->isLike = $isLike;
     }
 }
