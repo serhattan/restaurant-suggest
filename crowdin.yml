@@ -1,0 +1,3 @@
+files:
+  - source: /resources/lang/
+    translation: /resources/lang/%locale%/%file_name%.php
