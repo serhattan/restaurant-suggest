@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entity;
+use App\Helpers\Helper;
 use App\Models\UserManager;
+use Illuminate\Http\Request;
+use App\Models\GenerateManager;
 use App\Models\GroupUserManager;
 use App\Models\ActivityLogManager;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -28,7 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $activityLogGroups = [];
+        $activityLogGroups = $groupIdList = [];
         $groups = GroupUserManager::getGroupsByUserId(Auth::id());
         foreach($groups as $group) {
             $groupIdList[] = $group->getGroupId();
@@ -49,7 +51,15 @@ class HomeController extends Controller
             );
         }
 
-        return view('home', ['activityLogGroups' => $activityLogGroups]);
+        $generatedData = GenerateManager::getGeneratedRestaurantByUserId(Auth::id());
+
+        return view('home', ['activityLogGroups' => $activityLogGroups, 'generatedDatas' => $generatedData]);
+    }
+
+    public function likeAction($generateId, $isLike)
+    {
+        GenerateManager::saveGenerateUserLike($generateId, $isLike);
+        return redirect('home');
     }
 
     public function settings()

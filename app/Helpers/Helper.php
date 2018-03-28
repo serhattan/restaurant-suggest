@@ -24,6 +24,8 @@ class Helper
     const GROUP_MEMBER_TABLE = 'group_member';
     const GROUP_TABLE = 'group';
     const GENERATE_TABLE = 'generate';
+    const LIKE = 'like';
+    const DISLIKE = 'dislike';
 
     public static function generateId($len = 32)
     {

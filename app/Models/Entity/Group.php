@@ -109,7 +109,7 @@ class Group
     }
 
     /**
-     * @return mixed
+     * @return Restaurant[]
      */
     public function getRestaurants()
     {

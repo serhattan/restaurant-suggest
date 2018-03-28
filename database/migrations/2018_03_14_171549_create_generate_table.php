@@ -18,14 +18,14 @@ class CreateGenerateTable extends Migration
             $table->string('id', 32)->primary();
             $table->string('restaurant_id', 32);
             $table->string('group_id', 32);
-            $table->integer('budget');
-            $table->dateTime('date');
+            $table->string('generate_detail_id', 32);
+            $table->integer('order_no');
             $table->timestamps();
         });
-
         Schema::table('generate', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('group');
-            $table->foreign('restaurant_id')->references('id')->on('restaurant');
+            $table->foreign('restaurant_id')->references('id')->on('restaurant')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
+            $table->foreign('generate_detail_id')->references('id')->on('generate_detail')->onDelete('cascade');
         });
     }
 

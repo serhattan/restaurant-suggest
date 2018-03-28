@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Helpers\Helper;
 
-class CreateRestaurantTable extends Migration
+class CreateGenerateDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,23 +14,24 @@ class CreateRestaurantTable extends Migration
      */
     public function up()
     {
-        Schema::create('restaurant', function (Blueprint $table) {
+        Schema::create('generate_detail', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->string('id', 32)->primary();
+            $table->string('restaurant_id', 32);
             $table->string('group_id', 32);
-            $table->string('name', 32);
+            $table->float('total_score');
+            $table->integer('order_no');
+            $table->string('data');
+            $table->boolean('regenerate_status');
             $table->enum('status', [
                 Helper::STATUS_ACTIVE,
                 Helper::STATUS_DELETED
             ]);
-            $table->float('average_price');
-            $table->float('distance');
-            $table->integer('regenerate_count')->default(0);
             $table->timestamps();
         });
-
-        Schema::table('restaurant', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('group');
+        Schema::table('generate_detail', function (Blueprint $table) {
+            $table->foreign('restaurant_id')->references('id')->on('restaurant')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });
     }
 
@@ -41,6 +42,6 @@ class CreateRestaurantTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('restaurant');
+        Schema::dropIfExists('generate_detail');
     }
 }

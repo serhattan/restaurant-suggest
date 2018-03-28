@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helpers\Helper;
 use App\Models\DB\GroupUser;
 use App\Models\Entity;
+use Illuminate\Support\Facades\Auth;
 
 class GroupUserManager
 {
@@ -30,6 +31,7 @@ class GroupUserManager
     public static function getGroupsByUserId($userId)
     {
         $groups = DB\GroupUser::select('group_id')
+            ->with('group')
             ->where('user_id', $userId)
             ->groupBy('group_id')
             ->get();
@@ -55,6 +57,9 @@ class GroupUserManager
             $newGroupUser->setUser(UserManager::map($groupUser->user));
         }
 
+        if ($groupUser->relationLoaded('group') && !empty($groupUser->group)) {
+            $newGroupUser->setGroup(GroupManager::map($groupUser->group));
+        }
         return $newGroupUser;
     }
 
@@ -82,9 +87,11 @@ class GroupUserManager
         $groupUser = DB\GroupUser::where('user_id', Auth::id())
             ->where('group_id', $groupId)
             ->first();
-        
-        if (!empty($groupUser)) {
-            return true;
+
+        if ($groupUser instanceof DB\GroupUser) {
+            $groupUser = GroupUserManager::map($groupUser);
+
+           return $groupUser->getIsAdmin();
         }
 
         return false;

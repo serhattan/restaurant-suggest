@@ -12,7 +12,9 @@ class Restaurant
     private $group;
     private $status;
     private $averagePrice;
+    private $regenerateCount;
     private $restaurantUsers;
+    private $distance;
 
     /**
      * @return mixed
@@ -94,6 +96,16 @@ class Restaurant
         $this->averagePrice = $averagePrice;
     }
 
+    public function getRegenerateCount()
+    {
+        return $this->regenerateCount;
+    }
+
+    public function setRegenerateCount($regenerateCount)
+    {
+        $this->regenerateCount = $regenerateCount;
+    }
+
     public function getRestaurantUsers()
     {
         return $this->restaurantUsers;
@@ -107,5 +119,21 @@ class Restaurant
     public function save($restaurant)
     {
         return RestaurantManager::save($restaurant);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param mixed $distance
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
     }
 }

@@ -5,6 +5,7 @@ return [
     'home' => 'Anasayfa',
     'groups' => 'Gruplar',
     'restaurant' => 'Restoranlar',
+    'restaurant_generate' => 'Oluştur',
     'history' => 'Geçmiş',
     'settings' => 'Ayarlar',
     'logged_in' => 'Giriş yaptınız',
@@ -50,5 +51,6 @@ return [
     'your_budget_per_restaurant' => 'Her bir restoran için bütçe',
     'to_update_your_budget_per_restaurant' => 'Her bir restoran için bütçeyi güncelleme',
     'access_denied' => 'Yetkisiz erişim',
-    'new_group_added' => 'Yeni grup eklendi: %s'
+    'new_group_added' => 'Yeni grup eklendi: %s',
+    'restaurant_distance' => 'Uzaklık Birimi'
 ];
