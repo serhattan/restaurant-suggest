@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-
 class Helper
 {
     const English = 'en';
@@ -35,25 +34,5 @@ class Helper
     public static function isNull($data = null)
     {
         return $data === null || $data === '';
-    }
-
-    public static function getActivityLogs($activityLogs)
-    {
-        foreach($activityLogs as $key => $group) {
-            $activityLogs[$key]->setContent(
-                array_map(
-                    function($object){
-                        return (array) $object;
-                    },
-                    array(
-                        json_decode(
-                            $activityLogs[$key]->getContent()
-                        )
-                    )
-                )[0]
-            );
-        }
-
-        return $activityLogs;
     }
 }

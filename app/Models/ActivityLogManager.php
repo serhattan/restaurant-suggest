@@ -2,17 +2,49 @@
 
 namespace App\Models;
 
-use App\Models\DB\ActivityLog;
+use App\Models\DB\ActivityLog as DBActivityLog;
+use App\Models\Entity\ActivityLog as EntityActivityLog;
 use App\Models\DB\Activity;
-use App\Models\Entity;
-use App\Helpers\Helper;
 use Illuminate\Support\Facades\DB;
+use App\Models\Entity;
 
 class ActivityLogManager
 {
-    public static function map(ActivityLog $activityLogData)
+    /**
+     * @param $id
+     * @return array
+     */
+    public static function getByGroupId($id)
     {
-        $activityLog = new Entity\ActivityLog();
+        $activityLogs = DBActivityLog::with('activity')
+            ->where('group_id', $id)
+            ->orderByDesc('created_at')
+            ->get();
+
+        return self::multiMap($activityLogs);
+    }
+
+    /**
+     * @param $groupIdList
+     * @return array
+     */
+    public static function getByGroupIdList($groupIdList)
+    {
+        $activityLogs = DBActivityLog::with('activity')
+            ->whereIn('group_id', $groupIdList)
+            ->orderByDesc('created_at')
+            ->get();
+
+        return self::multiMap($activityLogs);
+    }
+
+    /**
+     * @param DBActivityLog $activityLogData
+     * @return EntityActivityLog
+     */
+    public static function map(DBActivityLog $activityLogData)
+    {
+        $activityLog = new EntityActivityLog();
         $activityLog->setId($activityLogData->id);
         $activityLog->setGroupId($activityLogData->group_id);
         $activityLog->setUserId($activityLogData->user_id);
@@ -35,6 +67,10 @@ class ActivityLogManager
         return $activityLog;
     }
 
+    /**
+     * @param Activity $activityData
+     * @return Entity\Activity
+     */
     public static function activityMap(Activity $activityData)
     {
         $activity = new Entity\Activity();
@@ -45,6 +81,10 @@ class ActivityLogManager
         return $activity;
     }
 
+    /**
+     * @param $activityLogs
+     * @return array
+     */
     public static function multiMap($activityLogs)
     {
         $activityLogList = [];
@@ -55,25 +95,18 @@ class ActivityLogManager
         return $activityLogList;
     }
 
-    public static function getActivityLogsByGroupId($groupId)
-    {
-        if (is_array($groupId)) {
-            $activityLogs = ActivityLog::with('activity')->whereIn('group_id', $groupId)->orderBy('created_at', 'desc')->get();
-        } else {
-            $activityLogs = ActivityLog::with('activity')->where('group_id', $groupId)->orderBy('created_at', 'desc')->get();            
-        }
-        return self::multiMap($activityLogs);
-    }
+
 
     public static function getActivityLogsByUserId($userId)
     {
-        $activityLogs = ActivityLog::with('activity')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        $activityLogs = DBActivityLog::with('activity')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+
         return self::multiMap($activityLogs);
     }
 
     public static function save($activityLog)
     {
-        $model = new ActivityLog();
+        $model = new DBActivityLog();
         $model->id = $activityLog['id'];
         $model->group_id = $activityLog['groupId'];
         $model->user_id = $activityLog['userId'];
@@ -86,7 +119,9 @@ class ActivityLogManager
 
     public static function getActivity($name, $table)
     {
-        $activity = DB::table('activity')->where('name', $name)->where('table', $table)->first();
+        $activity = Activity::where('name', $name)
+            ->where('table', $table)
+            ->first();
 
         if (!empty($activity)) {
             return $activity->id;

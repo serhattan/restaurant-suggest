@@ -30,26 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $activityLogGroups = $groupIdList = [];
+        $groupIdList = [];
         $groups = GroupUserManager::getGroupsByUserId(Auth::id());
-        foreach($groups as $group) {
+        foreach ($groups as $group) {
             $groupIdList[] = $group->getGroupId();
         }
-        $activityLogGroups = ActivityLogManager::getActivityLogsByGroupId($groupIdList);
-        foreach($activityLogGroups as $key => $group) {
-            $activityLogGroups[$key]->setContent(
-                array_map(
-                    function($object){
-                        return (array) $object;
-                    },
-                    array(
-                        json_decode(
-                            $activityLogGroups[$key]->getContent()
-                        )
-                    )
-                )[0]
-            );
-        }
+
+        $activityLogGroups = ActivityLogManager::getByGroupIdList($groupIdList);
 
         $generatedData = GenerateManager::getGeneratedRestaurantByUserId(Auth::id());
 
@@ -59,25 +46,24 @@ class HomeController extends Controller
     public function likeAction($generateId, $isLike)
     {
         GenerateManager::saveGenerateUserLike($generateId, $isLike);
+
         return redirect('home');
     }
 
     public function settings()
     {
-        return view('pages/settings');
+        return view('pages.settings');
     }
 
     public function update(Request $request)
     {
-        $user = new Entity\User();
-        $user->setId(Auth::id());
+        $language = $request->get('language');
+        if (!empty($language)) {
 
-        if (!empty($request->get('language'))) {
-            session(['language' => $request->get('language')]);
-            $user->setLanguage($request->get('language'));
-        }
+            UserManager::updateLanguage(Auth::id(), $language);
 
-        if(UserManager::update($user)) {
+            session(['language' => $language]);
+
             return redirect('settings');
         }
 
@@ -86,9 +72,8 @@ class HomeController extends Controller
 
     public function historyList()
     {
-        $activityLogs = [];
-        $activityLogs = ActivityLogManager::getActivityLogsByUserId(Auth::id());
-
-        return view('pages/history', ['activityLogs' => Helper::getActivityLogs($activityLogs)]);
+        return view('pages.history', [
+            'activityLogs' => ActivityLogManager::getActivityLogsByUserId(Auth::id())
+        ]);
     }
 }

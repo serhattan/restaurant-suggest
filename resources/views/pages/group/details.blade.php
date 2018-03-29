@@ -5,9 +5,9 @@
         <div class="card card-default">
             <div class="card-header">{{ $group->getName() }} - @lang('messages.group_details')</div>
             <div class="card-body">
-                @if(isset($generate))
+                @if(!empty($group->getGenerate()))
                     <li class="list-group-item">
-                        <i class="fas fa-money-bill-alt"></i> {{$generate->getRestaurant()->getName()}}
+                        <i class="fas fa-money-bill-alt"></i> {{$group->getGenerate()->getRestaurant()->getName()}}
                         <a href="{{route('regenerate', ['groupId' => $group->getId()])}}" style="float:right; color: red !important;">
                             Regenerate
                         </a>

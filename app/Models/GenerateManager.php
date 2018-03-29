@@ -63,11 +63,11 @@ class GenerateManager
         $generateUserLike->setIsLike($data->isLike);
 
         if ($data->relationLoaded('user') && !empty($data->user)) {
-            $generateUserLike->setUser(UserManager::map($user));
+            $generateUserLike->setUser(UserManager::map($data->user));
         }
 
         if ($data->relationLoaded('generate') && !empty($data->generate)) {
-            $generateUserLike->setGenerate(GenerateManager::map($generate));
+            $generateUserLike->setGenerate(GenerateManager::map($data->generate));
         }
 
         return $generateUserLike;
@@ -111,7 +111,7 @@ class GenerateManager
     public static function save(Generate $generate)
     {
         $newGenerate = new DB\Generate();
-        
+
         self::removeGenerate($generate->getGroupId());
 
         $newGenerate->id = Helper::generateId();
@@ -148,7 +148,7 @@ class GenerateManager
     public static function get($groupId)
     {
         $generate = DB\Generate::with('restaurant')->where('group_id', $groupId)->first();
-        
+
         if (!empty($generate)) {
             return self::externalMap($generate);
         }
@@ -163,40 +163,38 @@ class GenerateManager
 
         foreach ($groupUsers as $groupUser) {
             $generatedRestaurant = null;
-            $likeCount = 0;
-            $dislikeCount = 0;
+            $likeCount = $dislikeCount = 0;
 
             $generate = DB\Generate::with('restaurant')->where('group_id', $groupUser->getGroupId())->first();
             if (!empty($generate)) {
-                $isLike =  false;
+                $isLike = false;
 
                 $generate = self::externalMap($generate);
                 $generatedRestaurant = $generate->getRestaurant()->getName();
-                $generateUserLike = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'user_id' => $userId])->first();                
+                $generateUserLike = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'user_id' => $userId])->first();
 
                 if (!empty($generateUserLike)) {
                     $generateUserLike = GenerateManager::generateUserLikeMap($generateUserLike);
                     $isLike = $generateUserLike->getIsLike();
 
-                    $likeCount = DB\GenerateUserLike::where(['generate_id' => $generate->getId() , 'isLike' => Helper::LIKE])->count();
-                    $dislikeCount = DB\GenerateUserLike::where(['generate_id' => $generate->getId() , 'isLike' => Helper::DISLIKE])->count();
+                    $likeCount = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'isLike' => Helper::LIKE])->count();
+                    $dislikeCount = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'isLike' => Helper::DISLIKE])->count();
                 }
+
+                $generatedData[] = [
+                    'generateId' => $generate->getId(),
+                    'generatedRestaurant' => $generatedRestaurant,
+                    'isLike' => $isLike,
+                    'likeCount' => $likeCount,
+                    'dislikeCount' => $dislikeCount,
+                    'groupName' => $groupUser->getGroup()->getName()
+                ];
             }
-            
-            $generatedData[] = [
-                'generateId' => $generate->getId(),
-                'generatedRestaurant' => $generatedRestaurant,
-                'isLike' => $isLike,
-                'likeCount' => $likeCount,
-                'dislikeCount' => $dislikeCount,
-                'groupName' => $groupUser->getGroup()->getName()
-            ];
         }
 
         return $generatedData;
     }
 
-    
 
     public static function externalMap(DB\Generate $generateData)
     {

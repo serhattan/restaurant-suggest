@@ -28,4 +28,9 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\DB\ActivityLog', 'group_id', 'id');
     }
+
+    public function generate()
+    {
+        return $this->hasOne('App\Models\DB\Generate', 'group_id', 'id');
+    }
 }
