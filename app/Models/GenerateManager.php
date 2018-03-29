@@ -8,6 +8,7 @@ use App\Models\Entity\Generate;
 use App\Models\Entity\GenerateUserLike;
 use App\Models\Entity\GenerateDetail;
 use Illuminate\Support\Facades\Auth;
+use App\Service\Generate\Generate as GenerateService;
 
 class GenerateManager
 {
@@ -145,12 +146,45 @@ class GenerateManager
         return $newGenerate;
     }
 
+    public static function generate($groupId)
+    {
+        $generated = self::get($groupId);
+
+        if (empty($generated)) {
+            $generateService = new GenerateService();            
+            $generateService->handle($groupId);
+        } else {
+            $orderNo = $generated->getOrderNo() + 1;
+            $generateDetail = GenerateDetailManager::get($groupId, $orderNo);
+            $data = [
+                'groupId' => $generateDetail->getGroupId(),
+                'restaurantId' => $generateDetail->getRestaurantId(),
+                'generateDetailId' => $generateDetail->getId(),
+                'orderNo' => $generateDetail->getOrderNo()
+            ];
+
+            self::save(self::mapExternal($data));
+        }
+    }
+
+    public static function regenerate($groupId)
+    {
+        $generateService = new GenerateService();
+
+        $generated = self::get($groupId);
+        $restaurant = $generated->getRestaurant();
+        $restaurant->setRegenerateCount($restaurant->getRegenerateCount() + 1);
+        RestaurantManager::save($restaurant);
+
+        $generateService->handle($groupId);
+    }
+
     public static function get($groupId)
     {
         $generate = DB\Generate::with('restaurant')->where('group_id', $groupId)->first();
-
+        
         if (!empty($generate)) {
-            return self::externalMap($generate);
+            return self::map($generate);
         }
 
         return false;
@@ -169,7 +203,7 @@ class GenerateManager
             if (!empty($generate)) {
                 $isLike = false;
 
-                $generate = self::externalMap($generate);
+                $generate = self::map($generate);
                 $generatedRestaurant = $generate->getRestaurant()->getName();
                 $generateUserLike = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'user_id' => $userId])->first();
 
@@ -193,22 +227,5 @@ class GenerateManager
         }
 
         return $generatedData;
-    }
-
-
-    public static function externalMap(DB\Generate $generateData)
-    {
-        $generate = new Entity\Generate();
-        $generate->setId($generateData->id);
-        $generate->setGroupId($generateData->group_id);
-        $generate->setRestaurantId($generateData->restaurant_id);
-        $generate->setGenerateDetailId($generateData->generate_detail_id);
-        $generate->setOrderNo($generateData->order_no);
-
-        if ($generateData->relationLoaded('restaurant') && !empty($generateData->restaurant)) {
-            $generate->setRestaurant(RestaurantManager::map($generateData->restaurant));
-        }
-
-        return $generate;
     }
 }

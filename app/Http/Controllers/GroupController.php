@@ -107,49 +107,21 @@ class GroupController extends Controller
 
     public function getRegenerate($groupId)
     {
-        $generate = new Generate();
+        GenerateManager::regenerate($groupId);
 
-        $generated = GenerateManager::get($groupId);
-        $restauant = $generated->getRestaurant();
-        $regenerateCount = $restauant->getRegenerateCount() + 1;
-
-        \App\Models\DB\Restaurant::where('id', $restauant->getId())
-            ->where('status', Helper::STATUS_ACTIVE)
-            ->update([
-                'regenerate_count' => $regenerateCount
-            ]);
-
-        $generatedId = $generate->handle($groupId);
-        $generatedRestaurant = \App\Models\DB\Generate::with('restaurant')->where('id', $generatedId)->first();
-        $generatedRestaurant = GenerateManager::map($generatedRestaurant);
-        $group = GroupManager::get($groupId);
-
-        return view('pages.group.details', ['group' => $group, 'generate' => $generatedRestaurant]);
+        return view('pages.group.details', [
+            'group' => GroupManager::get($groupId),
+            'generate' => GenerateManager::get($groupId)
+        ]);
     }
 
     public function getGenerate($groupId)
     {
-        $generate = new Generate();
-        $generatedValue = \App\Models\DB\Generate::where('group_id', $groupId)->first();
-
-        if (empty($generatedValue)) {
-            $generate->handle($groupId);
-        } else {
-            $generatedValue = GenerateManager::map($generatedValue);
-            $orderNo = $generatedValue->getOrderNo() + 1;
-            $newGenerate = \App\Models\DB\GenerateDetail::where(['group_id' => $groupId, 'order_no' => $orderNo])->first();
-
-            if (!empty($newGenerate)) {
-                GenerateManager::saveForGenerateDetail(GenerateDetailManager::map($newGenerate));
-            } else {
-                $generate->handle($groupId);
-            }
-        }
-
-        $generatedRestaurant = \App\Models\DB\Generate::with('restaurant')->where('group_id', $groupId)->first();
-        $generatedRestaurant = GenerateManager::map($generatedRestaurant);
-        $group = GroupManager::get($groupId);
-
-        return view('pages.group.details', ['group' => $group, 'generate' => $generatedRestaurant]);
+        GenerateManager::generate($groupId);
+        
+        return view('pages.group.details', [
+            'group' => GroupManager::get($groupId),
+            'generate' => GenerateManager::get($groupId)
+        ]);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use App\Helpers\Helper;
-use App\Models\Entity\GenerateDetail;
 use App\Models\DB;
+use App\Helpers\Helper;
+use App\Models\GenerateManager;
+use App\Models\Entity\GenerateDetail;
+use App\Service\Generate\Generate as GenerateService;
 
 class GenerateDetailManager
 {
@@ -27,6 +29,19 @@ class GenerateDetailManager
         }
 
         return $generateDetail;
+    }
+
+    public static function get($groupId, $orderNo = 1)
+    {
+        $newGenerate = DB\GenerateDetail::where(['group_id' => $groupId, 'order_no' => $orderNo])->first();
+
+        if (empty($newGenerate)) {
+            $generateService = new GenerateService();
+            $generateService->handle($groupId);
+            $newGenerate = DB\GenerateDetail::where(['group_id' => $groupId, 'order_no' => 1])->first();
+        }
+
+        return self::map($newGenerate);
     }
 
     public static function mapExternal($data)
