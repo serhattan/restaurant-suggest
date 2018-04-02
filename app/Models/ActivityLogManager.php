@@ -38,6 +38,17 @@ class ActivityLogManager
         return self::multiMap($activityLogs);
     }
 
+    public static function getUserGroupsActivityLogs($userId)
+    {
+        $groupIdList = [];
+        $groups = GroupUserManager::getGroupsByUserId($userId);
+        foreach ($groups as $group) {
+            $groupIdList[] = $group->getGroupId();
+        }
+
+        return self::getByGroupIdList($groupIdList);
+    }
+
     /**
      * @param DBActivityLog $activityLogData
      * @return EntityActivityLog

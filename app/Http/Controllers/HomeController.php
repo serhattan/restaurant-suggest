@@ -30,17 +30,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $groupIdList = [];
-        $groups = GroupUserManager::getGroupsByUserId(Auth::id());
-        foreach ($groups as $group) {
-            $groupIdList[] = $group->getGroupId();
-        }
-
-        $activityLogGroups = ActivityLogManager::getByGroupIdList($groupIdList);
-
-        $generatedData = GenerateManager::getGeneratedRestaurantByUserId(Auth::id());
-
-        return view('home', ['activityLogGroups' => $activityLogGroups, 'generatedDatas' => $generatedData]);
+        return view('home', [
+            'activityLogGroups' => ActivityLogManager::getUserGroupsActivityLogs(Auth::id()),
+            'generatedDatas' => GenerateManager::getGeneratedRestaurantByUserId(Auth::id())
+        ]);
     }
 
     public function likeAction($generateId, $isLike)
@@ -57,11 +50,10 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
-        $language = $request->get('language');
+        $language = $request->get('language');    
         if (!empty($language)) {
 
             UserManager::updateLanguage(Auth::id(), $language);
-
             session(['language' => $language]);
 
             return redirect('settings');
