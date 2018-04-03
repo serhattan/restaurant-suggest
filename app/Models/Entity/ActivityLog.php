@@ -70,7 +70,17 @@ class ActivityLog
 
     public function setContent($content)
     {
-        $this->content = $content;
+        $this->content = collect(array_map(
+            function ($object) {
+                return (array)$object;
+            },
+            array(
+                json_decode(
+                    $content
+                )
+            )
+        ))->first();
+
     }
 
     public function getGroup()

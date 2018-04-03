@@ -38,10 +38,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/settings', 'GroupController@getSettings')->name('group-settings');
         Route::get('/members', 'GroupController@getMembers')->name('group-members');
         Route::get('/history', 'GroupController@historyList')->name('group-history');
-        Route::group(['middleware' => ['isAdmin']], function () {
-            Route::get('/delete/{groupId}', 'GroupController@getDeleteGroup')->name('group-delete');
+
+        //Route::group(['middleware' => ['isAdmin']], function () {
+            Route::get('/delete', 'GroupController@getDeleteGroup')->name('group-delete');
             Route::get('/member/delete/{groupId}/{userId}', 'GroupController@getGroupMemberDelete')->name('group-member-delete');
-        });
+        //});
     });
 
     Route::group(['prefix' => '/restaurants'], function () {

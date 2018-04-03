@@ -11,6 +11,7 @@ class Group
     private $status;
     private $users;
     private $restaurants = [];
+    private $generate;
 
     /**
      * @return mixed
@@ -122,5 +123,21 @@ class Group
     public function setRestaurants($restaurants)
     {
         $this->restaurants[] = $restaurants;
+    }
+
+    /**
+     * @return Generate
+     */
+    public function getGenerate()
+    {
+        return $this->generate;
+    }
+
+    /**
+     * @param mixed $generate
+     */
+    public function setGenerate($generate)
+    {
+        $this->generate = $generate;
     }
 }

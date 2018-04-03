@@ -80,12 +80,10 @@ class UserManager
         return false;
     }
 
-    public static function update(Entity\User $user)
+    public static function updateLanguage($userId, $language)
     {
-        if ($user->getId()) {
-            $model = DB\User::where('id', $user->getId())
-                ->update(['language' => $user->getLanguage()]);
-        }
+        $model = DB\User::where('id', $userId)
+            ->update(['language' => $language]);
 
         return $model;
     }

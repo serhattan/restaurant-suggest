@@ -21,7 +21,7 @@
                                name="budget" value="{{  $group->getBudget() }}" required autofocus>
                     </div>
                     <button type="submit" class="btn btn-primary bg-dark border-dark"> @lang('messages.save_changes')</button>
-                    <a href="{{ route('group-delete', ['groupId' => $group->getId()]) }}"
+                    <a href="{{ route('group-delete', ['id' => $group->getId()]) }}"
                        class="btn btn-danger text-white float-right">
                         @lang('messages.delete_group')
                     </a>

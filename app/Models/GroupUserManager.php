@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Helper;
 use App\Models\DB\GroupUser;
+use App\Models\DB\User;
 use App\Models\Entity;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,7 +80,27 @@ class GroupUserManager
 
     public static function delete($groupId, $userId)
     {
-        return GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
+        $user = UserManager::getUserById($userId);
+
+        if ($user instanceof User) {
+            GroupUserManager::delete($groupId, $userId);
+
+            $delete = GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
+
+            ActivityLogManager::save([
+                'id' => Helper::generateId(),
+                'groupId' => $groupId,
+                'userId' => Auth::id(),
+                'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, Helper::GROUP_USER_TABLE),
+                'helperId' => $userId,
+                'content' => [
+                    'userFullName' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                    'memberFullName' => $user->getFullName()
+                ],
+            ]);
+        }
+
+        return $delete;
     }
 
     public static function adminCheck($groupId)
