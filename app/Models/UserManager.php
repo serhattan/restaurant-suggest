@@ -82,8 +82,8 @@ class UserManager
 
     public static function updateLanguage($userId, $language)
     {
-        $model = DB\User::where('id', $userId)
-            ->update(['language' => $language]);
+        session(['language' => $language]);
+        $model = DB\User::where('id', $userId)->update(['language' => $language]);
 
         return $model;
     }

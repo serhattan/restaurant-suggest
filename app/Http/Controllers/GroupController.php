@@ -69,12 +69,13 @@ class GroupController extends Controller
 
     public function postSaveSettings(Request $request)
     {
-        $groupId = $request->get('groupId');
-        $group = GroupManager::map(GroupManager::save([
-            'id' => $groupId,
-            'name' => $request->get('name'),
-            'budget' => $request->get('budget')
-        ]));
+        $group = GroupManager::map(
+            GroupManager::save([
+                'id' => $request->get('groupId'),
+                'name' => $request->get('name'),
+                'budget' => $request->get('budget')
+            ])
+        );
 
         return view('pages.group.settings', ['group' => $group]);
     }
@@ -82,13 +83,9 @@ class GroupController extends Controller
     public function postNewMember(Request $request)
     {
         $groupId = $request->get('groupId');
-        $email = $request->get('email');
+        GroupManager::newGroupUser($groupId, $request->get('email'));
 
-        GroupManager::newGroupUser($groupId, $email);
-
-        $group = GroupManager::get($groupId);
-
-        return view('pages.group.details', ['group' => $group]);
+        return view('pages.group.details', ['group' => GroupManager::get($groupId)]);
     }
 
     public function getDeleteGroup($id)
@@ -118,7 +115,7 @@ class GroupController extends Controller
     public function getGenerate($groupId)
     {
         GenerateManager::generate($groupId);
-        
+
         return view('pages.group.details', [
             'group' => GroupManager::get($groupId),
             'generate' => GenerateManager::get($groupId)
