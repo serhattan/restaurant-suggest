@@ -29,7 +29,7 @@ class GroupUserManager
         return $newGroupUser->id;
     }
 
-    public static function getGroupsByUserId($userId)
+    public static function getByUserId($userId)
     {
         $groups = DB\GroupUser::select('group_id')
             ->with('group')
@@ -79,7 +79,7 @@ class GroupUserManager
 
     public static function delete($groupId, $userId)
     {
-        $user = UserManager::getUserById($userId);
+        $user = UserManager::getById($userId);
 
         if ($user instanceof User) {
             GroupUserManager::delete($groupId, $userId);

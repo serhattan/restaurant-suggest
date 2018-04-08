@@ -28,14 +28,14 @@ class HomeController extends Controller
     public function index()
     {
         return view('home', [
-            'activityLogGroups' => ActivityLogManager::getUserGroupsActivityLogs(Auth::id()),
-            'generatedDatas' => GenerateManager::getGeneratedRestaurantByUserId(Auth::id())
+            'activityLogGroups' => ActivityLogManager::getUserGroups(Auth::id()),
+            'generatedDatas' => GenerateManager::getByUserId(Auth::id())
         ]);
     }
 
     public function likeAction($generateId, $isLike)
     {
-        GenerateManager::saveGenerateUserLike($generateId, $isLike);
+        GenerateManager::saveUserLike($generateId, $isLike);
 
         return redirect('home');
     }
@@ -55,7 +55,7 @@ class HomeController extends Controller
     public function historyList()
     {
         return view('pages.history', [
-            'activityLogs' => ActivityLogManager::getActivityLogsByUserId(Auth::id())
+            'activityLogs' => ActivityLogManager::getByUserId(Auth::id())
         ]);
     }
 }

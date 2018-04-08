@@ -37,10 +37,17 @@ class ActivityLogManager
         return self::multiMap($activityLogs);
     }
 
-    public static function getUserGroupsActivityLogs($userId)
+    public static function getByUserId($userId)
+    {
+        $activityLogs = DBActivityLog::with('activity')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+
+        return self::multiMap($activityLogs);
+    }
+
+    public static function getUserGroups($userId)
     {
         $groupIdList = [];
-        $groups = GroupUserManager::getGroupsByUserId($userId);
+        $groups = GroupUserManager::getByUserId($userId);
         foreach ($groups as $group) {
             $groupIdList[] = $group->getGroupId();
         }
@@ -103,15 +110,6 @@ class ActivityLogManager
         }
 
         return $activityLogList;
-    }
-
-
-
-    public static function getActivityLogsByUserId($userId)
-    {
-        $activityLogs = DBActivityLog::with('activity')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
-
-        return self::multiMap($activityLogs);
     }
 
     public static function save($activityLog)

@@ -55,7 +55,7 @@ class GenerateManager
         return $data;
     }
 
-    public static function generateUserLikeMap(DB\GenerateUserLike $data)
+    public static function mapUserLike(DB\GenerateUserLike $data)
     {
         $generateUserLike = new GenerateUserLike();
         $generateUserLike->setId($data->id);
@@ -74,7 +74,7 @@ class GenerateManager
         return $generateUserLike;
     }
 
-    public static function saveGenerateUserLike($generateId, $isLike)
+    public static function saveUserLike($generateId, $isLike)
     {
         $generateUserLike = new DB\GenerateUserLike();
 
@@ -113,7 +113,7 @@ class GenerateManager
     {
         $newGenerate = new DB\Generate();
 
-        self::removeGenerate($generate->getGroupId());
+        self::remove($generate->getGroupId());
 
         $newGenerate->id = Helper::generateId();
         $newGenerate->group_id = $generate->getGroupId();
@@ -125,7 +125,7 @@ class GenerateManager
         return $newGenerate;
     }
 
-    public static function removeGenerate($groupId)
+    public static function remove($groupId)
     {
         return DB\Generate::where('group_id', $groupId)->delete();
     }
@@ -134,7 +134,7 @@ class GenerateManager
     {
         $newGenerate = new DB\Generate();
 
-        self::removeGenerate($generateDetail->getGroupId());
+        self::remove($generateDetail->getGroupId());
 
         $newGenerate->id = Helper::generateId();
         $newGenerate->group_id = $generateDetail->getGroupId();
@@ -190,10 +190,10 @@ class GenerateManager
         return false;
     }
 
-    public static function getGeneratedRestaurantByUserId($userId)
+    public static function getByUserId($userId)
     {
         $generatedData = [];
-        $groupUsers = GroupUserManager::getGroupsByUserId($userId);
+        $groupUsers = GroupUserManager::getByUserId($userId);
 
         foreach ($groupUsers as $groupUser) {
             $generatedRestaurant = null;
@@ -208,7 +208,7 @@ class GenerateManager
                 $generateUserLike = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'user_id' => $userId])->first();
 
                 if (!empty($generateUserLike)) {
-                    $generateUserLike = GenerateManager::generateUserLikeMap($generateUserLike);
+                    $generateUserLike = self::mapUserLike($generateUserLike);
                     $isLike = $generateUserLike->getIsLike();
 
                     $likeCount = DB\GenerateUserLike::where(['generate_id' => $generate->getId(), 'isLike' => Helper::LIKE])->count();
