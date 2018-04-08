@@ -90,7 +90,7 @@ class UserManager
 
     public static function save(Entity\User $user)
     {
-        if (!Helper::isNull($user->getId())) {
+        if (!empty($user->getId())) {
             $model = DB\User::find($user->getId());
         }
 
