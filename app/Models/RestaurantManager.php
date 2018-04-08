@@ -11,13 +11,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class RestaurantManager
 {
+    /**
+     * @param $id
+     * @return Entity\Restaurant
+     */
     public static function getRestaurantById($id)
     {
-        $restaurant = DB\Restaurant::where('id', $id)->first();
+        $restaurant = DB\Restaurant::find($id);
 
-        return self::map($restaurant);
+        if ($restaurant instanceof DB\Restaurant) {
+            return self::map($restaurant);
+        }
     }
 
+    /**
+     * @param $groupId
+     * @return Entity\Restaurant[]
+     */
     public static function getAllByGroupId($groupId)
     {
         $restaurants = DB\Restaurant::where([
@@ -28,6 +38,9 @@ class RestaurantManager
         return self::multiMap($restaurants);
     }
 
+    /**
+     * @return array
+     */
     public static function getAllRestaurantsOfUser()
     {
         $restaurantsGroup = [];
@@ -37,11 +50,9 @@ class RestaurantManager
             },
             'restaurants' => function ($q) {
                 $q->where('status', Helper::STATUS_ACTIVE);
-                $q->with([
-                    'restaurantUsers' => function ($query) {
-                        $query->where('user_id', Auth::id());
-                    }
-                ]);
+            },
+            'restaurants.restaurantUsers' => function ($query) {
+                $query->where('user_id', Auth::id());
             }
         ])
         ->where('status', Helper::STATUS_ACTIVE)
@@ -49,7 +60,7 @@ class RestaurantManager
             $query->where('user_id', Auth::id());
             $query->where('status', Helper::STATUS_ACTIVE);
         })
-        ->orderBy('created_at', 'desc')
+        ->orderByDesc('created_at')
         ->get();
 
         foreach ($restaurants as $restaurant) {
@@ -73,6 +84,10 @@ class RestaurantManager
         return $list;
     }
 
+    /**
+     * @param DB\Restaurant $restaurantData
+     * @return Entity\Restaurant
+     */
     public static function map(DB\Restaurant $restaurantData)
     {
         $restaurant = new Entity\Restaurant();
@@ -93,6 +108,10 @@ class RestaurantManager
         return $restaurant;
     }
 
+    /**
+     * @param DB\RestaurantUser $restaurantUserData
+     * @return Entity\RestaurantUser
+     */
     public static function mapRestaurantUsers(DB\RestaurantUser $restaurantUserData)
     {
         $restaurantUser = new Entity\RestaurantUser();
@@ -105,6 +124,10 @@ class RestaurantManager
         return $restaurantUser;
     }
 
+    /**
+     * @param $restaurantData
+     * @return Entity\Restaurant
+     */
     public static function mapExternalRestaurant($restaurantData)
     {
         $restaurant = new Entity\Restaurant();

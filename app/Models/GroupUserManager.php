@@ -37,8 +37,7 @@ class GroupUserManager
             ->groupBy('group_id')
             ->get();
 
-        $mappedGroup = self::multiMap($groups);
-        return $mappedGroup;
+        return self::multiMap($groups);
     }
 
     /**

@@ -2,16 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DB\RestaurantUser;
-use App\Models\Entity;
-use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use App\Models\RestaurantManager;
-use App\Models\UserManager;
-use App\Models\ActivityLogManager;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 
 class RestaurantController extends Controller
 {
