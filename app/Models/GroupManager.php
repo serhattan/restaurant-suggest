@@ -193,7 +193,7 @@ class GroupManager
                 'groupId' => $groupId
             ]);
         } else {
-            $memberId = GroupMemberManager::save([
+            $groupMember = GroupMemberManager::save([
                 'groupId' => $groupId,
                 'email' => $email,
                 'invitorId' => Auth::id()
@@ -205,7 +205,7 @@ class GroupManager
             'groupId' => $groupId,
             'userId' => Auth::id(),
             'activityId' => ActivityLogManager::getActivity(Helper::ADD, Helper::GROUP_USER_TABLE),
-            'helperId' => $memberId,
+            'helperId' => $groupMember->id,
             'content' => [
                 "userFullName" => Auth::user()->first_name . ' ' . Auth::user()->last_name,
                 "memberEmail" => $email
