@@ -8,7 +8,8 @@ class GenerateController extends Controller
 {
     public function generateList()
     {
-        $groupUsers = GroupUserManager::getGroupsByUserId(Auth::id());
-        return view('pages.generate', ['groupUsers' => $groupUsers]);
+        return view('pages.generate', [
+            'groupUsers' => GroupUserManager::getGroupsByUserId(Auth::id())
+        ]);
     }
 }

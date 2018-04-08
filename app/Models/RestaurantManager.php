@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\DB;
 use App\Models\Entity;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
@@ -79,14 +80,14 @@ class RestaurantManager
 
         if ($restaurantData->relationLoaded('restaurantUsers') && !empty($restaurantData->restaurantUsers)) {
             foreach ($restaurantData->restaurantUsers as $restaurantUser) {
-                $restaurant->setRestaurantUsers(self::restaurantUsersMap($restaurantUser));
+                $restaurant->setRestaurantUsers(self::mapRestaurantUsers($restaurantUser));
             }
         }
 
         return $restaurant;
     }
 
-    public static function restaurantUsersMap(DB\RestaurantUser $restaurantUserData)
+    public static function mapRestaurantUsers(DB\RestaurantUser $restaurantUserData)
     {
         $restaurantUser = new Entity\RestaurantUser();
         $restaurantUser->setId($restaurantUserData->id);
@@ -94,6 +95,66 @@ class RestaurantManager
         $restaurantUser->setUserId($restaurantUserData->user_id);
         $restaurantUser->setBudget($restaurantUserData->budget);
         $restaurantUser->setStatus($restaurantUserData->status);
+
+        return $restaurantUser;
+    }
+
+    public static function mapExternalRestaurant($restaurantData)
+    {
+        $restaurant = new Entity\Restaurant();
+        if (isset($restaurantData['name'])) {
+            $restaurant->setName($restaurantData['name']);
+        }
+
+        if (isset($restaurantData['groupId'])) {
+            $restaurant->setGroupId($restaurantData['groupId']);
+        }
+
+        if (isset($restaurantData['status'])) {
+            $restaurant->setStatus($restaurantData['status']);
+        }
+
+        if (isset($restaurantData['averagePrice'])) {
+            $restaurant->setAveragePrice($restaurantData['averagePrice']);
+        }
+
+        if (isset($restaurantData['distance'])) {
+            $restaurant->setDistance($restaurantData['distance']);
+        }
+
+        if (isset($restaurantData['regenerateCount'])) {
+            $restaurant->setRegenerateCount($restaurantData['regenerateCount']);
+        }
+
+        if (isset($restaurantData['restaurantUsers'])) {
+            $restaurant->setRestaurantUsers($restaurantData['restaurantUsers']);
+        }
+
+        return $restaurant;
+    }
+
+    public static function mapExternalRestaurantUsers($restaurantUserData)
+    {
+        $restaurantUser = new Entity\RestaurantUser();
+        if (isset($restaurantUserData['id'])) {
+            $restaurantUser->setId($restaurantUserData['id']);
+        }
+
+        if (isset($restaurantUserData['restaurantId'])) {
+            $restaurantUser->setRestaurantId($restaurantUserData['restaurantId']);
+        }
+
+        if (isset($restaurantUserData['userId'])) {
+            $restaurantUser->setUserId($restaurantUserData['userId']);
+        }
+
+        if (isset($restaurantUserData['budget'])) {
+            $restaurantUser->setBudget($restaurantUserData['budget']);
+        }
+        
+        if (isset($restaurantUserData['status'])) {
+            $restaurantUser->setStatus($restaurantUserData['status']);
+        }
 
         return $restaurantUser;
     }
@@ -134,6 +195,19 @@ class RestaurantManager
             $newRestaurant->regenerate_count = $restaurant->getRegenerateCount();
             $newRestaurant->save();
 
+            $user = UserManager::getUserById(Auth::id());
+            ActivityLogManager::save([
+                'id' => Helper::generateId(),
+                'groupId' => $restaurant->getGroupId(),
+                'userId'=> $user->getId(),
+                'activityId' => ActivityLogManager::getActivity(Helper::ADD, Helper::RESTAURANT_TABLE),
+                'helperId' => $restaurant->getId(),
+                'content' => [
+                    "userFullName" => $user->getFullName(),
+                    "restaurantName" => $restaurant->getName()
+                ],
+            ]);
+
             return $restaurant->getId();
         }
     }
@@ -146,22 +220,79 @@ class RestaurantManager
 
         if (!empty($restaurantId) && !empty($budget)) {
             if (self::getRestaurantUser($restaurantId, $userId)) {
-                $newRestaurantModel = DB\RestaurantUser::where('restaurant_id', $restaurantId)
+                $newRestaurantUserModel = DB\RestaurantUser::where('restaurant_id', $restaurantId)
                     ->where('user_id', $userId)
                     ->where('status', Helper::STATUS_ACTIVE)
                     ->update(['budget' => $budget]);
             } else {
-                $newRestaurantModel = new DB\RestaurantUser();
-                $newRestaurantModel->id = Helper::generateId();
-                $newRestaurantModel->user_id = $userId;
-                $newRestaurantModel->restaurant_id = $restaurantId;
-                $newRestaurantModel->budget = $budget;
-                $newRestaurantModel->status = Helper::STATUS_ACTIVE;
-                $newRestaurantModel->save();
+                $newRestaurantUserModel = new DB\RestaurantUser();
+                $newRestaurantUserModel->id = Helper::generateId();
+                $newRestaurantUserModel->user_id = $userId;
+                $newRestaurantUserModel->restaurant_id = $restaurantId;
+                $newRestaurantUserModel->budget = $budget;
+                $newRestaurantUserModel->status = Helper::STATUS_ACTIVE;
+                $newRestaurantUserModel->save();
             }
+
+            $restaurant = self::getRestaurantById($restaurantId);
+            ActivityLogManager::save([
+                'id' => Helper::generateId(),
+                'groupId' => $restaurant->getGroupId(),
+                'userId'=> Auth::id(),
+                'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, Helper::RESTAURANT_USER_TABLE),
+                'helperId' => $restaurantId,
+                'content' => [
+                    "userFullName" => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                    "restaurantName" => $restaurant->getName(),
+                    "budget" => $budget,
+                ]
+            ]);
 
             return $restaurantId;
         }
+    }
+
+
+    public static function saveBudget($request)
+    {
+        if (!empty($request->get('restaurantId')) && is_numeric($request->get('budget'))) {
+            $restaurantId = self::saveRestaurantUser(
+                self::mapExternalRestaurantUsers([
+                    'restaurantId' => $request->get('restaurantId'),
+                    'budget' => $request->get('budget')
+                ])
+            );
+
+            if (!empty($restaurantId)) {
+
+                $averagePrice = Facades\DB::select('select AVG(budget) as budget from restaurant_user where restaurant_id = ?', [$restaurantId])[0]->budget;
+
+                $restaurant = \App\Models\DB\Restaurant::where('id', $restaurantId)
+                    ->where('status', Helper::STATUS_ACTIVE);
+                $restaurant->update([
+                    'average_price' => $averagePrice
+                ]);
+
+                $restaurant = self::map($restaurant->first());
+
+                ActivityLogManager::save([
+                    'id' => Helper::generateId(),
+                    'groupId' => $restaurant->getGroupId(),
+                    'userId'=> Auth::id(),
+                    'activityId' => ActivityLogManager::getActivity(Helper::UPDATE, Helper::RESTAURANT_TABLE),
+                    'helperId' => $restaurantId,
+                    'content' => [
+                        "userFullName" => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                        "restaurantName" => $request->get('restaurantName'),
+                        "averageBudget" => $averagePrice
+                    ]
+                ]);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function getRestaurantUser($restaurantId, $userId)
@@ -170,7 +301,7 @@ class RestaurantManager
             ->where('user_id', $userId)->first();
 
         if (!empty($model)) {
-            return self::restaurantUsersMap($model);
+            return self::mapRestaurantUsers($model);
         }
 
         return false;
@@ -178,10 +309,25 @@ class RestaurantManager
 
     public static function remove($id)
     {
-        if (!empty($id)) {
-            return DB\Restaurant::where('id', $id)
-                ->update(['status' => Helper::STATUS_DELETED]);
-        }
+        $restaurant = DB\Restaurant::where('id', $id);
+        $restaurant->update(['status' => Helper::STATUS_DELETED]);
+        
+        $restaurant = self::map($restaurant->first());
+        $admin = UserManager::getUserById(Auth::id());
+
+        ActivityLogManager::save([
+            'id' => Helper::generateId(),
+            'groupId' => $restaurant->getGroupId(),
+            'userId'=> $admin->getId(),
+            'activityId' => ActivityLogManager::getActivity(Helper::REMOVE, Helper::RESTAURANT_TABLE),
+            'helperId' => $restaurant->getId(),
+            'content' => [
+                "userFullName" => $admin->getFullName(),
+                "restaurantName" => $restaurant->getName()
+            ],
+        ]);
+
+        return true;
     }
 }
 

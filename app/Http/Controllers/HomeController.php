@@ -50,16 +50,9 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
-        $language = $request->get('language');    
-        if (!empty($language)) {
+        UserManager::updateLanguage(Auth::id(), $request->get('language'));
 
-            UserManager::updateLanguage(Auth::id(), $language);
-            session(['language' => $language]);
-
-            return redirect('settings');
-        }
-
-        return false;
+        return redirect('settings');
     }
 
     public function historyList()
