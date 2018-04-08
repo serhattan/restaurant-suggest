@@ -30,9 +30,4 @@ class Helper
     {
         return bin2hex(openssl_random_pseudo_bytes($len / 2));
     }
-
-    public static function isNull($data = null)
-    {
-        return $data === null || $data === '';
-    }
 }
