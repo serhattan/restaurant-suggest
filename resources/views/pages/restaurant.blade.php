@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="content" style="width: 70%; margin: 30px auto;"> 
+    <div class="content">
         <div id="accordion">
             @if (empty($datas))
                 <div class="alert alert-danger" role="alert">
@@ -43,7 +43,7 @@
                                         @foreach ($data->getRestaurants() as $restaurant)
                                         <tr>
                                             <td>
-                                                <a name="removeRestaurantId" href="/restaurants/remove/{{$restaurant->getId()}}" style="color:red;">
+                                                <a href="/restaurants/remove/{{$restaurant->getId()}}" style="color:red;">
                                                     @lang('messages.remove')
                                                 </a>
                                             </td>

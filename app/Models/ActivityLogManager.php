@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\DB\ActivityLog as DBActivityLog;
 use App\Models\Entity\ActivityLog as EntityActivityLog;
 use App\Models\DB\Activity;
-use Illuminate\Support\Facades\DB;
 use App\Models\Entity;
 
 class ActivityLogManager
