@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
-use App\Models\DB\GenerateDetail;
-use App\Models\Entity\User;
-use App\Models\GenerateDetailManager;
 use App\Models\GenerateManager;
 use App\Models\GroupManager;
-use App\Models\GroupMemberManager;
 use App\Models\ActivityLogManager;
 use App\Models\GroupUserManager;
-use App\Models\UserManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Service\Generate\Generate;
-use PhpParser\Node\Stmt\GroupUse;
 
 class GroupController extends Controller
 {

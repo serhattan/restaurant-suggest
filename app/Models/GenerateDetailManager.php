@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\DB;
 use App\Helpers\Helper;
-use App\Models\GenerateManager;
 use App\Models\Entity\GenerateDetail;
 use App\Service\Generate\Generate as GenerateService;
 

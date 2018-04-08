@@ -7,7 +7,6 @@ use App\Models\Entity;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
 
 class RestaurantManager
 {

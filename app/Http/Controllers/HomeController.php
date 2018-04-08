@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Entity;
-use App\Helpers\Helper;
 use App\Models\UserManager;
 use Illuminate\Http\Request;
 use App\Models\GenerateManager;
-use App\Models\GroupUserManager;
 use App\Models\ActivityLogManager;
 use Illuminate\Support\Facades\Auth;
 
