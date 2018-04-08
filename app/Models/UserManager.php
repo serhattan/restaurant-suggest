@@ -47,7 +47,7 @@ class UserManager
         return $userList;
     }
 
-    public static function getUserByEmail($email)
+    public static function getByEmail($email)
     {
         $user = DB\User::where('email', $email)->first();
 
@@ -57,7 +57,7 @@ class UserManager
         return false;
     }
 
-    public static function getUserById($id)
+    public static function getById($id)
     {
         $user = DB\User::where('id', $id)->first();
 

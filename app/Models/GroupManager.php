@@ -184,7 +184,7 @@ class GroupManager
 
     public static function newGroupUser($groupId, $email)
     {
-        $user = UserManager::getUserByEmail($email);
+        $user = UserManager::getByEmail($email);
 
         if ($user instanceof Entity\User) {
             $memberId = GroupUserManager::save([

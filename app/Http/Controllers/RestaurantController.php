@@ -10,7 +10,7 @@ class RestaurantController extends Controller
     public function getList()
     {
         return view('pages.restaurant', [
-            'datas' => RestaurantManager::getAllRestaurantsOfUser()
+            'datas' => RestaurantUserManager::getAll()
         ]);
     }
 
@@ -39,7 +39,7 @@ class RestaurantController extends Controller
     public function saveRestaurant(Request $request)
     {
         RestaurantManager::save(
-            RestaurantManager::mapExternalRestaurant([
+            RestaurantManager::mapExternal([
                 'name' => $request->get('restaurantName'),
                 'groupId' => $request->get('groupId'),
                 'distance' => $request->get('distance')
