@@ -13,7 +13,15 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/privacy-policy', function () {
+    return view('marketing.contracts.privacy-policy');
+})->name('privacy-policy');
+
+Route::get('/user-agreement', function () {
+    return view('marketing.contracts.user-agreement');
+})->name('user-agreement');
 
 Auth::routes();
 
