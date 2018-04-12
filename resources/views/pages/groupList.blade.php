@@ -1,41 +1,39 @@
-<div class="card card-default">
-    <div class="card-header">@lang('messages.groups')
-        <a href="{{ route('new-group') }}" class="float-right"><i class="fas fa-plus-circle"></i></a>
-    </div>
-    <div class="panel list-group group-list">
-        @if(count($groupList) > 0 )
-            @foreach($groupList as $group)
-                <a href="#" class="list-group-item" data-toggle="collapse"
-                   data-target="#group-{{ $group->getId() }}"
-                   data-parent="#menu">
-                    {{ $group->getName() }} <span class="badge badge-dark float-right">{{ count($group->getUsers()) }}</span>
-                </a>
+@if(count($groupList) > 0 )
+    <div class="row">
 
-                <div id="group-{{ $group->getId() }}" class="sublinks collapse">
-                    <a href="{{ route('group-details', ['id' => $group->getId()]) }}"
-                       class="list-group-item small">
-                        @lang('messages.details')
+        @foreach($groupList as $group)
+            <div class="col col-lg-4 col-md-6 u-gap-bottom-medium u-flex u-flex-dir-column">
+                <div class="c-box c-box-small u-flex-grow-full">
+                    <a href="" class="c-box_header">
+                        <img class="u-full-width"
+                             src="{{ asset('img/users.png') }}"
+                             alt="">
                     </a>
-                    <a href="{{ route('group-members', ['id' => $group->getId()]) }}"
-                       class="list-group-item small">
-                        @lang('messages.members')
-                    </a>
-                    <a href="{{ route('group-restaurants', ['id' => $group->getId()]) }}"
-                       class="list-group-item small">
-                        @lang('messages.restaurant')
-                    </a>
-                    <a href="{{ route('group-history', ['id' => $group->getId()]) }}" 
-                        class="list-group-item small">
-                        @lang('messages.history')
-                    </a>
-                    <a href="{{ route('group-settings', ['id' => $group->getId()]) }}"
-                       class="list-group-item small">
-                        @lang('messages.settings')
-                    </a>
+                    <div class="c-box_body">
+                        <div class="c-user-card u-gap-bottom-small">
+                            <a class="c-user-card_image" href="{{ route('group-details', ['id' => $group->getId()]) }}">
+                                <img class="c-avatar"
+                                     src="https://i.pinimg.com/originals/c0/df/44/c0df446fb5de28c57394e3b655815548.jpg"
+                                     alt="{{ $group->getName() }}">
+                            </a>
+                            <div class="c-user-card_body">
+                                <a href="{{ route('group-details', ['id' => $group->getId()]) }}" class="c-user-card_title">{{ $group->getName() }}</a>
+                                <span class="c-user-card_subtitle">İstanbul, Türkiye</span>
+                            </div>
+                        </div>
+                        <p class="u-clear-gap">
+                            Kararsızlıklarınıza çözüm oluyoruz
+                        </p>
+                    </div>
+                    <div class="c-box_footer">
+                        <a href="{{ route('group-details', ['id' => $group->getId()]) }}" class="c-button c-button-ghost c-button-block">İncele</a><br>
+                        <a href="{{ route('group-details', ['id' => $group->getId()]) }}" class="c-button c-button-primary c-button-block">@lang('messages.generate')</a>
+                    </div>
                 </div>
-            @endforeach
-        @else
-            <span class="list-group-item">@lang('messages.not_found_group')</span>
-        @endif
+            </div>
+        @endforeach
     </div>
-</div>
+@else
+    <span class="list-group-item">@lang('messages.not_found_group')</span>
+@endif
+

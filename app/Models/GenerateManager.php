@@ -221,7 +221,8 @@ class GenerateManager
                     'isLike' => $isLike,
                     'likeCount' => $likeCount,
                     'dislikeCount' => $dislikeCount,
-                    'groupName' => $groupUser->getGroup()->getName()
+                    'groupName' => $groupUser->getGroup()->getName(),
+                    'groupId' => $groupUser->getGroupId()
                 ];
             }
         }
