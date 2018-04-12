@@ -1,83 +1,98 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="c-box c-box-medium">
+        <div class="c-box_body">
+            <h1 class="h2">@lang('messages.home')</h1>
+
             @if (empty($activityLogGroups) && empty($generatedDatas))
                 <div class="alert alert-danger" role="alert">
                     @lang('messages.zero_activity')!
                 </div>
             @else
-                <div class="card card-default" style="margin-top: 30px;">
-                    <div class="card-header">@lang('messages.home')</div>
-                    @foreach ($generatedDatas as $generatedData)
-                        @if (!empty($generatedData['generatedRestaurant']))
-                            <div class="jumbotron jumbotron-fluid">
-                                <div class="container">
-                                    <h1 class="display-4">
-                                        <span style="color: #553F7A;">{{$generatedData['generatedRestaurant']}}</span>
-                                    </h1>
-                                    <h6 class="jumbotron-subtitle mb-2 text-muted">
+                @foreach ($generatedDatas as $generatedData)
+                    <div class="row">
+                        <div class="col col-md-4">
+                            <img src="{{ asset('img/generate.png') }}" class="u-img-responsive"
+                                 style="margin-bottom: 0 !important;">
+                        </div>
+                        <div class="col col-md-8 u-gap-bottom-medium u-flex u-flex-dir-column">
+                            <div class="c-box c-box-small u-flex-grow-full">
+                                <div class="c-box_body">
+                                    <div class="c-user-card u-gap-bottom-small">
+                                        <a class="c-user-card_image" href="">
+                                            <i class="fas fa-building fa-4x"></i>
+                                        </a>
+                                        <div class="c-user-card_body">
+                                            <a href="{{ route('group-details', ['id' => $generatedData['groupId']]) }}"
+                                               class="c-user-card_title"> {{$generatedData['generatedRestaurant']}}
+                                            </a>
+                                            <span class="c-user-card_subtitle"> <strong>{{$generatedData['groupName']}} </strong>Grubu için üretilen restorant
+                                    tavsiyesidir.</span>
+                                        </div>
+                                    </div>
+                                    <p class="u-clear-gap">
                                         @for ($i = 0; $i < $generatedData['likeCount']; $i++)
                                             <i class="far fa-thumbs-up"></i>
                                         @endfor
                                         @for ($i = 0; $i < $generatedData['dislikeCount']; $i++)
                                             <i class="far fa-thumbs-down"></i>
                                         @endfor
-                                    </h6>
-                                    <p class="lead">
-                                    <strong>{{$generatedData['groupName']}} </strong>Grubu için üretilen restorant tavsiyesidir
                                     </p>
-                                    <hr class="my-4">
+                                    <small class="u-clear-gap">
+
+                                        Yeni bir tavsiye almak için grubun detay sayfasına gidebilir, üretilen
+                                        restorant
+                                        hakkında görüşünüzü aşağıdan belirtebilirsiniz
+                                    </small>
+                                </div>
+
+                                <div class="c-box_footer col-md-8">
+                                    @if (empty($generatedData['isLike']))
+                                        <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'like' ]) }}"
+                                           class="c-button c-button-ghost c-button-small">
+                                            <i class="far fa-thumbs-up fa-2x"></i>
+                                        </a>
+                                        <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'dislike' ]) }}"
+                                           class="c-button c-button-ghost c-button-small">
+                                            <i class="far fa-thumbs-down fa-2x"></i>
+                                        </a>
+                                    @else
                                         <p>
-                                            Yeni bir tavsiye almak için grubun detay sayfasına gidebilir, üretilen restorant hakkında görüşünüzü aşağıdan belirtebilirsiniz
+                                            You
+                                            <i class='far {{$generatedData['isLike'] == 'like' ? 'fa-thumbs-up' : 'fa-thumbs-down'}} fa-2x'></i>
+                                            this generate
                                         </p>
-                                        @if (empty($generatedData['isLike']))
-                                            <p class="lead">
-                                                <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'like' ]) }}">
-                                                    <i class="far fa-thumbs-up fa-2x"></i>
-                                                </a>
-                                                <a style="margin-left:20px;"
-                                                    href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'dislike' ]) }}">
-                                                    <i class="far fa-thumbs-down fa-2x"></i>
-                                                </a>
-                                            </p>
-                                        @else
-                                            <span style="visibility: hidden;">
-                                                {{ $generatedData['isLike'] == 'like' ? ($class = 'fa-thumbs-up') : ($class = 'fa-thumbs-down') }}
-                                            </span>
-                                            <p class="lead">
-                                                You <i class='far {{$class}} fa-2x'></i> this generate
-                                            </p>
-                                        @endif
+                                    @endif
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        @foreach ($activityLogGroups as $activityLog)
-                            <div class="card w-75 text-center" style="margin:30px auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">@lang("messages.".$activityLog->getActivity()->getName(). "_". $activityLog->getActivity()->getTable())</h5>
-                                    <p class="card-text">
-                                        @lang(
-                                            "messages.".$activityLog->getActivity()->getTable(). "_". $activityLog->getActivity()->getName(),
-                                            $activityLog->getContent()
-                                        )
-                                    </p>
-                                </div>
-                            </div>
-                        @endforeach
+                        </div>
+                    </div>
+                @endforeach
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <div class="c-box c-box-large u-gap-bottom">
+                        <div class="c-box_body">
+                            <h3 class="u-clear-gap-top">@lang('messages.history')</h3>
+                            <ul class="c-timeline">
+                                @foreach ($activityLogGroups as $activityLog)
+                                    <li class="c-timeline_item">
+                                        <h5 class="c-timeline_title u-clear-gap">
+                                            @lang("messages.".$activityLog->getActivity()->getName(). "_". $activityLog->getActivity()->getTable())
+                                        </h5>
+                                        <p class="u-clear-gap">@lang("messages.".$activityLog->getActivity()->getTable(). "_". $activityLog->getActivity()->getName(),
+                                            $activityLog->getContent())</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             @endif
         </div>
     </div>
-</div>
 @endsection

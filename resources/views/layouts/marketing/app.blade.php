@@ -51,7 +51,6 @@
                     <div class="col col-lg-2 col-sm-4">
                         <h6 class="o-hero_title u-hidden@xs-down">{{ config('app.name') }}</h6>
                         <a href="hakkimizda.html" class="u-block u-link-secondary u-gap-bottom-xsmall">About</a>
-                        <a href="ekip.html" class="u-block u-link-secondary u-gap-bottom-xsmall">Team</a>
                     </div>
                     <div class="col col-lg-2 col-sm-4 u-hidden@xs-down">
                         <h6 class="o-hero_title">Contracts</h6>

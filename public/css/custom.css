@@ -1,6 +1,20 @@
-a {
-    color:black !important;
-}
+
 .group-list .badge {
     margin-top: 4px;
+}
+
+.bg-yellow {
+    background-color: #f9bb2d;
+}
+
+.bg-red {
+    background-color: #E8453c;
+}
+
+.bg-green {
+    background-color: #3aa757;
+}
+
+.bg-blue {
+    background-color: #4688f1;
 }

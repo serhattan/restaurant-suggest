@@ -55,25 +55,26 @@ return [
     'access_denied' => 'Access Denied',
     "zero_activity" => "There is no user activity",
     "group_Added" => "<strong> :userFullName </strong> added new group which name is <strong> :groupName </strong>",
-    "Added_group" => "<h4><span class='badge badge-success'>New Group Added</span></h4>",
-    "Added_group_user" => "<h4><span class='badge badge-success'>New User Added</span></h4>",
+    "Added_group" => "New Group Added",
+    "Added_group_user" => "New User Added",
     "group_user_Added" => "<strong> :userFullName </strong> added new user whose name is <strong> :memberEmail </strong>",
-    "Removed_group_user" => "<h4><span class='badge badge-danger'>Group User Removed</span></h4>",
+    "Removed_group_user" => "Group User Removed",
     "group_user_Removed" => "<strong> :userFullName </strong> removed user whose name is <strong> :memberFullName </strong>",
-    "Removed_group" => "<h4><span class='badge badge-danger'>Group Removed</span></h4>",
+    "Removed_group" => "Group Removed",
     "group_Removed" => "<strong> :userFullName </strong> removed group which name is <strong> :groupName </strong>",
-    "Updated_group" => "<h4><span class='badge badge-info' style='color:white'>Group Updated</span></h4>",
+    "Updated_group" => "Group Updated",
     "group_Updated" => "<strong> :userFullName </strong> updated group which name is 
         <strong> :groupName </strong> and budget is <strong> :groupBudget </strong>",
-    "Added_restaurant" => "<h4><span class='badge badge-success'>New Restaurant Added</span></h4>",
+    "Added_restaurant" => "New Restaurant Added",
     "restaurant_Added" => "<strong> :userFullName </strong> added new restaurant which name is <strong> :restaurantName </strong>",
-    "Updated_restaurant_user" => "<h4><span class='badge badge-info' style='color:white'>Updated Restaurant</span></h4>",
+    "Updated_restaurant_user" => "Updated Restaurant",
     "restaurant_user_Updated" => "<strong> :userFullName </strong> updated restaurant which name is 
         <strong> :restaurantName </strong> and budget is <strong> :budget </strong>",
-    "Updated_restaurant" => "<h4><span class='badge badge-info' style='color:white'>Updated Restaurant</span></h4>",
+    "Updated_restaurant" => "Updated Restaurant",
     "restaurant_Updated" => "Restaurant <strong> :restaurantName </strong>'s average price updated into <strong> :averageBudget </strong>
         because of <strong> :userFullName </strong> updated its budget",
-    "Removed_restaurant" => "<h4><span class='badge badge-danger'>Restaurant Removed</span></h4>",
+    "Removed_restaurant" => "Restaurant Removed",
     "restaurant_Removed" => "<strong> :userFullName </strong> removed restaurant which name is <strong> :restaurantName </strong>",
-    'restaurant_distance' => 'Distance Unit'
+    'restaurant_distance' => 'Distance Unit',
+    'generate' => 'Generate'
 ];

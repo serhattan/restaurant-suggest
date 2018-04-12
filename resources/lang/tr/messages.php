@@ -52,5 +52,6 @@ return [
     'to_update_your_budget_per_restaurant' => 'Her bir restoran için bütçeyi güncelleme',
     'access_denied' => 'Yetkisiz erişim',
     'new_group_added' => 'Yeni grup eklendi: %s',
-    'restaurant_distance' => 'Uzaklık Birimi'
+    'restaurant_distance' => 'Uzaklık Birimi',
+    'generate' => 'Tavsiye Oluştur'
 ];
