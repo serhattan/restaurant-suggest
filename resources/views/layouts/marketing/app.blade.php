@@ -41,59 +41,6 @@
         </div>
     </div>
     @yield('content')
-    <div class="o-wrapper_footer">
-        <footer class="o-hero o-hero-padding-ends-small">
-            <div class="container">
-                <div class="row">
-                    <div class="col col-lg-6 u-gap-bottom@md-down">
-                        {{ config('app.name') }}
-                    </div>
-                    <div class="col col-lg-2 col-sm-4">
-                        <h6 class="o-hero_title u-hidden@xs-down">{{ config('app.name') }}</h6>
-                        <a href="hakkimizda.html" class="u-block u-link-secondary u-gap-bottom-xsmall">About</a>
-                    </div>
-                    <div class="col col-lg-2 col-sm-4 u-hidden@xs-down">
-                        <h6 class="o-hero_title">Contracts</h6>
-                        <a href="sozlesmeler/uyelik-sozlesmesi.html"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">Privacy Policy</a>
-                        <a href="sozlesmeler/gizlilik-politikasi.html"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">User Agreement</a>
-                    </div>
-                    <div class="col col-lg-2 col-sm-4 u-hidden@xs-down">
-                        <h6 class="o-hero_title">İletişim</h6>
-                        <a href="https://www.linkedin.com/company/startupmarket/" target="blank" rel="noopener"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">Linkedin</a>
-                        <a href="https://www.angel.co/startup_market/" target="blank" rel="noopener"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">Angelist</a>
-                        <a href="https://www.twitter.com/StartupMarketSM" target="blank" rel="noopener"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">Twitter</a>
-                        <a href="https://www.instagram.com/_startupmarket_/" target="blank" rel="noopener"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">Instagram</a>
-                        <a href="https://www.facebook.com/StartupMarketSM/" target="blank" rel="noopener"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">Facebook</a>
-                        <a href="https://www.youtube.com/channel/UCTtamtROyi5A2ycj0xXtkbA?disable_polymer=true"
-                           target="blank" rel="noopener"
-                           class="u-block u-link-secondary u-gap-bottom-xsmall">YouTube</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-</div>
-<div class="c-modal  c-modal-xsmall" id="coming-soon">
-    <div class="container c-modal_container js-modal-container">
-        <div class="c-box c-box-medium">
-            <div class="c-box_body">
-                <div class="u-text-center u-pad-sides-small">
-                    <img class="u-img-responsive" src="assets/img/modal-rocket.svg" width="250" alt="Yakında">
-                    <h3>Yakında!</h3>
-                    <p class="u-clear-gap">Bu özellik çok yakında aktif olacak. Bu ve diğer tüm yeniliklerden haberdar
-                        olmak için bizi takip edebilirsin.</p>
-                </div>
-                <button class="c-modal_close-button js-modal-close"></button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
