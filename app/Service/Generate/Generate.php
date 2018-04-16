@@ -74,18 +74,22 @@ class Generate
             $order--;
         }
 
-        $generate = GenerateManager::mapExternal(
-            [
-                'groupId' => $groupId,
-                'restaurantId' => $totalPointList[$totalPointListCount - 1]['id'],
-                'generateDetailId' => $totalPointList[$totalPointListCount - 1]['generateDetailId'],
-                'orderNo' => $totalPointList[$totalPointListCount - 1]['orderNo']
-            ]
-        );
+        if ($totalPointListCount > 0) {
+            $generate = GenerateManager::mapExternal(
+                [
+                    'groupId' => $groupId,
+                    'restaurantId' => $totalPointList[$totalPointListCount - 1]['id'],
+                    'generateDetailId' => $totalPointList[$totalPointListCount - 1]['generateDetailId'],
+                    'orderNo' => $totalPointList[$totalPointListCount - 1]['orderNo']
+                ]
+            );
 
-        $generate = GenerateManager::save($generate);
+            $generate = GenerateManager::save($generate);
 
-        return $generate->id;
+            return $generate->id;
+        }
+
+        return false;
     }
 
     /**

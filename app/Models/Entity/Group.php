@@ -2,6 +2,8 @@
 
 namespace App\Models\Entity;
 
+use Carbon\Carbon;
+
 class Group
 {
     private $id;
@@ -12,6 +14,7 @@ class Group
     private $users;
     private $restaurants = [];
     private $generate;
+    private $createdAt;
 
     /**
      * @return mixed
@@ -139,5 +142,26 @@ class Group
     public function setGenerate($generate)
     {
         $this->generate = $generate;
+    }
+
+    /**
+     * @param bool $carbon
+     * @return Carbon
+     */
+    public function getCreatedAt($carbon = false)
+    {
+        if ($carbon) {
+            return new Carbon($this->createdAt);
+        }
+
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
     }
 }

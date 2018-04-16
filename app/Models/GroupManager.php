@@ -69,6 +69,7 @@ class GroupManager
         $newGroup->setBudget($group->budget);
         $newGroup->setCreatedBy($group->created_by);
         $newGroup->setStatus($group->status);
+        $newGroup->setCreatedAt($group->created_at);
 
         if ($group->relationLoaded('groupUsers') && !empty($group->groupUsers)) {
             $newGroup->setUsers(GroupUserManager::multiMap($group->groupUsers));
@@ -102,7 +103,7 @@ class GroupManager
     }
 
     /**
-     * @param $group
+     * @param $data
      * @return Group
      */
     public static function save($data)
@@ -192,7 +193,7 @@ class GroupManager
                 'groupId' => $groupId
             ]);
         } else {
-            $groupMember = GroupMemberManager::save([
+            $memberId = GroupMemberManager::save([
                 'groupId' => $groupId,
                 'email' => $email,
                 'invitorId' => Auth::id()
@@ -204,7 +205,7 @@ class GroupManager
             'groupId' => $groupId,
             'userId' => Auth::id(),
             'activityId' => ActivityLogManager::getActivity(Helper::ADD, Helper::GROUP_USER_TABLE),
-            'helperId' => $groupMember->id,
+            'helperId' => $memberId,
             'content' => [
                 "userFullName" => Auth::user()->first_name . ' ' . Auth::user()->last_name,
                 "memberEmail" => $email

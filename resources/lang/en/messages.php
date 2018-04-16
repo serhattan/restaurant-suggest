@@ -76,5 +76,8 @@ return [
     "Removed_restaurant" => "Restaurant Removed",
     "restaurant_Removed" => "<strong> :userFullName </strong> removed restaurant which name is <strong> :restaurantName </strong>",
     'restaurant_distance' => 'Distance Unit',
-    'generate' => 'Generate'
+    'generate' => 'Generate',
+    'year_of_foundation' => 'Year of Foundation',
+    'team' => 'Team',
+    'regenerate' => 'Regenerate'
 ];

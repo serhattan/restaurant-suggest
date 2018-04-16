@@ -17,7 +17,10 @@ class GroupController extends Controller
 
     public function getDetails($id)
     {
-        return view('pages.group.details', ['group' => GroupManager::get($id)]);
+        return view('pages.group.details', [
+            'group' => GroupManager::get($id),
+            'activityLogs' => ActivityLogManager::getByGroupId($id)
+        ]);
     }
 
     public function getRestaurants($id)

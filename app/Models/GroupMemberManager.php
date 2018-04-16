@@ -33,7 +33,7 @@ class GroupMemberManager
         $newGroup->group_id = $data['groupId'];
         $newGroup->email = $data['email'];
         $newGroup->save();
-        return $newGroup;
+        return $newGroup->id;
     }
 
     /**
