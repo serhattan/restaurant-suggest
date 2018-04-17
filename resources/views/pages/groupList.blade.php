@@ -1,6 +1,5 @@
 @if(count($groupList) > 0 )
     <div class="row">
-
         @foreach($groupList as $group)
             <div class="col col-lg-4 col-md-6 u-gap-bottom-medium u-flex u-flex-dir-column">
                 <div class="c-box c-box-small u-flex-grow-full">
@@ -34,6 +33,10 @@
         @endforeach
     </div>
 @else
-    <span class="list-group-item">@lang('messages.not_found_group')</span>
+    <div class="c-box c-box-large u-gap-bottom">
+        <div class="c-box_body row bold">
+            @lang('messages.not_found_group')!
+        </div>
+    </div>
 @endif
 

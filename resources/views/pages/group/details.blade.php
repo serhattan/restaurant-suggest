@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col col-lg-4 u-gap-bottom" style="">
-                <div data-scrollmagic-pin-spacer="" class="scrollmagic-pin-spacer">
+            <div class="col col-lg-4 u-gap-bottom">
+                <div class="scrollmagic-pin-spacer">
                     <div class="js-sticky-sidebar">
                         <div class="c-box c-box-medium u-gap-bottom-medium@md-up u-gap-bottom-small@sm-down">
                             <div class="c-box_body">
@@ -31,6 +31,14 @@
                                       <span class="c-label u-color-primary u-block">@lang('messages.members_count')</span>
                                       <span>
                                            {{ count($group->getUsers()) }}
+                                      </span>
+                                    </span>
+                                </li>
+                                <li class="c-menu_item">
+                                    <span href="#" class="c-menu_link">
+                                      <span class="c-label u-color-primary u-block">@lang('messages.budget')</span>
+                                      <span>
+                                        {{ $group->getBudget() }}@lang('messages.currency_icon')
                                       </span>
                                     </span>
                                 </li>
@@ -109,7 +117,7 @@
                             </h3>
                             <div class="row">
                                 <div class="col col-lg-12 u-gap-bottom">
-                                    <div class="c-form-group ">
+                                    <div class="c-form-group">
                                         <label class="c-label required"
                                                for="email">@lang('messages.please_enter_email')</label>
                                         <input type="email" id="email"
@@ -187,28 +195,4 @@
             </div>
         </div>
     </div>
-    <!-
-    <div class="col-md-9">
-        <div class="card card-default">
-            <div class="card-header">{{ $group->getName() }} - @lang('messages.group_details')</div>
-            <div class="card-body">
-                @if(!empty($group->getGenerate()))
-                    <li class="list-group-item">
-                        <i class="fas fa-money-bill-alt"></i> {{$group->getGenerate()->getRestaurant()->getName()}}
-                        <a href="{{route('regenerate', ['groupId' => $group->getId()])}}"
-                           style="float:right; color: red !important;">
-                            Regenerate
-                        </a>
-                    </li>
-                @endif
-                <li class="list-group-item">
-                    <i class="fas fa-money-bill-alt"></i> @lang('messages.budget')
-                    - {{ $group->getBudget() }}@lang('messages.currency_icon')
-                </li>
-                <li class="list-group-item">
-                    <i class="fas fa-users"></i> @lang('messages.members_count') - {{ count($group->getUsers()) }}
-                </li>
-            </div>
-        </div>
-    </div>->
 @endsection

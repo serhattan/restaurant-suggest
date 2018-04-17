@@ -17,3 +17,11 @@
 .bg-blue {
     background-color: #4688f1;
 }
+
+.bold {
+    font-weight: 700;
+}
+
+.visibility {
+    visibility:hidden;
+}
