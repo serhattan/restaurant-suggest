@@ -40,7 +40,6 @@
                                         @endfor
                                     </p>
                                     <small class="u-clear-gap">
-
                                         Yeni bir tavsiye almak için grubun detay sayfasına gidebilir, üretilen
                                         restorant
                                         hakkında görüşünüzü aşağıdan belirtebilirsiniz
@@ -49,13 +48,11 @@
 
                                 <div class="c-box_footer col-md-8">
                                     @if (empty($generatedData['isLike']))
-                                        <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'like' ]) }}"
-                                           class="c-button c-button-ghost c-button-small">
-                                            <i class="far fa-thumbs-up fa-2x"></i>
+                                        <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'like' ]) }}">
+                                            <i class="far fa-thumbs-up"></i>
                                         </a>
-                                        <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'dislike' ]) }}"
-                                           class="c-button c-button-ghost c-button-small">
-                                            <i class="far fa-thumbs-down fa-2x"></i>
+                                        <a href="{{ route('likeAction', [ 'generateId' => $generatedData['generateId'], 'isLike' => 'dislike' ]) }}">
+                                            <i class="far fa-thumbs-down"></i>
                                         </a>
                                     @else
                                         <p>

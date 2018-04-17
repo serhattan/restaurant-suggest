@@ -1,6 +1,5 @@
-
-.group-list .badge {
-    margin-top: 4px;
+.float-right {
+    float: right !important;
 }
 
 .bg-yellow {

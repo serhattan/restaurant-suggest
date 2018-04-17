@@ -53,5 +53,8 @@ return [
     'access_denied' => 'Yetkisiz erişim',
     'new_group_added' => 'Yeni grup eklendi: %s',
     'restaurant_distance' => 'Uzaklık Birimi',
-    'generate' => 'Tavsiye Oluştur'
+    'generate' => 'Tavsiye Oluştur',
+    'year_of_foundation' => 'Kuruluş Tarihi',
+    'team' => 'Ekibi',
+    'regenerate' => 'Yeniden Tavsiye Oluştur'
 ];

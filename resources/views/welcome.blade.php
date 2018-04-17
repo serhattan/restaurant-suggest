@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <a href="giris-yap.html" class="c-button c-button-primary c-button-large c-button-block c-button-no-radius">
+        <a href="{{ route('new-group') }}" class="c-button c-button-primary c-button-large c-button-block c-button-no-radius">
            Grubunu Kur
         </a>
     </div>
