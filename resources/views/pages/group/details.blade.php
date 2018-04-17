@@ -151,10 +151,9 @@
                                                     </a>
                                                     <span class="c-user-card_subtitle">Kurucu</span>
                                                     <a href="{{ route('group-member-delete', [
-                                                        'userId' => $user->getUserId(),
-                                                        'id' => $group->getId(),
-                                                        'groupId' => $group->getId()
-                                                    ]) }}">
+                                                            'userId' => $user->getUserId(),
+                                                            'id' => $group->getId()
+                                                        ]) }}">
                                                         <i class="fas fa-times-circle"></i>
                                                     </a>
                                                 </div>

@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         //Route::group(['middleware' => ['isAdmin']], function () {
             Route::get('/delete', 'GroupController@getDeleteGroup')->name('group-delete');
-            Route::get('/member/delete/{groupId}/{userId}', 'GroupController@getGroupMemberDelete')->name('group-member-delete');
+            Route::get('/member/delete/{userId}', 'GroupController@getGroupMemberDelete')->name('group-member-delete');
         //});
     });
 

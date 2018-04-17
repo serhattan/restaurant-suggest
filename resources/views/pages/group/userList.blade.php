@@ -25,7 +25,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ $user->getUser()->getFullName() }}
 
-                        <a href="{{ route('group-member-delete', ['userId' => $user->getUserId(), 'id' => $group->getId(), 'groupId' => $group->getId() ]) }}">
+                        <a href="{{ route('group-member-delete', ['userId' => $user->getUserId(), 'id' => $group->getId()]) }}">
                             <i class="fas fa-times-circle"></i>
                         </a>
                     </li>
