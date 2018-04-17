@@ -46,7 +46,7 @@
                                                     </span>
                                                     <span class="c-list_content">
                                                        <span class="c-list_title">@lang('messages.groups')</span>
-                                                       <span class="c-list_subtitle">Description</span>
+                                                       <span class="c-list_subtitle"></span>
                                                      </span>
                                                 </a>
                                             </div>
@@ -56,8 +56,8 @@
                                                        <i class="fab fa-cloudscale"></i>
                                                     </span>
                                                     <span class="c-list_content">
-                                                       <span class="c-list_title">@lang('messages.restaurant_generate')</span>
-                                                       <span class="c-list_subtitle">Description</span>
+                                                       <span class="c-list_title">@lang('messages.generate')</span>
+                                                       <span class="c-list_subtitle"></span>
                                                      </span>
                                                 </a>
                                             </div>
@@ -68,7 +68,7 @@
                                                     </span>
                                                     <span class="c-list_content">
                                                        <span class="c-list_title">@lang('messages.restaurant')</span>
-                                                       <span class="c-list_subtitle">Description</span>
+                                                       <span class="c-list_subtitle"></span>
                                                      </span>
                                                 </a>
                                             </div>
@@ -79,7 +79,7 @@
                                                     </span>
                                                     <span class="c-list_content">
                                                        <span class="c-list_title">@lang('messages.history')</span>
-                                                       <span class="c-list_subtitle">Description</span>
+                                                       <span class="c-list_subtitle"></span>
                                                      </span>
                                                 </a>
                                             </div>
@@ -90,7 +90,7 @@
                                                     </span>
                                                     <span class="c-list_content">
                                                        <span class="c-list_title"> @lang('messages.settings')</span>
-                                                       <span class="c-list_subtitle">Description</span>
+                                                       <span class="c-list_subtitle"></span>
                                                      </span>
                                                 </a>
                                             </div>
@@ -102,7 +102,7 @@
                                                     </span>
                                                     <span class="c-list_content">
                                                       <span class="c-list_title">@lang('messages.logout')</span>
-                                                      <span class="c-list_subtitle">Hesabınızdan çıkış yapın</span>
+                                                      <span class="c-list_subtitle"></span>
                                                     </span>
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                           style="display: none;">
