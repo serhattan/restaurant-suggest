@@ -18,7 +18,7 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
         $groupId = $request->get('id');
-        if (!GroupUserManager::adminCheck($groupId)) {
+        if (!GroupUserManager::adminCheck($groupId, Auth::id())) {
             throw new Exception(__('messages.access_denied'));
         }
         return $next($request);

@@ -7,6 +7,7 @@ use App\Models\GroupManager;
 use App\Models\ActivityLogManager;
 use App\Models\GroupUserManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -19,7 +20,8 @@ class GroupController extends Controller
     {
         return view('pages.group.details', [
             'group' => GroupManager::get($id),
-            'activityLogs' => ActivityLogManager::getByGroupId($id)
+            'activityLogs' => ActivityLogManager::getByGroupId($id),
+            'isAdmin' => GroupUserManager::adminCheck($id, Auth::id())
         ]);
     }
 

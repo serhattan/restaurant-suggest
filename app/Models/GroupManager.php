@@ -29,7 +29,7 @@ class GroupManager
             })
             ->first();
 
-            if ($group instanceof Group) {
+        if ($group instanceof Group) {
             return self::map($group);
         }
 
@@ -126,7 +126,8 @@ class GroupManager
         if ($new) {
             GroupUserManager::save([
                 'userId' => Auth::id(),
-                'groupId' => $group->id
+                'groupId' => $group->id,
+                'isAdmin' => true
             ]);
 
             ActivityLogManager::save([

@@ -17,7 +17,7 @@ class GroupUserManager
     public static function save($groupUser)
     {
         $newGroupUser = new GroupUser();
-        if (!isset($group['id'])) {
+        if (!isset($groupUser['id'])) {
             $newGroupUser->id = Helper::generateId();
             $newGroupUser->status = Helper::STATUS_ACTIVE;
         } else {
@@ -25,6 +25,10 @@ class GroupUserManager
         }
         $newGroupUser->user_id = $groupUser['userId'];
         $newGroupUser->group_id = $groupUser['groupId'];
+        if (isset($groupUser['isAdmin'])) {
+            $newGroupUser->is_admin = true;
+        }
+
         $newGroupUser->save();
 
         return $newGroupUser->id;
@@ -81,9 +85,12 @@ class GroupUserManager
     public static function delete($groupId, $userId)
     {
         $user = UserManager::getById($userId);
-
-        if ($user instanceof User) {
-            GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
+        
+        if ($user instanceof Entity\User) {
+            $groupUser = GroupUser::where('group_id', $groupId)->where('user_id', $userId);
+            if (!$groupUser->first()->is_admin) {
+                $groupUser->update(['status' => Helper::STATUS_DELETED]);
+            }
 
             ActivityLogManager::save([
                 'id' => Helper::generateId(),
@@ -103,9 +110,9 @@ class GroupUserManager
         return false;
     }
 
-    public static function adminCheck($groupId)
+    public static function adminCheck($groupId, $userId)
     {
-        $groupUser = DB\GroupUser::where('user_id', Auth::id())
+        $groupUser = DB\GroupUser::where('user_id', $userId)
             ->where('group_id', $groupId)
             ->first();
 
@@ -114,7 +121,5 @@ class GroupUserManager
 
            return $groupUser->getIsAdmin();
         }
-
-        return false;
     }
 }
