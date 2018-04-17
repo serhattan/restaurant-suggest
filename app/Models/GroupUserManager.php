@@ -83,9 +83,7 @@ class GroupUserManager
         $user = UserManager::getById($userId);
 
         if ($user instanceof User) {
-            GroupUserManager::delete($groupId, $userId);
-
-            $delete = GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
+            GroupUser::where('group_id', $groupId)->where('user_id', $userId)->update(['status' => Helper::STATUS_DELETED]);
 
             ActivityLogManager::save([
                 'id' => Helper::generateId(),
@@ -98,9 +96,11 @@ class GroupUserManager
                     'memberFullName' => $user->getFullName()
                 ],
             ]);
+
+            return true;
         }
 
-        return $delete;
+        return false;
     }
 
     public static function adminCheck($groupId)
