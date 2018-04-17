@@ -162,7 +162,9 @@
                                                             'userId' => $user->getUserId(),
                                                             'id' => $group->getId()
                                                         ]) }}">
-                                                        <i class="fas fa-times-circle"></i>
+                                                        @if (!$user->getIsAdmin())
+                                                            <i class="fas fa-times-circle"></i>
+                                                        @endif
                                                     </a>
                                                 </div>
                                             </div>
