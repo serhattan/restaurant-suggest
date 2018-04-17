@@ -110,9 +110,9 @@ class GroupUserManager
         return false;
     }
 
-    public static function adminCheck($groupId)
+    public static function adminCheck($groupId, $userId)
     {
-        $groupUser = DB\GroupUser::where('user_id', Auth::id())
+        $groupUser = DB\GroupUser::where('user_id', $userId)
             ->where('group_id', $groupId)
             ->first();
 
@@ -121,7 +121,5 @@ class GroupUserManager
 
            return $groupUser->getIsAdmin();
         }
-
-        return false;
     }
 }

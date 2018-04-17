@@ -52,18 +52,20 @@
                                 </li>
                             </ul>
                         </div>
-                        <a href="{{ route('generate',['groupId' => $group->getId()]) }}"
-                           class="c-button c-button-primary c-button-block u-gap-bottom-small">
-                            <span class="u-flex u-flex-align-middle">
-                              <span class="u-flex-grow-full">@lang('messages.generate')</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('group-delete', ['id' => $group->getId()]) }}"
-                           class="c-button c-button-danger c-button-block u-gap-bottom-small">
-                            <span class="u-flex u-flex-align-middle">
-                                <span class="u-flex-grow-full">@lang('messages.delete_group')</span>
-                            </span>
-                        </a>
+                        @if ($isAdmin)
+                            <a href="{{ route('generate',['groupId' => $group->getId()]) }}"
+                            class="c-button c-button-primary c-button-block u-gap-bottom-small">
+                                <span class="u-flex u-flex-align-middle">
+                                <span class="u-flex-grow-full">@lang('messages.generate')</span>
+                                </span>
+                            </a>
+                            <a href="{{ route('group-delete', ['id' => $group->getId()]) }}"
+                            class="c-button c-button-danger c-button-block u-gap-bottom-small">
+                                <span class="u-flex u-flex-align-middle">
+                                    <span class="u-flex-grow-full">@lang('messages.delete_group')</span>
+                                </span>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -108,33 +110,35 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="{{ route('new-member') }}" class="js-form-validation">
-                    @csrf
-                    <div class="c-box c-box-large u-gap-bottom">
-                        <div class="c-box_body">
-                            <h3 class="u-clear-gap-top u-gap-bottom-xsmall u-text-center@md-down">
-                                @lang('messages.add_new_members')
-                            </h3>
-                            <div class="row">
-                                <div class="col col-lg-12 u-gap-bottom">
-                                    <div class="c-form-group">
-                                        <label class="c-label required"
-                                               for="email">@lang('messages.please_enter_email')</label>
-                                        <input type="email" id="email"
-                                               name="email" required="required"
-                                               class="c-form-control" placeholder="happy@whatwillieattoday.com"
-                                               data-validetta="required,email">
+                @if ($isAdmin)
+                    <form method="post" action="{{ route('new-member') }}" class="js-form-validation">
+                        @csrf
+                        <div class="c-box c-box-large u-gap-bottom">
+                            <div class="c-box_body">
+                                <h3 class="u-clear-gap-top u-gap-bottom-xsmall u-text-center@md-down">
+                                    @lang('messages.add_new_members')
+                                </h3>
+                                <div class="row">
+                                    <div class="col col-lg-12 u-gap-bottom">
+                                        <div class="c-form-group">
+                                            <label class="c-label required"
+                                                for="email">@lang('messages.please_enter_email')</label>
+                                            <input type="email" id="email"
+                                                name="email" required="required"
+                                                class="c-form-control" placeholder="happy@whatwillieattoday.com"
+                                                data-validetta="required,email">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="u-text-right">
-                                <button type="submit"
-                                        class="c-button c-button-primary">@lang('messages.add_new_members')</button>
+                                <div class="u-text-right">
+                                    <button type="submit"
+                                            class="c-button c-button-primary">@lang('messages.add_new_members')</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <input type="hidden" name="groupId" value="{{ $group->getId() }}">
-                </form>
+                        <input type="hidden" name="groupId" value="{{ $group->getId() }}">
+                    </form>
+                @endif
                 <div class="c-box c-box-large u-gap-bottom">
                     <div class="c-box_body">
                         <h3 class="u-clear-gap-top">
@@ -157,12 +161,16 @@
                                                        class="c-user-card_title u-font-size-regular">
                                                         {{ $user->getUser()->getFullName() }}
                                                     </a>
-                                                    <span class="c-user-card_subtitle">Kurucu</span>
+                                                    @if ($user->getIsAdmin())
+                                                        <span class="c-user-card_subtitle">Kurucu</span>
+                                                    @else
+                                                        <span class="c-user-card_subtitle">Üye</span>
+                                                    @endif
                                                     <a href="{{ route('group-member-delete', [
                                                             'userId' => $user->getUserId(),
                                                             'id' => $group->getId()
                                                         ]) }}">
-                                                        @if (!$user->getIsAdmin())
+                                                        @if (!$user->getIsAdmin() && $isAdmin)
                                                             <i class="fas fa-times-circle"></i>
                                                         @endif
                                                     </a>
