@@ -7,7 +7,7 @@
                 <div class="row u-flex-align-middle">
                     <div class="col col-lg-6 u-text-center@md-down u-pad-ends-small@md-down">
                         <h1 class="o-hero_title u-clear-gap">
-                            indecisive's guide to the restaurant
+                            INDECISIVE'S GUIDE TO THE RESTAURANT
                         </h1>
                         <h2 class="h1 u-gap-top-xsmall u-gap-bottom-xsmall">
                             What will you eat today?
@@ -76,8 +76,18 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('new-group') }}" class="c-button c-button-primary c-button-large c-button-block c-button-no-radius">
-           Grubunu Kur
-        </a>
+        <div class="o-hero o-hero-background-dark-blue o-hero-overlay-shape o-hero-padding-ends-large">
+            <div class="container">
+                <div class="row u-flex-align-middle">
+                    <div class="col col-lg-6 u-gap-bottom@md-down">
+                        <h2 class="u-clear-gap u-color-white">Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan</h2>
+                        <p class="u-color-white">Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.</p>
+                    </div>
+                    <div class="col col-lg-4 col-offset-lg-2">
+                        <a href="{{ route('new-group') }}" class="c-button c-button-white c-button-block">Add New Group</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

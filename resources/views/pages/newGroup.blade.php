@@ -1,58 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">@lang('messages.new') @lang('messages.group')</div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('new-group') }}">
-                            @csrf
-                            <div class="form-group row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">@lang('messages.name')</label>
+    <div class="c-box c-box-large u-gap-bottom">
+        <div class="c-box_body row bold">
+            <form method="POST" action="{{ route('new-group') }}" class="col col-md-12">
+                @csrf
+                <h3 class="u-clear-gap-top u-gap-bottom-xsmall u-text-center@md-down">
+                    @lang('messages.new') @lang('messages.group')
+                </h3>
+                <div class="row">
+                    <div class="col col-md-6 u-gap-bottom">
+                        <div class="c-form-group">
+                            <label class="c-label" for="language">@lang('messages.name')</label>
+                            <input id="name" type="text"
+                                   class="c-form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                   name="name" value="{{ old('name') }}" required autofocus>
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text"
-                                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" value="{{ old('name') }}" required autofocus>
-
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback">
+                            @if ($errors->has('name'))
+                                <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="budget"
-                                       class="col-md-4 col-form-label text-md-right">@lang('messages.budget')</label>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col col-md-6 u-gap-bottom">
+                        <div class="c-form-group">
+                            <label class="c-label" for="language">@lang('messages.budget')</label>
+                            <input id="budget" type="number"
+                                   class="c-form-control{{ $errors->has('budget') ? ' is-invalid' : '' }}"
+                                   name="budget" value="{{ old('budget') }}" required autofocus>
 
-                                <div class="col-md-6">
-                                    <input id="budget" type="number"
-                                           class="form-control{{ $errors->has('budget') ? ' is-invalid' : '' }}"
-                                           name="budget" value="{{ old('budget') }}" required autofocus>
-
-                                    @if ($errors->has('budget'))
-                                        <span class="invalid-feedback">
+                            @if ($errors->has('budget'))
+                                <span class="invalid-feedback">
                                         <strong>{{ $errors->first('budget') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        @lang('messages.add_new_group')
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col col-md-12 u-text-right u-clear-gap-bottom">
+                        <button type="submit"
+                                class="c-button c-button-primary">@lang('messages.add_new_group')</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

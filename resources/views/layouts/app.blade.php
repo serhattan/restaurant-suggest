@@ -131,6 +131,9 @@
         </div>
     </div>
     <div class="o-wrapper_body o-hero o-hero-background-gray o-hero-padding-ends-small js-wrapper-body">
+        <div class="container-fluid">
+            @yield('content-top')
+        </div>
         <div class="container">
             @yield('content')
         </div>

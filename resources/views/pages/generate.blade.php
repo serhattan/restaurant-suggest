@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('content-top')
+    @include('layouts.newGroupBar')
+@endsection
 @section('content')
     @if(count($groups) > 0 )
         <div class="row">
@@ -29,7 +32,8 @@
                             </p>
                         </div>
                         <div class="c-box_footer">
-                            <a href="{{ route('generate',['groupId' => $group->getId()]) }}" class="c-button c-button-primary c-button-block">@lang('messages.generate')</a>
+                            <a href="{{ $group->getIsAdmin() ? route('generate',['groupId' => $group->getId()]) : '' }}"
+                               class="c-button c-button-primary c-button-block" {{$group->getIsAdmin() ? '' : 'disabled'}}>@lang('messages.generate')</a>
                         </div>
                     </div>
                 </div>

@@ -47,10 +47,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/members', 'GroupController@getMembers')->name('group-members');
         Route::get('/history', 'GroupController@historyList')->name('group-history');
 
-        //Route::group(['middleware' => ['isAdmin']], function () {
+        Route::group(['middleware' => ['isAdmin']], function () {
             Route::get('/delete', 'GroupController@getDeleteGroup')->name('group-delete');
             Route::get('/member/delete/{userId}', 'GroupController@getGroupMemberDelete')->name('group-member-delete');
-        //});
+        });
     });
 
     Route::group(['prefix' => '/restaurants'], function () {
@@ -62,7 +62,10 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::post('/new-member', 'GroupController@postNewMember')->name('new-member');
-    Route::get('/generate/{groupId}', 'GroupController@getGenerate')->name('generate');
+    Route::group(['middleware' => ['isAdmin']], function () {
+        Route::get('/generate/{groupId}', 'GroupController@getGenerate')->name('generate');
+    });
+
     Route::get('/regenerate/{groupId}', 'GroupController@getRegenerate')->name('regenerate');
     Route::get('/generate', 'GenerateController@generateList')->name('restaurantGenerate');
 });

@@ -3,6 +3,7 @@
 namespace App\Models\Entity;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Group
 {
@@ -15,6 +16,7 @@ class Group
     private $restaurants = [];
     private $generate;
     private $createdAt;
+    private $isAdmin;
 
     /**
      * @return mixed
@@ -163,5 +165,25 @@ class Group
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        if (empty($this->isAdmin)) {
+            $this->isAdmin = $this->createdBy === Auth::id() ? true : false;
+        }
+
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param mixed $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
     }
 }
