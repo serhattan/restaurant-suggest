@@ -16,7 +16,8 @@
                                      alt="{{ $group->getName() }}">
                             </a>
                             <div class="c-user-card_body">
-                                <a href="{{ route('group-details', ['id' => $group->getId()]) }}" class="c-user-card_title">{{ $group->getName() }}</a>
+                                <a href="{{ route('group-details', ['id' => $group->getId()]) }}"
+                                   class="c-user-card_title">{{ $group->getName() }}</a>
                                 <span class="c-user-card_subtitle"></span>
                             </div>
                         </div>
@@ -25,8 +26,10 @@
                         </p>
                     </div>
                     <div class="c-box_footer">
-                        <a href="{{ route('group-details', ['id' => $group->getId()]) }}" class="c-button c-button-ghost c-button-block">İncele</a><br>
-                        <a href="{{ route('generate',['groupId' => $group->getId()]) }}" class="c-button c-button-primary c-button-block">@lang('messages.generate')</a>
+                        <a href="{{ route('group-details', ['id' => $group->getId()])}}"
+                           class="c-button c-button-ghost c-button-block">İncele</a><br>
+                        <a href="{{ $group->getIsAdmin() ? route('generate',['groupId' => $group->getId()]) : '' }}"
+                           class="c-button c-button-primary c-button-block" {{$group->getIsAdmin() ? '' : 'disabled'}}>@lang('messages.generate')</a>
                     </div>
                 </div>
             </div>

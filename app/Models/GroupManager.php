@@ -70,6 +70,7 @@ class GroupManager
         $newGroup->setCreatedBy($group->created_by);
         $newGroup->setStatus($group->status);
         $newGroup->setCreatedAt($group->created_at);
+        $newGroup->setIsAdmin($group->createdBy === Auth::id() ? true : false);
 
         if ($group->relationLoaded('groupUsers') && !empty($group->groupUsers)) {
             $newGroup->setUsers(GroupUserManager::multiMap($group->groupUsers));

@@ -20,8 +20,7 @@ class GroupController extends Controller
     {
         return view('pages.group.details', [
             'group' => GroupManager::get($id),
-            'activityLogs' => ActivityLogManager::getByGroupId($id),
-            'isAdmin' => GroupUserManager::adminCheck($id, Auth::id())
+            'activityLogs' => ActivityLogManager::getByGroupId($id)
         ]);
     }
 
