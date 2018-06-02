@@ -45,7 +45,7 @@ return [
     'save_changes' => 'Сохранить изменения',
     'delete_group' => 'Удалить группу',
     'group_restaurants' => 'Рестораны группы',
-    'currency_icon' => '$',
+    'currency_icon' => '₺',
     'group_details' => 'Детали группы',
     'your_budget_per_restaurant' => 'Ваш бюджет за ресторан',
     'to_update_your_budget_per_restaurant' => 'Чтобы обновить свой бюджет за ресторан',

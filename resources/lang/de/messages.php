@@ -45,7 +45,7 @@ return [
     'save_changes' => 'Änderungen speigchern',
     'delete_group' => 'Gruppe löschen',
     'group_restaurants' => 'Gruppenrestaurants',
-    'currency_icon' => '$',
+    'currency_icon' => '₺',
     'group_details' => 'Gruppendetails',
     'your_budget_per_restaurant' => 'Ihr Budget pro Restaurant',
     'to_update_your_budget_per_restaurant' => 'Um Ihr Budget pro Restaurant zu aktualisieren',

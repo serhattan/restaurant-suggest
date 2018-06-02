@@ -27,7 +27,7 @@
                     </div>
                     <div class="c-box_footer">
                         <a href="{{ route('group-details', ['id' => $group->getId()])}}"
-                           class="c-button c-button-ghost c-button-block">İncele</a><br>
+                           class="c-button c-button-ghost c-button-block">@lang('messages.details')</a><br>
                         <a href="{{ $group->getIsAdmin() ? route('generate',['groupId' => $group->getId()]) : '' }}"
                            class="c-button c-button-primary c-button-block" {{$group->getIsAdmin() ? '' : 'disabled'}}>@lang('messages.generate')</a>
                     </div>

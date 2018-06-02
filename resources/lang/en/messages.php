@@ -20,6 +20,7 @@ return [
     'french' => 'French',
     'zero_restaurant' => 'You have not added any restaurants yet',
     'add_restaurant' => 'Add Restaurant',
+    'add_restaurants' => 'Add Restaurants',
     'group_not_have_restaurant' => 'This group does not have any restaurant',
     'remove' => 'Remove',
     'update' => 'Update',
@@ -37,6 +38,7 @@ return [
     'budget' => 'Budget',
     'add' => 'Add',
     'add_new_group' => 'Add New Group',
+    'create_group' => 'Create a Group',
     'group_members' => 'Group Members',
     'members' => 'Members',
     'new_members' => 'New Members',
@@ -48,7 +50,7 @@ return [
     'save_changes' => 'Save Changes',
     'delete_group' => 'Delete Group',
     'group_restaurants' => 'Group Restaurants',
-    'currency_icon' => '$',
+    'currency_icon' => '₺',
     'group_details' => 'Group Details',
     'your_budget_per_restaurant' => 'Your budget per restaurant',
     'to_update_your_budget_per_restaurant' => 'To update your budget per restaurant',
@@ -79,5 +81,15 @@ return [
     'generate' => 'Generate',
     'year_of_foundation' => 'Year of Foundation',
     'team' => 'Team',
-    'regenerate' => 'Regenerate'
+    'regenerate' => 'Regenerate',
+    'new_group_paragraph' => 'Invite your friends and set a budget for this group',
+    'add_restaurant_paragraph' => 'Add your expense and we determine the average price for this restaurant',
+    'restaurant_generate_paragraph' => 'Click generate button and take your restaurant advice. We will present the best restaurant',
+    'admin' => 'Admin',
+    'member' => 'Member',
+    'generated_restaurant_paragraph' => 'You can like or dislike generated restaurant in below and make new generate into group details',
+    'generate_restaurant_title' => 'Restaurant advice for :groupName',
+    'summary' => 'Create a group, set a budget, invite your friends and add your restaurant inside the group.
+        After that add your expense and we determine the average price for this restaurant. Last thing you going to do is click generate 
+        button and take your restaurant advice. We will give you the best restaurant.'
 ];
