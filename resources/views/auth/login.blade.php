@@ -61,7 +61,7 @@
                                         class="c-button c-button-primary c-button-block u-gap-bottom-medium">
                                     Login
                                 </button>
-                                <p class="u-text-center">Are not you a member?</p>
+                                <p class="u-text-center">Are you a new member?</p>
                                 <a href="{{ route('register') }}" class="c-button c-button-ghost c-button-block">
                                     Register Now
                                 </a>

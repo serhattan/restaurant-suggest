@@ -3,26 +3,23 @@
         <div class="js-slider">
             <div class="js-slider-item">
                 <figure class="u-text-center">
-                    <img src="{{ asset('assets/img/rocket.svg') }}" width="200" height="200" alt="">
-                    <h3 class="u-gap-bottom-xsmall">Startuplar İçin</h3>
-                    <p>Finansman elde etmek için bir profil oluşturun ve yatırımcılarla
-                        paylaşın.</p>
+                    <img src="assets/img/home-figure-3.svg" width="200" height="200" alt="">
+                    <h3 class="u-gap-bottom-xsmall">@lang('messages.create_group')</h3>
+                    <p>@lang('messages.new_group_paragraph')</p>
                 </figure>
             </div>
             <div class="js-slider-item">
                 <figure class="u-text-center">
-                    <img src="{{ asset('assets/img/rocket.svg') }}" width="200" height="200" alt="">
-                    <h3 class="u-gap-bottom-xsmall">Startuplar İçin</h3>
-                    <p>Finansman elde etmek için bir profil oluşturun ve yatırımcılarla
-                        paylaşın.</p>
+                    <img src="assets/img/home-figure-2.svg" width="200" height="200" alt="">
+                    <h3 class="u-gap-bottom-xsmall">@lang('messages.add_restaurants')</h3>
+                    <p>@lang('messages.add_restaurant_paragraph')</p>
                 </figure>
             </div>
             <div class="js-slider-item">
                 <figure class="u-text-center">
-                    <img src="{{ asset('assets/img/rocket.svg') }}" width="200" height="200" alt="">
-                    <h3 class="u-gap-bottom-xsmall">Startuplar İçin</h3>
-                    <p>Finansman elde etmek için bir profil oluşturun ve yatırımcılarla
-                        paylaşın.</p>
+                    <img src="assets/img/home-figure-1.svg" width="200" height="200" alt="">
+                    <h3 class="u-gap-bottom-xsmall">@lang('messages.restaurant_generate')</h3>
+                    <p>@lang('messages.restaurant_generate_paragraph')</p>
                 </figure>
             </div>
         </div>
