@@ -56,5 +56,6 @@ return [
     'generate' => 'Tavsiye Oluştur',
     'year_of_foundation' => 'Kuruluş Tarihi',
     'team' => 'Ekibi',
-    'regenerate' => 'Yeniden Tavsiye Oluştur'
+    'regenerate' => 'Yeniden Tavsiye Oluştur',
+    'new_group_paragraph' => 'Arkadaşlarını da dahil edeceğin bir grup kur ve grubun aylık bütçesini belirle.'
 ];

@@ -35,8 +35,7 @@
                     <div class="col col-lg-8 col-offset-lg-2 u-text-center u-gap-bottom-large">
                         <h2 class="o-hero_title u-clear-gap">{{ config('app.name') }}</h2>
                         <h3 class="h2 u-gap-top-xsmall u-gap-bottom-xsmall">How Are We Working?</h3>
-                        <p>Yatırımcılara, sana destek olmayı isteyecek mentorlara, hevesle seninle çalışmak isteyecek
-                            potansiyel çalışanlara ve müşterilerine girişimini duyur.</p>
+                        <p>@lang('messages.summary')</p>
                     </div>
                 </div>
                 <div class="row">
@@ -44,8 +43,8 @@
                         <div class="c-box c-box-small u-text-center u-flex-grow-full">
                             <div class="c-box_body">
                                 <img class="u-img-responsive" src="assets/img/home-figure-3.svg" width="240" alt="">
-                                <h3 class="u-gap-top-xsmall u-gap-bottom-xsmall">Grubunu Oluştur</h3>
-                                <p>Arkadaşlarını da dahil edeceğin bir grup kur ve grubun aylık bütçesini belirle.</p>
+                                <h3 class="u-gap-top-xsmall u-gap-bottom-xsmall">@lang('messages.create_group')</h3>
+                                <p>@lang('messages.new_group_paragraph')</p>
                             </div>
                         </div>
                     </div>
@@ -54,10 +53,10 @@
                             <div class="c-box_body">
                                 <img class="u-img-responsive" src="assets/img/home-figure-2.svg" width="240" alt="">
                                 <h3 class="u-gap-top-xsmall u-gap-bottom-xsmall">
-                                    Restoranları Ekle
+                                    @lang('messages.add_restaurants')
                                 </h3>
                                 <p>
-                                    Gideceğin restoranları ekle ve arkadaşlarınla ortak bir bütçe belirleyebilmek için kendi fiyat aralığını gir.
+                                    @lang('messages.add_restaurant_paragraph')
                                 </p>
                             </div>
                         </div>
@@ -66,9 +65,9 @@
                         <div class="c-box c-box-small u-text-center u-flex-grow-full">
                             <div class="c-box_body">
                                 <img class="u-img-responsive" src="assets/img/home-figure-1.svg" width="240" alt="">                            
-                                <h3 class="u-gap-top-xsmall u-gap-bottom-xsmall">Tavsiyeni al</h3>
+                                <h3 class="u-gap-top-xsmall u-gap-bottom-xsmall">@lang('messages.restaurant_generate')</h3>
                                 <p>
-                                    Artık tek yapman gereken tavsiye al butonuna basıp arkana yaslanmak. Sana en iyi restoranı sunacağız.
+                                    @lang('messages.restaurant_generate_paragraph')
                                 </p>
                             </div>
                         </div>
@@ -76,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="o-hero o-hero-background-dark-blue o-hero-overlay-shape o-hero-padding-ends-large">
+        <!-- <div class="o-hero o-hero-background-dark-blue o-hero-overlay-shape o-hero-padding-ends-large">
             <div class="container">
                 <div class="row u-flex-align-middle">
                     <div class="col col-lg-6 u-gap-bottom@md-down">
@@ -88,6 +87,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 @endsection

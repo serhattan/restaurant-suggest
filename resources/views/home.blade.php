@@ -27,8 +27,11 @@
                                             <a href="{{ route('group-details', ['id' => $generatedData['groupId']]) }}"
                                                class="c-user-card_title"> {{$generatedData['generatedRestaurant']}}
                                             </a>
-                                            <span class="c-user-card_subtitle"> <strong>{{$generatedData['groupName']}} </strong>Grubu için üretilen restorant
-                                    tavsiyesidir.</span>
+                                            <span class="c-user-card_subtitle">
+                                                <strong>
+                                                    @lang('messages.generate_restaurant_title', ['groupName' => $generatedData['groupName']])
+                                                </strong>
+                                            </span>
                                         </div>
                                     </div>
                                     <p class="u-clear-gap">
@@ -40,9 +43,7 @@
                                         @endfor
                                     </p>
                                     <small class="u-clear-gap">
-                                        Yeni bir tavsiye almak için grubun detay sayfasına gidebilir, üretilen
-                                        restorant
-                                        hakkında görüşünüzü aşağıdan belirtebilirsiniz
+                                        @lang('messages.generated_restaurant_paragraph')
                                     </small>
                                 </div>
 

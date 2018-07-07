@@ -169,9 +169,9 @@
                                                     {{ $user->getUser()->getFullName() }}
                                                 </a>
                                                 @if ($group->getIsAdmin())
-                                                    <span class="c-user-card_subtitle">Kurucu</span>
+                                                    <span class="c-user-card_subtitle">@lang('messages.admin')</span>
                                                 @else
-                                                    <span class="c-user-card_subtitle">Üye</span>
+                                                    <span class="c-user-card_subtitle">@lang('messages.member')</span>
                                                 @endif
                                                 @if ($group->getIsAdmin() && $user->getUserId() !== Auth::id())
                                                     <a href="{{ route('group-member-delete', [
