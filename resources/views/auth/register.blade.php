@@ -101,16 +101,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label class="c-form-group c-checkbox u-gap-bottom ">
-                                    <input type="checkbox" id="user_register_form_terms"
-                                           name="user_register_form[terms]" required="required" class="c-checkbox_inp"
-                                           data-validetta="required" name="user-agreement" value="1"/>
-                                    <span class="c-checkbox_mask"></span>
-                                    <span class="u-gap-left-small">
-                                        I agree to the <a href='#' data-toggle='modal' data-target='#user-agreement'>User Agreement</a> and <a
-                                                href='#' data-toggle='modal' data-target='#privacy-policy'>Privacy Policy</a>
-                                      </span>
-                                </label>
                                 <button class="c-button c-button-primary c-button-block u-gap-bottom-medium">
                                     Register
                                 </button>
@@ -127,22 +117,4 @@
             </div>
         </div>
     </div>
-    <div class="c-modal  c-modal-xsmall" id="coming-soon">
-        <div class="container c-modal_container js-modal-container">
-            <div class="c-box c-box-medium">
-                <div class="c-box_body">
-                    <div class="u-text-center u-pad-sides-small">
-                        <img class="u-img-responsive" src="assets/img/modal-rocket.svg" width="250" alt="Yakında">
-                        <h3>Yakında!</h3>
-                        <p class="u-clear-gap">Bu özellik çok yakında aktif olacak. Bu ve diğer tüm yeniliklerden
-                            haberdar olmak için bizi takip edebilirsin.</p>
-                    </div>
-                    <button class="c-modal_close-button js-modal-close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @include('marketing.modal.privacy-policy')
-    @include('marketing.modal.user-agreement')
-
 @endsection

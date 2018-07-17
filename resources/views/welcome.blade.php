@@ -7,7 +7,7 @@
                 <div class="row u-flex-align-middle">
                     <div class="col col-lg-6 u-text-center@md-down u-pad-ends-small@md-down">
                         <h1 class="o-hero_title u-clear-gap">
-                            INDECISIVE'S GUIDE TO THE RESTAURANT
+                            Indecisive's guide to the restaurant
                         </h1>
                         <h2 class="h1 u-gap-top-xsmall u-gap-bottom-xsmall">
                             What will you eat today?
