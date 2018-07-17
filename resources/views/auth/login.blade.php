@@ -52,10 +52,10 @@
                                                    name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                         </label>
                                     </div>
-                                    <div class="col col-lg-6 u-gap-bottom u-text-right">
+                                    <!-- <div class="col col-lg-6 u-gap-bottom u-text-right">
                                         <a href="{{ route('password.request') }}"
                                            class="u-link-secondary u-font-size-sm"> Forgot Your Password?</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <button type="submit"
                                         class="c-button c-button-primary c-button-block u-gap-bottom-medium">
