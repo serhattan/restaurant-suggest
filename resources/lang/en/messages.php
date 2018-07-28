@@ -6,7 +6,6 @@ return [
     'home' => 'Dashboard',
     'groups' => 'Groups',
     'restaurant' => 'Restaurants',
-    'history' => 'History',
     'restaurant_generate' => 'Generate',
     'settings' => 'Settings',
     'logged_in' => 'You are logged in',
@@ -73,8 +72,8 @@ return [
     "restaurant_user_Updated" => "<strong> :userFullName </strong> updated restaurant which name is 
         <strong> :restaurantName </strong> and budget is <strong> :budget </strong>",
     "Updated_restaurant" => "Updated Restaurant",
-    "restaurant_Updated" => "Restaurant <strong> :restaurantName </strong>'s average price updated into <strong> :averageBudget </strong>
-        because of <strong> :userFullName </strong> updated its budget",
+    "restaurant_Updated" => "<strong> :userFullName </strong> updated its budget. <strong> :restaurantName </strong>'s new average
+        price is <strong> :averageBudget </strong>",
     "Removed_restaurant" => "Restaurant Removed",
     "restaurant_Removed" => "<strong> :userFullName </strong> removed restaurant which name is <strong> :restaurantName </strong>",
     'restaurant_distance' => 'Distance Unit',

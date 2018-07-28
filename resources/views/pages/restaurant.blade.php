@@ -60,7 +60,7 @@
                                                                    value="{{!empty($restaurant->getRestaurantUsers()) ? $restaurant->getRestaurantUsers()->getBudget() : 0}}">
                                                         </div>
                                                         <div class="col-md-6 float-right">
-                                                            <button type="submit"
+                                                            <button type="submit" style="margin-left:10px; width:50%; float:right; background-color: #5395FC;"
                                                                     class="c-button c-button-success c-button-block u-gap-bottom-small">
                                                                 @lang('messages.update')
                                                             </button>

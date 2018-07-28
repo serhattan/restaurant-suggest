@@ -22,7 +22,7 @@
     <div class="o-wrapper_header ">
         <div class="c-navbar">
             <div class="container c-navbar_container">
-                <a class="c-navbar_logo-link" href="/">
+                <a class="c-navbar_logo-link" href="/home">
                     {{ config('app.name') }}
                 </a>
                 <div class="c-navbar_nav">
