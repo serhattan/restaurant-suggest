@@ -17,7 +17,9 @@ class GroupManager
                 $query->where('status', Helper::STATUS_ACTIVE);
             },
             'groupUsers.user',
-            'restaurants',
+            'restaurants' => function ($query) {
+                $query->where('status', Helper::STATUS_ACTIVE);
+            },
             'generate',
             'generate.restaurant'
         ])
