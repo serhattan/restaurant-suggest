@@ -38,7 +38,10 @@ class Generate
      */
     public function handle($groupId)
     {
-        $group = DB\Group::with('restaurants')->where('id', $groupId)->first();
+        $group = DB\Group::with(['restaurants' => function ($query) {
+            $query->where('status', Helper::STATUS_ACTIVE);
+        }])
+            ->where('id', $groupId)->first();
         $group = GroupManager::map($group);
         $data = GenerateManager::groupMap($group);
 
